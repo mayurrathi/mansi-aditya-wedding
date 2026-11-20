@@ -781,7 +781,7 @@ export const labels = {
     { id: "story", label: { en: "Our Story", hi: "कहानी" } },
     { id: "celebrations", label: { en: "9 Events", hi: "कार्यक्रम" } },
     { id: "countdown", label: { en: "Countdown", hi: "उलटी गिनती" } },
-    { id: "gallery", label: { en: "Polaroids", hi: "तस्वीरें" } },
+    { id: "gallery", label: { en: "Moments", hi: "तस्वीरें" } },
     { id: "venue", label: { en: "Venue", hi: "स्थल" } },
     { id: "rsvp", label: { en: "RSVP", hi: "उपस्थिति" } },
   ],

@@ -204,11 +204,7 @@ function WeddingInvitationApp() {
           }
         />
         <CountdownSection />
-        <GallerySection
-          onOpenLightbox={(index) =>
-            setPreviewState({ album: "gallery", index })
-          }
-        />
+        <GallerySection />
         <VenueSection />
         <BlessingsSection />
         <RsvpSection initialGuest={guestName} />
