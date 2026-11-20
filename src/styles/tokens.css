@@ -1,0 +1,72 @@
+/* =====================================================================
+   The AM Chapter — Theme Tokens & 3-Step Typographic Scale
+   ===================================================================== */
+
+:root,
+.app.theme-am {
+  --bg-page: #f5f8f3;
+  --bg-surface: #ebf1e7;
+  --bg-card: #ffffff;
+  --bg-parchment: #faf7ef;
+  --bg-nav-scrolled: rgba(245, 248, 243, 0.92);
+
+  --ink-primary: #13261c;
+  --ink-muted: #425b4d;
+  --ink-on-accent: #ffffff;
+  --ink-on-dark: #f2f6ef;
+
+  --accent-primary: #a63a2e;
+  --accent-primary-hover: #8b2e23;
+  --accent-gold: #b68b3c;
+  --accent-gold-soft: rgba(182, 139, 60, 0.16);
+  --accent-pistachio: #8bb17e;
+  --accent-pistachio-soft: rgba(139, 177, 126, 0.22);
+
+  --border-subtle: rgba(19, 38, 28, 0.12);
+  --border-gold: rgba(182, 139, 60, 0.42);
+  --shadow-card: 0 14px 36px rgba(19, 38, 28, 0.06);
+  --shadow-elevated: 0 24px 60px rgba(19, 38, 28, 0.12);
+
+  /* Strictly 2 conceptual font families */
+  --font-display: "Cormorant Garamond", "Noto Serif Devanagari", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", "Noto Sans Devanagari", system-ui, -apple-system, sans-serif;
+
+  /* Strictly 3 body scale steps below Hero H1 and Navbar wordmark */
+  --text-heading: clamp(1.85rem, 3.2vw, 2.65rem);
+  --text-body: 1.0625rem;
+  --text-sm: 0.9375rem;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --container-max: 1180px;
+  --section-pad: clamp(4.5rem, 8vw, 7.5rem);
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.app.theme-pm {
+  --bg-page: #0b1510;
+  --bg-surface: #13221a;
+  --bg-card: #182b21;
+  --bg-parchment: #15251c;
+  --bg-nav-scrolled: rgba(11, 21, 16, 0.92);
+
+  --ink-primary: #f2f6ef;
+  --ink-muted: #b6c9bc;
+  --ink-on-accent: #0b1510;
+  --ink-on-dark: #f2f6ef;
+
+  --accent-primary: #e06e5a;
+  --accent-primary-hover: #ee826f;
+  --accent-gold: #e4bd70;
+  --accent-gold-soft: rgba(228, 189, 112, 0.16);
+  --accent-pistachio: #a9cca0;
+  --accent-pistachio-soft: rgba(169, 204, 160, 0.18);
+
+  --border-subtle: rgba(242, 246, 239, 0.14);
+  --border-gold: rgba(228, 189, 112, 0.42);
+  --shadow-card: 0 18px 42px rgba(0, 0, 0, 0.34);
+  --shadow-elevated: 0 28px 68px rgba(0, 0, 0, 0.5);
+}

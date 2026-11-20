@@ -1,0 +1,66 @@
+/* eslint-disable react-refresh/only-export-components */
+
+import { createContext, useCallback, useContext, useMemo, useState } from "react";
+
+const LanguageContext = createContext({
+  lang: "en",
+  toggleLang: () => {},
+  setLang: () => {},
+  t: () => "",
+});
+
+export const useTranslation = () => useContext(LanguageContext);
+
+const STORAGE_KEY = "am-chapter-lang";
+
+export function LanguageProvider({ children }) {
+  const [lang, setLangState] = useState(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = window.localStorage.getItem(STORAGE_KEY);
+        if (saved === "en" || saved === "hi") return saved;
+      } catch {
+        // Ignore storage errors in restricted browsing modes
+      }
+      const sys = navigator.language || navigator.userLanguage || "";
+      return sys.toLowerCase().startsWith("hi") ? "hi" : "en";
+    }
+    return "en";
+  });
+
+  const setLang = useCallback((next) => {
+    setLangState((prev) => {
+      const resolved = typeof next === "function" ? next(prev) : next;
+      try {
+        window.localStorage.setItem(STORAGE_KEY, resolved);
+      } catch {
+        // Ignore storage errors
+      }
+      return resolved;
+    });
+  }, []);
+
+  const toggleLang = useCallback(() => {
+    setLang((current) => (current === "en" ? "hi" : "en"));
+  }, [setLang]);
+
+  const t = useCallback(
+    (obj) => {
+      if (!obj) return "";
+      if (typeof obj === "string") return obj;
+      return obj[lang] || obj.en || "";
+    },
+    [lang]
+  );
+
+  const value = useMemo(
+    () => ({ lang, toggleLang, setLang, t }),
+    [lang, toggleLang, setLang, t]
+  );
+
+  return (
+    <LanguageContext.Provider value={value}>
+      {children}
+    </LanguageContext.Provider>
+  );
+}
