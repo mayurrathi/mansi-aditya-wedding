@@ -547,6 +547,7 @@
 .gate-medallion-btn {
   position: relative;
   margin-top: 0.45rem;
+  margin-bottom: 1.55rem;
   width: clamp(168px, 38vw, 204px);
   aspect-ratio: 1;
   border-radius: 50%;
@@ -616,7 +617,7 @@
 
 .gate-tap-badge {
   position: absolute;
-  bottom: -14px;
+  bottom: -32px;
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
@@ -630,7 +631,7 @@
 }
 
 .gate-date-venue {
-  margin: 1rem 0 0;
+  margin: 0.45rem 0 0;
   font-size: 0.85rem;
   font-weight: 600;
   color: #c8dec2;
@@ -662,7 +663,7 @@
     width: clamp(138px, 34vw, 188px);
   }
   .gate-date-venue {
-    margin-top: 0.85rem;
+    margin-top: 0.4rem;
     font-size: 0.8rem;
   }
 }
