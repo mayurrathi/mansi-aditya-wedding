@@ -1182,193 +1182,397 @@
   }
 }
 
-/* ---------- 8 · 3D FLIP SHAGUN ENVELOPES SECTION ---------- */
-.blessing-counter-wrap {
-  text-align: center;
-  margin-bottom: 1.75rem;
+/* ---------- 8 · AASHIRWAD SKY LANTERN COURTYARD SECTION ---------- */
+.lantern-courtyard-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.blessing-counter-pill {
+.lantern-sky-stage {
+  position: relative;
+  min-height: 330px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 2px solid rgba(228, 189, 112, 0.6);
+  background:
+    radial-gradient(circle at 22% 20%, rgba(228, 189, 112, 0.16), transparent 46%),
+    radial-gradient(circle at 78% 28%, rgba(139, 177, 126, 0.14), transparent 52%),
+    linear-gradient(180deg, #0b1812 0%, #12271d 60%, #173124 100%);
+  box-shadow: var(--shadow-elevated);
+  padding: 1.15rem;
+}
+
+.sky-jharokha-arch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110px;
+  pointer-events: none;
+}
+
+.sky-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff5d2;
+  pointer-events: none;
+  animation: skyTwinkle 3.2s ease-in-out infinite alternate;
+}
+
+@keyframes skyTwinkle {
+  0% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 0.95;
+    transform: scale(1.25);
+  }
+}
+
+.sky-counter-pill {
+  position: relative;
+  z-index: 4;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 1.2rem;
+  gap: 0.45rem;
+  padding: 0.42rem 1rem;
   border-radius: 999px;
+  background: rgba(11, 21, 16, 0.8);
+  border: 1px solid rgba(228, 189, 112, 0.58);
+  color: #f2f6ef;
+  font-size: 0.84rem;
+  font-weight: 600;
+  backdrop-filter: blur(6px);
+}
+
+.sky-counter-pill strong {
+  color: #e4bd70;
+}
+
+.sky-lanterns-canvas {
+  position: relative;
+  min-height: 255px;
+  margin-top: 0.5rem;
+}
+
+.sky-lantern-node {
+  position: absolute;
+  transform: translateX(-50%);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  z-index: 3;
+  animation:
+    lanternAscend 480ms var(--ease-editorial) both,
+    lanternDrift 4.4s ease-in-out var(--drift-delay, 0s) infinite alternate;
+}
+
+.sky-lantern-node.is-selected {
+  z-index: 5;
+}
+
+@keyframes lanternAscend {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 42px) scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@keyframes lanternDrift {
+  0% {
+    margin-top: 0px;
+  }
+  100% {
+    margin-top: -12px;
+  }
+}
+
+.sky-lantern-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: clamp(104px, 24vw, 152px);
+  padding: 0.25rem 0.62rem;
+  border-radius: 12px;
+  background: rgba(11, 21, 16, 0.86);
+  border: 1px solid rgba(228, 189, 112, 0.5);
+  color: #f2f6ef;
+  font-size: 0.72rem;
+  line-height: 1.25;
+  text-align: center;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.36);
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.sky-lantern-node.is-selected .sky-lantern-tag {
+  border-color: #e4bd70;
+  background: rgba(19, 38, 28, 0.96);
+  transform: scale(1.04);
+}
+
+.sky-lantern-tag strong {
+  color: #e4bd70;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.sky-lantern-tag small {
+  color: #d6e4d2;
+  font-size: 0.66rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.lantern-readout-card {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  align-items: center;
+  gap: 1.15rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: var(--radius-md);
   background: var(--bg-card);
   border: 1.5px solid var(--border-gold);
-  font-size: 0.9rem;
-  font-weight: 600;
   box-shadow: var(--shadow-card);
 }
 
-.blessing-cards-grid {
+.lantern-readout-eyebrow {
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: 0.25rem;
+}
+
+.lantern-readout-card__wish p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  font-weight: 600;
+  line-height: 1.32;
+  color: var(--ink-primary);
+}
+
+.lantern-readout-reply {
+  margin: 0;
+  padding: 0.75rem 0.95rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  border: 1px dashed var(--border-gold);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  line-height: 1.42;
+}
+
+@media (max-width: 760px) {
+  .lantern-readout-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+.diya-altar-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.25rem;
+  gap: 1.15rem;
 }
 
 @media (max-width: 960px) {
-  .blessing-cards-grid {
+  .diya-altar-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 520px) {
-  .blessing-cards-grid {
+  .diya-altar-grid {
     grid-template-columns: 1fr;
   }
 }
 
-.blessing-flip {
-  perspective: 1100px;
-  min-height: 280px;
-}
-
-.blessing-flip-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 280px;
-  transform-style: preserve-3d;
-  transition: transform 0.64s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.blessing-flip.is-flipped .blessing-flip-inner {
-  transform: rotateY(180deg);
-}
-
-.blessing-flip:not(.is-flipped) .blessing-back {
-  pointer-events: none;
-}
-
-.blessing-flip.is-flipped .blessing-front {
-  pointer-events: none;
-}
-
-.blessing-face {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  border-radius: var(--radius-lg);
-  background: var(--bg-card);
-  border: 2px solid var(--border-gold);
-  box-shadow: var(--shadow-card);
-  padding: 1.25rem;
+.diya-pillar-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  gap: 0.55rem;
-  overflow: hidden;
+  gap: 0.45rem;
+  padding: 1.25rem 1rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
   cursor: pointer;
+  transition:
+    transform 220ms var(--ease-editorial),
+    border-color 220ms var(--ease-editorial),
+    box-shadow 220ms var(--ease-editorial);
 }
 
-.blessing-front::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg, transparent 35%, rgba(228, 189, 112, 0.18) 50%, transparent 65%);
-  transform: translateX(-100%);
-  animation: shagunShimmer 4.2s ease-in-out infinite;
-  pointer-events: none;
+.diya-pillar-btn:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-gold);
 }
 
-@keyframes shagunShimmer {
-  0%, 60% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(120%);
-  }
+.diya-pillar-btn.is-lit {
+  border-color: var(--border-gold);
+  box-shadow: 0 16px 36px rgba(182, 139, 60, 0.18);
 }
 
-.shagun-seal-tag {
-  font-size: 0.7rem;
+.diya-pillar-btn.is-selected {
+  border-color: var(--accent-gold);
+  background: radial-gradient(circle at 50% 24%, var(--accent-gold-soft), var(--bg-card) 70%);
+}
+
+.diya-pillar-code {
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   color: var(--accent-primary);
   background: var(--bg-surface);
   border: 1px solid var(--border-gold);
-  padding: 0.2rem 0.65rem;
+  padding: 0.18rem 0.6rem;
   border-radius: 999px;
 }
 
-.blessing-emoji {
-  font-size: 2.25rem;
-  transition: transform 0.25s ease;
+.brass-diya-svg {
+  width: 84px;
+  height: 68px;
 }
 
-.blessing-flip:hover .blessing-emoji {
-  transform: scale(1.16) rotate(-6deg);
+.diya-flame-group {
+  transform-origin: 44px 30px;
+  animation: flameFlicker 1.25s ease-in-out infinite alternate;
 }
 
-.blessing-front h3 {
+.diya-halo-pulse {
+  animation: flameHalo 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes flameFlicker {
+  0% {
+    transform: rotate(-3deg) scaleY(0.96);
+  }
+  100% {
+    transform: rotate(3deg) scaleY(1.06);
+  }
+}
+
+@keyframes flameHalo {
+  0% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0.95;
+  }
+}
+
+.diya-pillar-title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 1.45rem;
+  font-size: 1.32rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink-primary);
+}
+
+.diya-pillar-status {
+  margin-top: auto;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+
+.diya-pillar-btn.is-lit .diya-pillar-status {
+  color: var(--accent-primary);
+}
+
+.custom-lantern-form {
+  padding: clamp(1.25rem, 3vw, 1.85rem);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-gold);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.custom-lantern-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+}
+
+.custom-lantern-head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.48rem;
   font-weight: 700;
   color: var(--ink-primary);
 }
 
-.blessing-front p {
-  margin: 0;
-  font-size: 0.82rem;
+.custom-lantern-head p {
+  margin: 0.15rem 0 0;
+  font-size: 0.86rem;
   color: var(--ink-muted);
 }
 
-.blessing-tap-cue {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+.custom-lantern-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.lantern-preset-chip {
+  padding: 0.34rem 0.78rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
   background: var(--bg-surface);
-  border: 1px solid var(--border-gold);
-  display: grid;
-  place-items: center;
-  font-size: 0.9rem;
-  color: var(--accent-primary);
-  margin-top: 0.15rem;
-}
-
-.blessing-back {
-  transform: rotateY(180deg);
-  justify-content: space-between;
-}
-
-.blessing-wish-text {
-  margin: 0;
-  font-size: 0.86rem;
   color: var(--ink-primary);
-  line-height: 1.45;
-}
-
-.blessing-reply-bubble {
-  margin: 0;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  color: var(--accent-primary);
-  background: var(--bg-surface);
-  border: 1px dashed var(--border-gold);
-  border-radius: 10px;
-  padding: 0.42rem 0.65rem;
-  line-height: 1.35;
+  cursor: pointer;
+  transition: border-color 180ms ease, transform 180ms ease;
 }
 
-.blessing-send-btn {
-  width: 100%;
+.lantern-preset-chip:hover {
+  border-color: var(--accent-gold);
+  transform: translateY(-1px);
 }
 
-.blessing-send-btn.is-sent {
-  background-color: var(--accent-pistachio);
-  color: #13261c;
+.custom-lantern-fields {
+  display: grid;
+  grid-template-columns: 0.85fr 1.35fr auto;
+  gap: 0.75rem;
+  align-items: stretch;
 }
 
-.blessing-all-row {
-  text-align: center;
-  margin-top: 1.75rem;
+@media (max-width: 780px) {
+  .custom-lantern-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.custom-lantern-wa-row {
+  display: flex;
+  justify-content: flex-start;
 }
 
 /* ---------- 9 · RSVP & FOOTER SECTION ---------- */
