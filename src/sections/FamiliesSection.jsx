@@ -31,7 +31,8 @@ export default function FamiliesSection() {
                     src={side.avatar}
                     alt={t(side.full)}
                     className="nest-avatar"
-                    loading="lazy"
+                    loading="eager"
+                    decoding="async"
                   />
                 </a>
                 <span className="nest-role">{t(side.role)}</span>

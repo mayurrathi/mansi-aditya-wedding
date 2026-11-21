@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import confetti from "canvas-confetti";
 import { LanguageProvider, useTranslation } from "./context/LanguageContext";
-import { lookbookGallery, scheduleDays, storyChapters } from "./data/weddingData";
+import { lookbookGallery, photos, scheduleDays, storyChapters } from "./data/weddingData";
 import { getGuestNameFromUrl } from "./lib/guest";
 
 import ChapterOpening from "./components/ChapterOpening";
@@ -48,6 +48,24 @@ function WeddingInvitationApp() {
   useEffect(() => {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
+
+    // Preload and pre-decode all Hero, Family, Story & Celebration images while on Envelope page
+    const priorityUrls = [
+      photos.gatefoldCouple,
+      photos.soloMansi,
+      photos.soloAditya,
+      ...storyChapters.flatMap((ch) => [ch.art, ch.tapedPhoto?.src]),
+      ...scheduleDays.flatMap((d) => d.events.map((ev) => ev.image)),
+    ].filter(Boolean);
+
+    const uniqueUrls = [...new Set(priorityUrls)];
+    uniqueUrls.forEach((url, index) => {
+      const img = new Image();
+      if (index < 3) img.fetchPriority = "high";
+      img.decoding = "async";
+      img.src = url;
+      img.decode?.().catch(() => {});
+    });
   }, []);
 
   useEffect(() => {

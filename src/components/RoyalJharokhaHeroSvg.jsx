@@ -88,6 +88,8 @@ export default function RoyalJharokhaHeroSvg() {
           src={photos.gatefoldCouple}
           alt="Mansi & Aditya Portrait"
           className="medallion-art"
+          fetchPriority="high"
+          decoding="async"
         />
       </div>
     </div>

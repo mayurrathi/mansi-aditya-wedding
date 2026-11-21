@@ -165,6 +165,8 @@ export default function ChapterOpening({
               src={waxSealMaImg}
               alt="M & A Royal Antique Gold Wax Seal"
               className="royal-wax-seal-img"
+              fetchPriority="high"
+              decoding="async"
             />
             <span className="gate-tap-badge">
               {t(chapterOpening.openBtn)}
