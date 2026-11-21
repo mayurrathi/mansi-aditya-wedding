@@ -234,11 +234,11 @@
 
 .gate-overlay.is-opening {
   pointer-events: none;
-  animation: gateOverlayFade 1.65s ease forwards;
+  animation: gateOverlayFade 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes gateOverlayFade {
-  0%, 58% {
+  0%, 46% {
     opacity: 1;
   }
   100% {
@@ -248,11 +248,15 @@
 
 .scroll-canvas {
   opacity: 0;
-  transition: opacity 0.45s ease;
+  transform: scale(0.975);
+  transition:
+    opacity 0.68s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .scroll-canvas.is-revealed {
   opacity: 1;
+  transform: scale(1);
 }
 
 .gate-top-bar {
@@ -330,21 +334,46 @@
   transform-style: preserve-3d;
   border-radius: 26px;
   border: 2px solid rgba(228, 189, 112, 0.72);
-  overflow: hidden;
+  overflow: visible;
   box-shadow:
     inset 0 0 0 6px rgba(200, 222, 194, 0.08),
     0 28px 68px rgba(0, 0, 0, 0.65);
   transition:
-    transform 1.15s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.68s ease 0.35s,
-    border-color 0.45s ease,
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1) 0.28s,
+    opacity 0.55s ease 0.38s,
     box-shadow 0.45s ease;
 }
 
-.gate-stage.is-opening .gate-doors {
-  transform: perspective(1600px) rotateX(14deg) scale(1.06) translateZ(40px);
+.gate-envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  border-radius: 24px 24px 0 0;
+  background: linear-gradient(
+    180deg,
+    rgba(228, 189, 112, 0.14) 0%,
+    rgba(27, 54, 39, 0.48) 100%
+  );
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  backface-visibility: hidden;
+  pointer-events: none;
+  opacity: 0.72;
+  transition:
+    transform 0.62s cubic-bezier(0.22, 1, 0.36, 1) 0.14s,
+    opacity 0.45s ease 0.35s;
+}
+
+.gate-stage.is-opening .gate-envelope-flap {
+  transform: rotateX(165deg);
   opacity: 0;
-  border-color: transparent;
+}
+
+.gate-stage.is-opening .gate-doors {
+  transform: translateY(64px) scale(0.95) rotateX(-8deg);
+  opacity: 0;
   box-shadow: none;
 }
 
@@ -386,12 +415,72 @@
   text-align: center;
   padding: clamp(1.25rem, 3.8vw, 2rem) 1.35rem;
   gap: 0.55rem;
-  transition: opacity 0.4s ease, transform 0.5s ease;
+  transition:
+    opacity 0.48s ease 0.24s,
+    transform 0.62s cubic-bezier(0.22, 1, 0.36, 1) 0.22s;
 }
 
 .gate-stage.is-opening .gate-front-content {
   opacity: 0;
-  transform: scale(0.93);
+  transform: translateY(-28px) scale(1.03);
+}
+
+.seal-unseal-burst {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle,
+    rgba(255, 245, 209, 0.75) 0%,
+    rgba(228, 189, 112, 0.42) 45%,
+    transparent 72%
+  );
+}
+
+.gate-stage.is-opening .seal-unseal-burst {
+  animation: sealGoldenBurst 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.gate-stage.is-opening .royal-wax-seal-img {
+  animation: sealBreakLift 0.52s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.gate-stage.is-opening .gate-tap-badge {
+  opacity: 0;
+  transform: translate(-50%, 8px) scale(0.92);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+@keyframes sealBreakLift {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  24% {
+    transform: scale(0.91) rotate(2deg);
+    opacity: 1;
+  }
+  65% {
+    transform: scale(1.16) rotate(-7deg) translateY(-10px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.3) rotate(-12deg) translateY(-26px);
+    opacity: 0;
+  }
+}
+
+@keyframes sealGoldenBurst {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(2.3);
+    opacity: 0;
+  }
 }
 
 .gate-ganesh {

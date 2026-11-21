@@ -4,7 +4,7 @@ import { chapterOpening, couple, labels } from "../data/weddingData";
 import InstagramIcon from "./InstagramIcon";
 import waxSealMaImg from "../assets/art/wax_seal_ma.png";
 
-const OPEN_MS = 1150;
+const OPEN_MS = 1050;
 
 function GateSunIcon({ size = 14 }) {
   return (
@@ -125,7 +125,9 @@ export default function ChapterOpening({
         <div className="gate-spotlight" aria-hidden="true" />
 
         {/* Single unified 3D velvet & gold border panel (no vertical split line) */}
-        <div className="gate-doors" aria-hidden="true" />
+        <div className="gate-doors" aria-hidden="true">
+          <div className="gate-envelope-flap" />
+        </div>
 
         {/* Center Front Invitation Typography & Clean Ghibli Medallion */}
         <div className="gate-front-content">
@@ -158,6 +160,7 @@ export default function ChapterOpening({
             aria-label={t(chapterOpening.openBtn)}
           >
             <span className="medallion-pulse-ring" aria-hidden="true" />
+            <span className="seal-unseal-burst" aria-hidden="true" />
             <img
               src={waxSealMaImg}
               alt="M & A Royal Antique Gold Wax Seal"
