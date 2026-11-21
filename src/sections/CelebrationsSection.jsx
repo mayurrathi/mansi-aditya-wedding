@@ -94,10 +94,12 @@ export default function CelebrationsSection({ onOpenEventLightbox }) {
                     </button>
 
                     <div className="event-card__body">
+                      <h3 className="event-card__title">
+                        {ev.poeticSub ? t(ev.poeticSub) : t(ev.title)}
+                      </h3>
                       {ev.poeticSub && (
-                        <p className="event-card__poetic">{t(ev.poeticSub)}</p>
+                        <p className="event-card__poetic">{t(ev.title)}</p>
                       )}
-                      <h3 className="event-card__title">{t(ev.title)}</h3>
                       <p className="event-card__time">🕒 {t(ev.time)}</p>
                       <p className="event-card__venue">📍 {t(venue.name)}, Pipariya</p>
                       <p className="event-card__note">{t(ev.note)}</p>

@@ -3,17 +3,16 @@
    Single source of truth for all bilingual invitation content.
    ===================================================================== */
 
-import artHeroCourtyard from "../assets/art/art_hero_courtyard.png";
-import artAgniMandap from "../assets/art/art_agni_mandap.png";
-import artPalaceCourtyard from "../assets/art/art_palace_courtyard.jpg";
-import artStarlitSangeet from "../assets/art/art_starlit_sangeet.jpg";
-import artShagunThali from "../assets/art/art_shagun_thali.jpg";
-
 import ghibli01Ganesh from "../assets/art/ghibli_01_ganesh_pujan.jpg";
 import ghibli02Engagement from "../assets/art/ghibli_02_engagement.jpg";
 import ghibli03Haldi from "../assets/art/ghibli_03_haldi.jpg";
 import ghibli04Mayra from "../assets/art/ghibli_04_mayra.jpg";
 import ghibli05Sangeet from "../assets/art/ghibli_05_sangeet.jpg";
+import ghibli06Baraat from "../assets/art/ghibli_06_baraat.jpg";
+import ghibli07Varmala from "../assets/art/ghibli_07_varmala.jpg";
+import ghibli08Pheras from "../assets/art/ghibli_08_pheras.jpg";
+import ghibli09Vidai from "../assets/art/ghibli_09_vidai.jpg";
+import ghibliBinauliBride from "../assets/art/ghibli_binauli_bride.jpg";
 import ghibliLanternCouple from "../assets/art/ghibli_lantern_couple.jpg";
 import ghibliMarigoldArchCouple from "../assets/art/ghibli_marigold_arch_couple.jpg";
 import ghibliCourtyardArchCouple from "../assets/art/ghibli_courtyard_arch_couple.jpg";
@@ -24,18 +23,19 @@ import igGardenBirthday from "../assets/photos/ig_garden_birthday.webp";
 import igHaldiYellow from "../assets/photos/ig_haldi_yellow.webp";
 import soloMansiImg from "../assets/photos/solo_mansi.jpg";
 import soloAdityaImg from "../assets/photos/solo_aditya.jpg";
+import gatefoldCoupleImg from "../assets/photos/gatefold_couple.jpg";
 
 export const art = {
-  heroCourtyard: artHeroCourtyard,
-  agniMandap: artAgniMandap,
-  palaceCourtyard: artPalaceCourtyard,
-  starlitSangeet: artStarlitSangeet,
-  shagunThali: artShagunThali,
   ganeshPujan: ghibli01Ganesh,
   engagement: ghibli02Engagement,
   haldi: ghibli03Haldi,
   mayra: ghibli04Mayra,
   sangeet: ghibli05Sangeet,
+  baraat: ghibli06Baraat,
+  varmala: ghibli07Varmala,
+  pheras: ghibli08Pheras,
+  vidai: ghibli09Vidai,
+  binauliBride: ghibliBinauliBride,
   lanternCouple: ghibliLanternCouple,
   marigoldArchCouple: ghibliMarigoldArchCouple,
   courtyardArchCouple: ghibliCourtyardArchCouple,
@@ -48,6 +48,7 @@ export const photos = {
   haldiYellow: igHaldiYellow,
   soloMansi: soloMansiImg,
   soloAditya: soloAdityaImg,
+  gatefoldCouple: gatefoldCoupleImg,
 };
 
 export const couple = {
@@ -105,8 +106,8 @@ export const couple = {
 
 export const chapterOpening = {
   quote: {
-    en: "After countless days of asking \"tu mere se pyaar karti hai ya nahi\", we finally said \"I do\"...",
-    hi: "अगणित दिनों के इस सवाल के बाद कि \"तू मेरे से प्यार करती है या नहीं\", आखिरकार हमने \"हाँ\" कह ही दिया...",
+    en: "One love. One life. One story.",
+    hi: "एक प्रेम। एक जीवन। एक कहानी।",
   },
   guestPrefix: {
     en: "Cordially Invited",
@@ -235,7 +236,7 @@ export const storyChapters = [
       en: "Roses, sparklers, a Bride-to-Be sash, and late-night family celebrations set the stage for Aashirwad Garden.",
       hi: "गुलाब, फुलझड़ियाँ, पहली बिनौली की मुस्कान और परिवार के उल्लास ने आशीर्वाद गार्डन के महाउत्सव की रंगत जमा दी।",
     },
-    art: ghibli03Haldi,
+    art: ghibliBinauliBride,
     tapedPhoto: {
       src: igPistachioLanterns,
       caption: { en: "Pistachio couture & warm lanterns", hi: "पिस्ताई छटा और सुनहरे लालटेन" },
@@ -349,7 +350,7 @@ export const scheduleDays = [
         emoji: "💍",
         dateShort: { en: "4 Dec · Morning", hi: "4 दिसम्बर · सुबह" },
         title: { en: "Engagement Ceremony", hi: "सगाई समारोह" },
-        poeticSub: { en: "Shagun ki Dor & Ring Exchange", hi: "शगुन की डोर एवं रिंग सेरेमनी" },
+        poeticSub: { en: "Shagun ki Dor", hi: "शगुन की डोर" },
         time: { en: "9:30 AM", hi: "प्रातः 9.30 बजे" },
         period: "am",
         calStart: "20261204T040000Z",
@@ -440,8 +441,7 @@ export const scheduleDays = [
         period: "am",
         calStart: "20261205T053000Z",
         calEnd: "20261205T070000Z",
-        /* Previously generated courtyard painting used as placeholder until Ghibli Baraat is added */
-        image: artPalaceCourtyard,
+        image: ghibli06Baraat,
         note: {
           en: "Grand welcome of the royal Baraat arriving directly at Toran, Aashirwad Garden from Shri Sanjay Ji Jain's residence, Sagar.",
           hi: "श्री संजयजी जैन, सागर वालों के यहाँ से ताजा तोरण आशीर्वाद गार्डन पधारती बारात का भव्य स्वागत।",
@@ -453,13 +453,12 @@ export const scheduleDays = [
         emoji: "🌸",
         dateShort: { en: "5 Dec · Noon", hi: "5 दिसम्बर · दोपहर" },
         title: { en: "Varmala & Reception", hi: "वरमाला एवं प्रीतिभोज" },
-        poeticSub: { en: "Khushiyon ka Milan & Sahbhoj", hi: "खुशियों का मिलन एवं सहभोज" },
+        poeticSub: { en: "Khushiyon ka Milan", hi: "खुशियों का मिलन" },
         time: { en: "11:30 AM – 2:30 PM", hi: "प्रातः 11.30 बजे से 2.30 बजे तक" },
         period: "pm",
         calStart: "20261205T060000Z",
         calEnd: "20261205T090000Z",
-        /* Previously generated ceremonial painting used as placeholder until Ghibli Varmala is added */
-        image: artShagunThali,
+        image: ghibli07Varmala,
         note: {
           en: "Floral Varmala garland exchange, warm wishes on stage, and celebratory wedding lunch with both families.",
           hi: "पवित्र वरमाला, दोनों परिवारों का स्नेहमिलन एवं शुभ प्रीतिभोज।",
@@ -470,14 +469,13 @@ export const scheduleDays = [
         accent: "pistachio",
         emoji: "🔥",
         dateShort: { en: "5 Dec · Afternoon", hi: "5 दिसम्बर · दोप. 3 बजे" },
-        title: { en: "Wedding Pheras", hi: "शुभ विवाह एवं फेरे" },
-        poeticSub: { en: "Agni Sakshya · Saptapadi", hi: "अग्नि साक्ष्य · सप्तपदी" },
+        title: { en: "Wedding Pheras · Saptapadi", hi: "शुभ विवाह एवं फेरे" },
+        poeticSub: { en: "Agni Sakshya", hi: "अग्नि साक्ष्य" },
         time: { en: "3:00 PM", hi: "दोप. 3.00 बजे" },
         period: "pm",
         calStart: "20261205T093000Z",
         calEnd: "20261205T123000Z",
-        /* Previously generated Agni Mandap painting used as placeholder until Ghibli Pheras is added */
-        image: artAgniMandap,
+        image: ghibli08Pheras,
         hasSaptapadi: true,
         note: {
           en: "Seven eternal vows around the sacred wedding fire as Mansi & Aditya unite in lifelong companionship.",
@@ -495,8 +493,7 @@ export const scheduleDays = [
         period: "pm",
         calStart: "20261205T133000Z",
         calEnd: "20261205T150000Z",
-        /* Previously generated courtyard archway painting used as placeholder until Ghibli Vidai is added */
-        image: artHeroCourtyard,
+        image: ghibli09Vidai,
         note: {
           en: "A tender farewell carrying cherished family memories, warm embraces, and endless blessings forward.",
           hi: "प्यारी यादों, बड़ों के आशीर्वाद और स्नेह के साथ वधू की भावपूर्ण विदाई।",
@@ -678,7 +675,7 @@ export const blessingKeepsakes = [
 export const weddingStartDate = new Date("2026-12-04T06:30:00+05:30");
 
 export const labels = {
-  blessingHeading: { en: "|| Shri Ganeshaya Namah ||", hi: "॥ श्री गणेशाय नमः ॥" },
+  blessingHeading: { en: "|| Shri Shrinathji ||", hi: "॥ श्री नाथजी ॥" },
   invitationHeroTitle: { en: "Mansi & Aditya", hi: "मानसी संग आदित्य" },
   datesLocationLine: {
     en: "4 & 5 December 2026 · Aashirwad Garden, Pipariya",

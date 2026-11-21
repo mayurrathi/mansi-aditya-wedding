@@ -705,18 +705,18 @@
 }
 
 .event-card__poetic {
-  margin: 0 0 0.2rem;
-  font-size: 0.75rem;
+  margin: 0 0 0.45rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent-gold);
 }
 
 .event-card__title {
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.2rem;
   font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-size: 1.65rem;
   font-weight: 700;
   line-height: 1.18;
   color: var(--ink-primary);

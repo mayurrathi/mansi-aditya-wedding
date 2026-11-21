@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useTranslation } from "../context/LanguageContext";
-import { art, chapterOpening, couple, labels } from "../data/weddingData";
+import { chapterOpening, couple, labels, photos } from "../data/weddingData";
 import InstagramIcon from "./InstagramIcon";
 
 const OPEN_MS = 1150;
@@ -158,8 +158,8 @@ export default function ChapterOpening({
           >
             <span className="medallion-pulse-ring" aria-hidden="true" />
             <img
-              src={art.haldi}
-              alt="Mansi & Aditya Ghibli Portrait"
+              src={photos.gatefoldCouple}
+              alt="Mansi & Aditya Portrait"
               className="gate-medallion-img"
             />
             <span className="gate-tap-badge">
