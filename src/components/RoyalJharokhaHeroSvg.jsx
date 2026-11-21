@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { art } from "../data/weddingData";
+import { photos } from "../data/weddingData";
 
 export default function RoyalJharokhaHeroSvg() {
   const svgRef = useRef(null);
@@ -82,11 +82,11 @@ export default function RoyalJharokhaHeroSvg() {
         </g>
       </svg>
 
-      {/* Static Studio Ghibli Couple Medallion (no flipping, no overlapping chips) */}
+      {/* Couple Portrait Medallion */}
       <div className="hero-couple-medallion">
         <img
-          src={art.haldi}
-          alt="Mansi & Aditya Studio Ghibli Portrait"
+          src={photos.gatefoldCouple}
+          alt="Mansi & Aditya Portrait"
           className="medallion-art"
         />
       </div>
