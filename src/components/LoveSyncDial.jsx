@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import confetti from "canvas-confetti";
 import { useTranslation } from "../context/LanguageContext";
 import { loveSyncDialData } from "../data/weddingData";
+import RevealOnScroll from "./RevealOnScroll";
 
 const HOUSE_COLORS = [
   "#E4BD70",
@@ -129,13 +130,14 @@ export default function LoveSyncDial() {
   return (
     <section id="kundli" className="section kundli-section">
       <div className="container">
-        <div className="section-header section-header--center">
-          <p className="eyebrow-tag">{t(loveSyncDialData.eyebrow)}</p>
-          <h2 className="section-title">{t(loveSyncDialData.heading)}</h2>
-          <p className="section-lede">{t(loveSyncDialData.lede)}</p>
-        </div>
+        <RevealOnScroll>
+          <div className="section-header section-header--center">
+            <p className="eyebrow-tag">{t(loveSyncDialData.eyebrow)}</p>
+            <h2 className="section-title">{t(loveSyncDialData.heading)}</h2>
+            <p className="section-lede">{t(loveSyncDialData.lede)}</p>
+          </div>
 
-        <div className="kundli-widget">
+          <div className="kundli-widget">
           <button
             type="button"
             className={`kundli-wheel-wrap kundli-wheel-btn ${spinning ? "is-spinning" : ""} ${matched ? "is-matched" : ""}`}
@@ -272,7 +274,8 @@ export default function LoveSyncDial() {
               </div>
             </div>
           )}
-        </div>
+          </div>
+        </RevealOnScroll>
       </div>
     </section>
   );

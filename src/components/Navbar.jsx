@@ -47,6 +47,7 @@ export default function Navbar({ theme, onToggleTheme, playing, onToggleMusic })
   const { lang, toggleLang, t } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [activeId, setActiveId] = useState("hero");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 36);
@@ -55,101 +56,172 @@ export default function Navbar({ theme, onToggleTheme, playing, onToggleMusic })
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const sections = labels.navSections
+      .map((s) => document.getElementById(s.id))
+      .filter(Boolean);
+    if (!sections.length || typeof IntersectionObserver === "undefined") return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-36% 0px -48% 0px", threshold: 0.01 }
+    );
+
+    sections.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!drawerOpen) return undefined;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setDrawerOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [drawerOpen]);
+
   return (
-    <header className={`site-nav ${scrolled ? "is-scrolled" : ""} ${drawerOpen ? "is-drawer-open" : ""}`}>
-      <div className="container site-nav__inner">
-        <a href="#hero" className="site-nav__brand">
-          <span>{couple.monogram}</span>
-        </a>
+    <>
+      <div
+        className={`mobile-drawer-backdrop ${drawerOpen ? "is-open" : ""}`}
+        onClick={() => setDrawerOpen(false)}
+        aria-hidden="true"
+      />
 
-        <nav className="site-nav__links" aria-label="Invitation sections">
-          {labels.navSections.map((item) => (
-            <a key={item.id} href={`#${item.id}`} className="site-nav__link">
-              {t(item.label)}
-            </a>
-          ))}
-        </nav>
+      <header className={`site-nav ${scrolled ? "is-scrolled" : ""} ${drawerOpen ? "is-drawer-open" : ""}`}>
+        <div className="container site-nav__inner">
+          <a href="#hero" className="site-nav__brand" onClick={() => setDrawerOpen(false)}>
+            <span>{couple.monogram}</span>
+          </a>
 
-        <div className="site-nav__controls">
-          <button
-            type="button"
-            className="nav-pill-btn"
-            onClick={() => {
-              toggleLang();
-              setDrawerOpen(false);
-            }}
-            aria-label={lang === "en" ? "Switch to Hindi" : "Switch to English"}
-          >
-            {lang === "en" ? "हिन्दी" : "English"}
-          </button>
+          <nav className="site-nav__links" aria-label="Invitation sections">
+            {labels.navSections.map((item) => {
+              const isActive = activeId === item.id;
+              return (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  className={`site-nav__link ${isActive ? "is-active" : ""}`}
+                  aria-current={isActive ? "true" : undefined}
+                >
+                  {t(item.label)}
+                </a>
+              );
+            })}
+          </nav>
 
-          <button
-            type="button"
-            className={`nav-pill-btn nav-theme-flip ${theme === "pm" ? "is-pm is-active" : "is-am"}`}
-            onClick={() => {
-              onToggleTheme();
-              setDrawerOpen(false);
-            }}
-            aria-label={
-              theme === "am"
-                ? "Switch to P.M. Dark mode"
-                : "Switch to A.M. Light mode"
-            }
-            title={
-              theme === "am"
-                ? "A.M. Light Mode · Tap to flip to P.M. Dark Mode"
-                : "P.M. Dark Mode · Tap to flip to A.M. Light Mode"
-            }
-          >
-            <span className="theme-flip-inner">
-              {theme === "am" ? (
-                <>
-                  <SunIcon size={15} />
-                  <span>A.M.</span>
-                </>
-              ) : (
-                <>
-                  <MoonIcon size={14} />
-                  <span>P.M.</span>
-                </>
-              )}
-            </span>
-          </button>
+          <div className="site-nav__controls">
+            <button
+              type="button"
+              className="nav-pill-btn"
+              onClick={() => {
+                toggleLang();
+                setDrawerOpen(false);
+              }}
+              aria-label={lang === "en" ? "Switch to Hindi" : "Switch to English"}
+            >
+              {lang === "en" ? "हिन्दी" : "English"}
+            </button>
 
-          <button
-            type="button"
-            className={`nav-pill-btn ${playing ? "is-active" : ""}`}
-            onClick={onToggleMusic}
-            aria-label={playing ? "Pause wedding music" : "Play wedding music"}
-          >
-            {playing ? "♪ On" : "♪ Off"}
-          </button>
+            <button
+              type="button"
+              className={`nav-pill-btn nav-theme-flip ${theme === "pm" ? "is-pm is-active" : "is-am"}`}
+              onClick={() => {
+                onToggleTheme();
+                setDrawerOpen(false);
+              }}
+              aria-label={
+                theme === "am"
+                  ? "Switch to P.M. Dark mode"
+                  : "Switch to A.M. Light mode"
+              }
+              title={
+                theme === "am"
+                  ? "A.M. Light Mode · Tap to flip to P.M. Dark Mode"
+                  : "P.M. Dark Mode · Tap to flip to A.M. Light Mode"
+              }
+            >
+              <span className="theme-flip-inner">
+                {theme === "am" ? (
+                  <>
+                    <SunIcon size={15} />
+                    <span>A.M.</span>
+                  </>
+                ) : (
+                  <>
+                    <MoonIcon size={14} />
+                    <span>P.M.</span>
+                  </>
+                )}
+              </span>
+            </button>
 
-          <button
-            type="button"
-            className="nav-pill-btn site-nav__menu-btn"
-            onClick={() => setDrawerOpen((o) => !o)}
-            aria-expanded={drawerOpen}
-            aria-label="Toggle navigation menu"
-          >
-            {drawerOpen ? "✕" : "☰"}
-          </button>
+            <button
+              type="button"
+              className={`nav-pill-btn ${playing ? "is-active" : ""}`}
+              onClick={onToggleMusic}
+              aria-label={playing ? "Pause wedding music" : "Play wedding music"}
+            >
+              {playing ? "♪ On" : "♪ Off"}
+            </button>
+
+            <button
+              type="button"
+              className={`nav-pill-btn site-nav__menu-btn ${drawerOpen ? "is-active" : ""}`}
+              onClick={() => setDrawerOpen((o) => !o)}
+              aria-expanded={drawerOpen}
+              aria-label="Toggle navigation menu"
+            >
+              {drawerOpen ? "✕" : "☰"}
+            </button>
+          </div>
         </div>
-      </div>
 
-      {drawerOpen && (
-        <nav className="mobile-drawer" aria-label="Mobile sections">
-          {labels.navSections.map((item) => (
+        <nav
+          className={`mobile-drawer ${drawerOpen ? "is-open" : ""}`}
+          aria-label="Mobile sections"
+          aria-hidden={!drawerOpen}
+        >
+          <div className="mobile-drawer__grid">
+            {labels.navSections.map((item) => {
+              const isActive = activeId === item.id;
+              return (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  className={`mobile-drawer__item ${isActive ? "is-active" : ""}`}
+                  tabIndex={drawerOpen ? 0 : -1}
+                  aria-current={isActive ? "true" : undefined}
+                  onClick={() => setDrawerOpen(false)}
+                >
+                  <span className="mobile-drawer__num">{item.num}</span>
+                  <span className="mobile-drawer__label">{t(item.label)}</span>
+                </a>
+              );
+            })}
+          </div>
+
+          <div className="mobile-drawer__foot">
+            <span className="mobile-drawer__meta">
+              {t(labels.datesShort)} · {t({ en: "Aashirwad Garden, Pipariya", hi: "आशीर्वाद गार्डन, पिपरिया" })}
+            </span>
             <a
-              key={item.id}
-              href={`#${item.id}`}
+              href="#rsvp"
+              className="mobile-drawer__rsvp"
+              tabIndex={drawerOpen ? 0 : -1}
               onClick={() => setDrawerOpen(false)}
             >
-              {t(item.label)}
+              {t({ en: "RSVP →", hi: "उपस्थिति →" })}
             </a>
-          ))}
+          </div>
         </nav>
-      )}
-    </header>
+      </header>
+    </>
   );
 }
