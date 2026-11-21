@@ -45,24 +45,6 @@ export default function HeroSection({ guestName }) {
             <InstagramIcon size={16} />
             <span>{couple.combinedHandle}</span>
           </a>
-          <a
-            href={couple.bride.instagram}
-            target="_blank"
-            rel="noreferrer"
-            className="ig-pill-badge"
-          >
-            <InstagramIcon size={15} />
-            <span>{couple.bride.handle}</span>
-          </a>
-          <a
-            href={couple.groom.instagram}
-            target="_blank"
-            rel="noreferrer"
-            className="ig-pill-badge"
-          >
-            <InstagramIcon size={15} />
-            <span>{couple.groom.handle}</span>
-          </a>
         </div>
 
         <p className="hero-date-banner">{t(labels.datesLocationLine)}</p>
