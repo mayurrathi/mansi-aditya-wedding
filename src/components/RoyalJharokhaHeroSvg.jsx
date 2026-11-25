@@ -2,30 +2,40 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { photos } from "../data/weddingData";
 
-export default function RoyalJharokhaHeroSvg() {
+export default function RoyalJharokhaHeroSvg({ unlocked = false }) {
   const svgRef = useRef(null);
 
   useEffect(() => {
     const svg = svgRef.current;
     if (!svg) return undefined;
     const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return undefined;
-
     const paths = svg.querySelectorAll(".jharokha-draw-path");
+
     const ctx = gsap.context(() => {
       paths.forEach((p) => {
-        const len = p.getTotalLength?.() || 280;
-        gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
-        gsap.to(p, {
-          strokeDashoffset: 0,
-          duration: 1.65,
-          ease: "power2.out",
-          delay: 0.15,
-        });
+        const len = p.getTotalLength?.() || 680;
+        if (reduced) {
+          gsap.set(p, { strokeDasharray: "none", strokeDashoffset: 0 });
+          return;
+        }
+        if (!unlocked) {
+          gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
+        } else {
+          gsap.fromTo(
+            p,
+            { strokeDasharray: len, strokeDashoffset: len },
+            {
+              strokeDashoffset: 0,
+              duration: 1.55,
+              ease: "power2.out",
+              delay: 0.25,
+            }
+          );
+        }
       });
     }, svgRef);
     return () => ctx.revert();
-  }, []);
+  }, [unlocked]);
 
   return (
     <div className="jharokha-hero-stage">

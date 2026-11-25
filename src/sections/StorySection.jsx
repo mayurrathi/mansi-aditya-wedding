@@ -62,7 +62,9 @@ export default function StorySection({ onPreview }) {
                 aria-label={t(ch.title)}
               >
                 <img src={ch.art} alt={t(ch.title)} loading="eager" decoding="async" />
-                <span className="story-zoom-pill">🎨 Ghibli Scene · 🔍</span>
+                <span className="story-zoom-pill">
+                  {t({ en: "🎨 Ghibli Scene · 🔍", hi: "🎨 झलक देखें · 🔍" })}
+                </span>
               </button>
 
               <h3 className="story-panel-title">{t(ch.title)}</h3>

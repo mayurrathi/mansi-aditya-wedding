@@ -10,21 +10,41 @@ export default function VineNav() {
     const sections = labels.navSections
       .map((s) => document.getElementById(s.id))
       .filter(Boolean);
-    if (!sections.length || typeof IntersectionObserver === "undefined") return undefined;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
+    const onScroll = () => {
+      const docEl = document.documentElement;
+      if (window.innerHeight + window.scrollY >= docEl.scrollHeight - 60) {
+        setActiveId("rsvp");
+      } else if (window.scrollY < 140) {
+        setActiveId("hero");
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    let observer;
+    if (sections.length && typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        (entries) => {
+          const docEl = document.documentElement;
+          if (window.innerHeight + window.scrollY >= docEl.scrollHeight - 60) {
+            setActiveId("rsvp");
+            return;
           }
-        });
-      },
-      { rootMargin: "-38% 0px -48% 0px", threshold: 0.01 }
-    );
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveId(entry.target.id);
+            }
+          });
+        },
+        { rootMargin: "-38% 0px -48% 0px", threshold: 0.01 }
+      );
+      sections.forEach((el) => observer.observe(el));
+    }
 
-    sections.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      observer?.disconnect();
+    };
   }, []);
 
   const jumpTo = (id) => {

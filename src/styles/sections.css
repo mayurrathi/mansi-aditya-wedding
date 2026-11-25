@@ -30,28 +30,28 @@
 
 .hero-lily {
   position: absolute;
-  width: clamp(130px, 20vw, 240px);
+  width: clamp(136px, 21vw, 248px);
   height: auto;
   pointer-events: none;
   user-select: none;
-  opacity: 0.72;
+  opacity: 0.88;
   z-index: 1;
 }
 
 .hero-lily--tl {
-  top: clamp(3.6rem, 6vw, 4.4rem);
-  left: -8px;
+  top: 0;
+  left: 0;
 }
 
 .hero-lily--br {
-  bottom: -6px;
-  right: -8px;
+  bottom: 0;
+  right: 0;
 }
 
 @media (max-width: 768px) {
   .hero-lily {
-    width: clamp(86px, 24vw, 130px);
-    opacity: 0.34;
+    width: clamp(92px, 25vw, 134px);
+    opacity: 0.62;
   }
 }
 
@@ -1012,9 +1012,9 @@
 
 .polaroid-card {
   position: relative;
-  background: #faf7ef;
-  color: #13261c;
-  border: 1px solid #d8ccb8;
+  background: #fbf0e1;
+  color: #3b1914;
+  border: 1px solid #d5c0ab;
   border-radius: 12px;
   padding: 0.8rem 0.8rem 1rem;
   display: flex;
@@ -1023,13 +1023,13 @@
   text-align: center;
   cursor: pointer;
   transform: rotate(var(--tilt, -2deg));
-  box-shadow: 0 16px 34px rgba(19, 38, 28, 0.14);
+  box-shadow: 0 16px 34px rgba(59, 25, 20, 0.14);
   transition: transform 240ms var(--ease-editorial), box-shadow 240ms var(--ease-editorial);
 }
 
 .polaroid-card:hover {
   transform: rotate(0deg) translateY(-6px) scale(1.02);
-  box-shadow: 0 22px 44px rgba(19, 38, 28, 0.22);
+  box-shadow: 0 22px 44px rgba(59, 25, 20, 0.22);
 }
 
 .polaroid-pin {
@@ -1040,7 +1040,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fff6d6, #b68b3c 65%, #6e501b 100%);
+  background: radial-gradient(circle at 35% 35%, #fff6d6, #b87924 65%, #6b3904 100%);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
 }
 
@@ -1050,9 +1050,9 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #a63a2e;
-  background: rgba(228, 189, 112, 0.25);
-  border: 1px solid rgba(182, 139, 60, 0.45);
+  color: #6e1a24;
+  background: rgba(230, 180, 90, 0.25);
+  border: 1px solid rgba(184, 121, 36, 0.45);
   padding: 0.15rem 0.55rem;
   border-radius: 999px;
 }
@@ -1062,7 +1062,7 @@
   aspect-ratio: 4 / 5;
   border-radius: 6px;
   overflow: hidden;
-  background: #e8efe4;
+  background: #f7ebdc;
 }
 
 .polaroid-img-wrap img {
@@ -1076,7 +1076,7 @@
   display: grid;
   place-items: center;
   padding: 1rem;
-  background: radial-gradient(circle, rgba(228, 189, 112, 0.3) 0%, #e8efe4 78%);
+  background: radial-gradient(circle, rgba(230, 180, 90, 0.28) 0%, #f7ebdc 78%);
 }
 
 .polaroid-img-wrap--circle img {
@@ -1091,7 +1091,7 @@
   font-size: 1.05rem;
   font-weight: 600;
   line-height: 1.25;
-  color: #13261c;
+  color: #3b1914;
 }
 
 .ig-live-card {

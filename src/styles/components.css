@@ -425,12 +425,12 @@
   aspect-ratio: 480 / 319;
   background: linear-gradient(
     125deg,
-    #7a4408 0%,
-    #b87416 24%,
-    #ecc058 46%,
-    #8f500c 66%,
-    #d6942a 84%,
-    #6e3b06 100%
+    #6b3904 0%,
+    #b36e12 24%,
+    #e9b94c 46%,
+    #7d4308 66%,
+    #cf8d24 84%,
+    #5e3103 100%
   );
   background-size: 240% 240%;
   -webkit-mask-size: contain;
@@ -1186,6 +1186,35 @@
   gap: 0.45rem;
   flex-shrink: 0;
   padding-block: 0.1rem;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 260ms var(--ease-editorial), transform 260ms var(--ease-editorial);
+}
+
+.site-nav.is-scrolled .site-nav__brand,
+.site-nav.is-drawer-open .site-nav__brand {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.site-nav__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-rose));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms var(--ease-editorial);
+}
+
+.site-nav.is-scrolled .site-nav__progress {
+  opacity: 0.88;
 }
 
 .site-nav__foil-logo {
@@ -1661,12 +1690,24 @@
   }
 }
 
-.lightbox-figure img {
+.lightbox-img {
   max-height: 74vh;
   width: auto;
   border-radius: var(--radius-md);
   object-fit: contain;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  animation: lightboxImgIn 220ms var(--ease-editorial) both;
+}
+
+@keyframes lightboxImgIn {
+  from {
+    opacity: 0.35;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .lightbox-figure figcaption {

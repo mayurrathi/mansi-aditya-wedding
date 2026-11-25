@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "../context/LanguageContext";
 import { labels } from "../data/weddingData";
 import AmFoilLogo from "./AmFoilLogo";
@@ -49,33 +49,60 @@ export default function Navbar({ theme, onToggleTheme, playing, onToggleMusic })
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeId, setActiveId] = useState("hero");
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 36);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const progressRef = useRef(null);
 
   useEffect(() => {
     const sections = labels.navSections
       .map((s) => document.getElementById(s.id))
       .filter(Boolean);
-    if (!sections.length || typeof IntersectionObserver === "undefined") return undefined;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 48);
+
+      const docEl = document.documentElement;
+      const maxScroll = Math.max(1, docEl.scrollHeight - window.innerHeight);
+      const ratio = Math.min(1, Math.max(0, y / maxScroll));
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${ratio})`;
+      }
+
+      if (window.innerHeight + y >= docEl.scrollHeight - 60) {
+        setActiveId("rsvp");
+      } else if (y < 140) {
+        setActiveId("hero");
+      }
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+
+    let observer;
+    if (sections.length && typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        (entries) => {
+          const docEl = document.documentElement;
+          if (window.innerHeight + window.scrollY >= docEl.scrollHeight - 60) {
+            setActiveId("rsvp");
+            return;
           }
-        });
-      },
-      { rootMargin: "-36% 0px -48% 0px", threshold: 0.01 }
-    );
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveId(entry.target.id);
+            }
+          });
+        },
+        { rootMargin: "-36% 0px -48% 0px", threshold: 0.01 }
+      );
+      sections.forEach((el) => observer.observe(el));
+    }
 
-    sections.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      observer?.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -227,6 +254,8 @@ export default function Navbar({ theme, onToggleTheme, playing, onToggleMusic })
             </a>
           </div>
         </nav>
+
+        <div ref={progressRef} className="site-nav__progress" aria-hidden="true" />
       </header>
     </>
   );

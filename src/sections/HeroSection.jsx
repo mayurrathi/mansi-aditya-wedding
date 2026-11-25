@@ -4,7 +4,7 @@ import RoyalJharokhaHeroSvg from "../components/RoyalJharokhaHeroSvg";
 import AmFoilLogo from "../components/AmFoilLogo";
 import InstagramIcon from "../components/InstagramIcon";
 
-export default function HeroSection({ guestName }) {
+export default function HeroSection({ guestName, unlocked = false }) {
   const { t } = useTranslation();
 
   return (
@@ -34,7 +34,7 @@ export default function HeroSection({ guestName }) {
 
         <p className="hero-blessing">{t(labels.blessingHeading)}</p>
 
-        <RoyalJharokhaHeroSvg />
+        <RoyalJharokhaHeroSvg unlocked={unlocked} />
 
         <div className="hero-monogram-line">
           <AmFoilLogo className="hero-am-foil" label="AM Official Monogram" />

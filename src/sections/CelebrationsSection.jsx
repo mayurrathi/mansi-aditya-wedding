@@ -101,7 +101,9 @@ export default function CelebrationsSection({ onOpenEventLightbox }) {
                         <p className="event-card__poetic">{t(ev.title)}</p>
                       )}
                       <p className="event-card__time">🕒 {t(ev.time)}</p>
-                      <p className="event-card__venue">📍 {t(venue.name)}, Pipariya</p>
+                      <p className="event-card__venue">
+                        📍 {t(venue.name)}, {t({ en: "Pipariya", hi: "पिपरिया" })}
+                      </p>
                       <p className="event-card__note">{t(ev.note)}</p>
 
                       {ev.dressCode && (

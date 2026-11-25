@@ -7,15 +7,27 @@ export default function Lightbox({ item, onClose, onPrev, onNext }) {
   const touchStartX = useRef(null);
   const closeBtnRef = useRef(null);
   const lastFocusRef = useRef(null);
+  const isOpen = Boolean(item);
 
   useEffect(() => {
-    if (!item) return undefined;
-
+    if (!isOpen) return undefined;
     lastFocusRef.current = document.activeElement;
     document.body.classList.add("lb-open");
     closeBtnRef.current?.focus();
 
-    [item.prevSrc, item.nextSrc].filter(Boolean).forEach((src) => {
+    return () => {
+      document.body.classList.remove("lb-open");
+      if (lastFocusRef.current instanceof HTMLElement && lastFocusRef.current.isConnected) {
+        lastFocusRef.current.focus();
+      }
+      lastFocusRef.current = null;
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    [item?.prevSrc, item?.nextSrc].filter(Boolean).forEach((src) => {
       const img = new Image();
       img.src = src;
     });
@@ -26,14 +38,8 @@ export default function Lightbox({ item, onClose, onPrev, onNext }) {
       if (e.key === "ArrowRight") onNext?.();
     };
     window.addEventListener("keydown", onKey);
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.classList.remove("lb-open");
-      if (lastFocusRef.current instanceof HTMLElement) {
-        lastFocusRef.current.focus();
-      }
-    };
-  }, [item, onClose, onPrev, onNext]);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen, item?.prevSrc, item?.nextSrc, onClose, onPrev, onNext]);
 
   if (!item) return null;
 
@@ -86,7 +92,12 @@ export default function Lightbox({ item, onClose, onPrev, onNext }) {
       )}
 
       <figure className="lightbox-figure" onClick={(e) => e.stopPropagation()}>
-        <img src={item.src} alt={item.caption || "Mansi & Aditya"} />
+        <img
+          key={item.src}
+          src={item.src}
+          alt={item.caption || "Mansi & Aditya"}
+          className="lightbox-img"
+        />
         {(item.caption || typeof item.total === "number") && (
           <figcaption>
             {typeof item.index === "number" && typeof item.total === "number" && (

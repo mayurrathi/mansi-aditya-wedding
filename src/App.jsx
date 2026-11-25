@@ -78,6 +78,16 @@ function WeddingInvitationApp() {
   }, [isUnlocked]);
 
   useEffect(() => {
+    const isPm = theme === "pm";
+    document.body.classList.toggle("theme-pm-body", isPm);
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+      metaTheme.setAttribute("content", isPm ? "#180d10" : "#fdf6ec");
+    }
+    return () => document.body.classList.remove("theme-pm-body");
+  }, [theme]);
+
+  useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return undefined;
     audio.volume = 0.52;
