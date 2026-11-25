@@ -30,11 +30,11 @@
 
 .hero-lily {
   position: absolute;
-  width: clamp(136px, 21vw, 248px);
+  width: clamp(120px, 14.5vw, 182px);
   height: auto;
   pointer-events: none;
   user-select: none;
-  opacity: 0.88;
+  opacity: 0.9;
   z-index: 1;
 }
 
