@@ -213,7 +213,7 @@
   }
 }
 
-/* ---------- 1 · 3D Royal Pistachio & Gold Jharokha Gatefold Doors ---------- */
+/* ---------- 1 · Light Ivory & Champagne-Blush Silk Wedding Envelope ---------- */
 .gate-overlay {
   position: fixed;
   inset: 0;
@@ -225,9 +225,9 @@
   padding: clamp(0.85rem, 2.5vw, 1.6rem);
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 24%, rgba(228, 189, 112, 0.2), transparent 55%),
-    radial-gradient(circle at 20% 80%, rgba(139, 177, 126, 0.14), transparent 52%),
-    rgba(11, 21, 16, 0.96);
+    radial-gradient(circle at 50% 20%, rgba(244, 224, 212, 0.65), transparent 58%),
+    radial-gradient(circle at 18% 82%, rgba(226, 236, 220, 0.45), transparent 56%),
+    rgba(248, 244, 237, 0.97);
   backdrop-filter: blur(12px);
   transition: opacity 0.55s ease;
 }
@@ -275,17 +275,22 @@
   gap: 0.45rem;
   padding: 0.45rem 1rem;
   border-radius: 999px;
-  border: 1.5px solid rgba(228, 189, 112, 0.65);
-  background: rgba(19, 38, 28, 0.94);
-  color: #c8dec2;
+  border: 1.5px solid rgba(166, 58, 46, 0.24);
+  background: rgba(255, 253, 249, 0.92);
+  color: #516156;
   font-size: 0.84rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 18px rgba(42, 28, 20, 0.08);
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+
+.gate-lang-pill:hover {
+  border-color: rgba(166, 58, 46, 0.5);
 }
 
 .gate-lang-pill .is-on {
-  color: #e4bd70;
+  color: #a63a2e;
   font-weight: 700;
 }
 
@@ -293,13 +298,13 @@
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  opacity: 0.65;
+  opacity: 0.7;
   transition: opacity 180ms ease, color 180ms ease;
 }
 
 .gate-theme-seg.is-on {
   opacity: 1;
-  color: #e4bd70;
+  color: #a63a2e;
   font-weight: 700;
 }
 
@@ -320,24 +325,24 @@
   background: conic-gradient(
     from 165deg at 50% 0%,
     transparent 0deg,
-    rgba(228, 189, 112, 0.26) 16deg,
-    rgba(200, 222, 194, 0.08) 36deg,
-    transparent 54deg
+    rgba(235, 205, 190, 0.35) 18deg,
+    rgba(255, 250, 242, 0.25) 38deg,
+    transparent 56deg
   );
-  filter: blur(14px);
+  filter: blur(18px);
 }
 
 .gate-doors {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, #1b3627 0%, #112319 55%, #0c1912 100%);
+  background: linear-gradient(180deg, #fffdf9 0%, #faf3e9 58%, #f3e8da 100%);
   transform-style: preserve-3d;
   border-radius: 26px;
-  border: 2px solid rgba(228, 189, 112, 0.72);
+  border: 1.5px solid rgba(196, 168, 138, 0.55);
   overflow: visible;
   box-shadow:
-    inset 0 0 0 6px rgba(200, 222, 194, 0.08),
-    0 28px 68px rgba(0, 0, 0, 0.65);
+    inset 0 0 0 8px rgba(255, 255, 255, 0.65),
+    0 24px 60px rgba(42, 28, 20, 0.12);
   transition:
     transform 0.72s cubic-bezier(0.22, 1, 0.36, 1) 0.28s,
     opacity 0.55s ease 0.38s,
@@ -353,14 +358,14 @@
   border-radius: 24px 24px 0 0;
   background: linear-gradient(
     180deg,
-    rgba(228, 189, 112, 0.14) 0%,
-    rgba(27, 54, 39, 0.48) 100%
+    rgba(233, 217, 199, 0.62) 0%,
+    rgba(250, 243, 233, 0.14) 100%
   );
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: top center;
   backface-visibility: hidden;
   pointer-events: none;
-  opacity: 0.72;
+  opacity: 0.85;
   transition:
     transform 0.62s cubic-bezier(0.22, 1, 0.36, 1) 0.14s,
     opacity 0.45s ease 0.35s;
@@ -389,21 +394,22 @@
   display: inline-flex;
   align-items: center;
   gap: 0.38rem;
-  margin-top: 0.1rem;
-  padding: 0.28rem 0.85rem;
+  margin-top: 0.15rem;
+  padding: 0.3rem 0.9rem;
   border-radius: 999px;
-  background: rgba(11, 21, 16, 0.72);
-  border: 1px solid rgba(228, 189, 112, 0.62);
-  color: #e4bd70;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(166, 58, 46, 0.25);
+  color: #a63a2e;
   font-size: 0.78rem;
   font-weight: 700;
   text-decoration: none;
+  box-shadow: 0 4px 12px rgba(42, 28, 20, 0.06);
   transition: transform 180ms var(--ease-editorial), border-color 180ms ease;
 }
 
 .gate-ig-chip:hover {
   transform: translateY(-1px);
-  border-color: #f4d68c;
+  border-color: rgba(166, 58, 46, 0.55);
 }
 
 .gate-front-content {
@@ -433,8 +439,8 @@
   opacity: 0;
   background: radial-gradient(
     circle,
-    rgba(255, 245, 209, 0.75) 0%,
-    rgba(228, 189, 112, 0.42) 45%,
+    rgba(244, 214, 198, 0.75) 0%,
+    rgba(166, 58, 46, 0.24) 48%,
     transparent 72%
   );
 }
@@ -486,9 +492,9 @@
 .gate-ganesh {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 0.98rem;
-  font-weight: 600;
-  color: #e4bd70;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #a63a2e;
   letter-spacing: 0.04em;
 }
 
@@ -498,16 +504,17 @@
   gap: 0.4rem;
   flex-wrap: wrap;
   justify-content: center;
-  background: rgba(11, 21, 16, 0.68);
-  border: 1px solid rgba(228, 189, 112, 0.58);
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(166, 58, 46, 0.26);
   border-radius: 999px;
   padding: 0.3rem 0.95rem;
   font-size: 0.82rem;
-  color: #d6e4d2;
+  color: #4a5b50;
+  box-shadow: 0 4px 12px rgba(42, 28, 20, 0.05);
 }
 
 .gate-guest-pill strong {
-  color: #e4bd70;
+  color: #a63a2e;
 }
 
 .gate-kicker {
@@ -516,21 +523,20 @@
   letter-spacing: 0.2em;
   font-size: 0.74rem;
   font-weight: 700;
-  color: #c8dec2;
+  color: #7c6756;
 }
 
 .gate-couple-title {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(2.3rem, 7vw, 3.25rem);
+  font-size: clamp(2.35rem, 7vw, 3.3rem);
   line-height: 1.04;
-  color: #f2f6ef;
-  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.42);
+  color: #1c2b22;
 }
 
 .gate-couple-title span {
-  color: #e4bd70;
+  color: #a63a2e;
   font-style: italic;
 }
 
@@ -539,9 +545,9 @@
   max-width: 34ch;
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.04rem;
+  font-size: 1.06rem;
   line-height: 1.38;
-  color: #d6e4d2;
+  color: #4f6055;
 }
 
 .gate-medallion-btn {
@@ -561,8 +567,8 @@
 }
 
 .gate-medallion-btn:hover {
-  transform: scale(1.05);
-  filter: drop-shadow(0 0 18px rgba(228, 189, 112, 0.42));
+  transform: scale(1.04);
+  filter: drop-shadow(0 8px 20px rgba(166, 58, 46, 0.18));
 }
 
 .royal-wax-seal-img {
@@ -570,14 +576,14 @@
   height: 100%;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 10px 22px rgba(42, 28, 20, 0.22));
 }
 
 .medallion-pulse-ring {
   position: absolute;
   inset: -10px;
   border-radius: 50%;
-  border: 2px solid rgba(228, 189, 112, 0.65);
+  border: 1.5px solid rgba(166, 58, 46, 0.28);
   animation: pulseHalo 2.4s ease-out infinite;
   pointer-events: none;
 }
@@ -606,13 +612,13 @@
   right: -16px;
   padding: 0.26rem 0.65rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #a63a2e, #7c241a);
-  border: 1.5px solid #e4bd70;
-  color: #fff6d6;
+  background: linear-gradient(135deg, #a63a2e, #852920);
+  border: 1px solid rgba(255, 250, 245, 0.5);
+  color: #fffaf5;
   font-family: var(--font-display);
   font-size: 0.8rem;
   font-weight: 700;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 16px rgba(42, 28, 20, 0.2);
 }
 
 .gate-tap-badge {
@@ -621,20 +627,20 @@
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
-  background: linear-gradient(135deg, #e4bd70, #c89e4c);
-  color: #0f2117;
-  font-size: 0.78rem;
+  background: linear-gradient(135deg, #a63a2e, #8c2e24);
+  color: #fffaf5;
+  font-size: 0.8rem;
   font-weight: 700;
-  padding: 0.38rem 1rem;
+  padding: 0.44rem 1.15rem;
   border-radius: 999px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 8px 20px rgba(166, 58, 46, 0.26);
 }
 
 .gate-date-venue {
   margin: 0.45rem 0 0;
-  font-size: 0.85rem;
+  font-size: 0.86rem;
   font-weight: 600;
-  color: #c8dec2;
+  color: #46584d;
 }
 
 .gate-skip-link {
