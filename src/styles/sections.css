@@ -100,16 +100,10 @@
   margin-top: -0.2rem;
 }
 
-.hero-am-logo {
-  height: 46px;
+.hero-am-foil {
+  height: 48px;
   width: auto;
-  display: block;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 10px rgba(184, 121, 36, 0.2));
-}
-
-.app.theme-pm .hero-am-logo {
-  filter: brightness(1.38) saturate(1.12);
+  filter: drop-shadow(0 4px 10px rgba(184, 121, 36, 0.24));
 }
 
 .hero-chapter-badge {
@@ -1781,14 +1775,36 @@
   margin-bottom: 0.35rem;
 }
 
-.footer-crest-img {
-  width: clamp(120px, 24vw, 152px);
-  height: auto;
-  display: block;
+.footer-modern-medallion {
+  width: clamp(98px, 18vw, 118px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+    circle at 30% 24%,
+    rgba(255, 255, 255, 0.98),
+    rgba(253, 244, 232, 0.92)
+  );
+  border: 1.2px solid rgba(208, 152, 64, 0.52);
+  box-shadow:
+    0 0 0 6px var(--accent-rose-soft),
+    inset 0 2px 8px rgba(255, 255, 255, 0.9),
+    0 12px 28px rgba(110, 26, 36, 0.1);
 }
 
-.app.theme-pm .footer-crest-img {
-  filter: brightness(1.25) saturate(1.1);
+.app.theme-pm .footer-modern-medallion {
+  background: radial-gradient(
+    circle at 30% 24%,
+    rgba(62, 28, 36, 0.96),
+    rgba(34, 15, 20, 0.95)
+  );
+  border-color: rgba(230, 180, 90, 0.56);
+}
+
+.footer-am-foil {
+  width: 68%;
+  filter: drop-shadow(0 2px 6px rgba(184, 121, 36, 0.22));
 }
 
 .footer-host-sig {

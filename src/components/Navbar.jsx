@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "../context/LanguageContext";
-import { brand, labels } from "../data/weddingData";
+import { labels } from "../data/weddingData";
+import AmFoilLogo from "./AmFoilLogo";
 
 function SunIcon({ size = 15 }) {
   return (
@@ -102,7 +103,7 @@ export default function Navbar({ theme, onToggleTheme, playing, onToggleMusic })
             onClick={() => setDrawerOpen(false)}
             aria-label="AM — The AM Chapter Home"
           >
-            <img src={brand.logo} alt="AM — The AM Chapter" className="site-nav__logo" />
+            <AmFoilLogo className="site-nav__foil-logo" label="AM — The AM Chapter" />
           </a>
 
           <nav className="site-nav__links" aria-label="Invitation sections">

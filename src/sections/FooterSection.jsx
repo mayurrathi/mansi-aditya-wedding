@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useTranslation } from "../context/LanguageContext";
-import { brand, couple, labels } from "../data/weddingData";
+import { couple, labels } from "../data/weddingData";
 import { buildPersonalizedUrl } from "../lib/guest";
 import { copyTextToClipboard } from "../lib/clipboard";
+import AmFoilLogo from "../components/AmFoilLogo";
 import InstagramIcon from "../components/InstagramIcon";
 
 export default function FooterSection() {
@@ -76,12 +77,9 @@ export default function FooterSection() {
         </div>
 
         <div className="footer-crest-wrap">
-          <img
-            src={brand.crestWreath}
-            alt="AM Official Wedding Crest"
-            className="footer-crest-img"
-            decoding="async"
-          />
+          <div className="footer-modern-medallion">
+            <AmFoilLogo className="footer-am-foil" label="AM Official Wedding Monogram" />
+          </div>
           <p className="footer-host-sig">{t(couple.hostSignature)}</p>
         </div>
 

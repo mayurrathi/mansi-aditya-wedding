@@ -1,6 +1,7 @@
 import { useTranslation } from "../context/LanguageContext";
 import { brand, couple, labels } from "../data/weddingData";
 import RoyalJharokhaHeroSvg from "../components/RoyalJharokhaHeroSvg";
+import AmFoilLogo from "../components/AmFoilLogo";
 import InstagramIcon from "../components/InstagramIcon";
 
 export default function HeroSection({ guestName }) {
@@ -36,12 +37,7 @@ export default function HeroSection({ guestName }) {
         <RoyalJharokhaHeroSvg />
 
         <div className="hero-monogram-line">
-          <img
-            src={brand.logo}
-            alt="AM Official Monogram"
-            className="hero-am-logo"
-            decoding="async"
-          />
+          <AmFoilLogo className="hero-am-foil" label="AM Official Monogram" />
           <span className="hero-chapter-badge">
             {t(couple.chapterTitle)} · {couple.hashtag}
           </span>

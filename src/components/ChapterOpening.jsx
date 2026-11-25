@@ -1,9 +1,49 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 import { useTranslation } from "../context/LanguageContext";
 import { brand, chapterOpening, couple, labels } from "../data/weddingData";
+import AmFoilLogo from "./AmFoilLogo";
 import InstagramIcon from "./InstagramIcon";
 
 const OPEN_MS = 820;
+
+function GateModernOrbitRing() {
+  const uid = useId().replace(/:/g, "");
+  const ringId = `gateModernOrbit-${uid}`;
+
+  return (
+    <svg viewBox="0 0 220 220" className="gate-modern-orbit-svg" aria-hidden="true">
+      <defs>
+        <path
+          id={ringId}
+          d="M 110,110 m -88,0 a 88,88 0 1,1 176,0 a 88,88 0 1,1 -176,0"
+        />
+      </defs>
+      <circle
+        cx="110"
+        cy="110"
+        r="102"
+        fill="none"
+        stroke="currentColor"
+        strokeOpacity="0.26"
+        strokeWidth="0.9"
+      />
+      <g className="gate-modern-orbit-spin">
+        <text
+          fill="currentColor"
+          fillOpacity="0.78"
+          fontSize="8.6"
+          fontWeight="600"
+          letterSpacing="3.35"
+          fontFamily="Plus Jakarta Sans, system-ui, sans-serif"
+        >
+          <textPath href={`#${ringId}`} startOffset="0%">
+            THE AM CHAPTER • 04 &amp; 05 DEC 2026 • PIPARIYA •
+          </textPath>
+        </text>
+      </g>
+    </svg>
+  );
+}
 
 function GateSunIcon({ size = 14 }) {
   return (
@@ -161,12 +201,13 @@ export default function ChapterOpening({
             aria-label={t(chapterOpening.openBtn)}
           >
             <span className="seal-unseal-burst" aria-hidden="true" />
-            <img
-              src={brand.crestWreath}
-              alt="AM Official Wedding Crest"
-              className="gate-crest-img"
-              decoding="async"
-            />
+            <GateModernOrbitRing />
+            <span className="gate-modern-medallion">
+              <AmFoilLogo
+                className="gate-am-foil"
+                label="AM Official Wedding Monogram"
+              />
+            </span>
           </button>
 
           <h1 className="gate-couple-title">
