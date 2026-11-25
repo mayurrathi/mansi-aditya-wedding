@@ -1,7 +1,6 @@
 import { useTranslation } from "../context/LanguageContext";
-import { couple, labels } from "../data/weddingData";
+import { brand, couple, labels } from "../data/weddingData";
 import RoyalJharokhaHeroSvg from "../components/RoyalJharokhaHeroSvg";
-import InfinityEmblemSvg from "../components/InfinityEmblemSvg";
 import InstagramIcon from "../components/InstagramIcon";
 
 export default function HeroSection({ guestName }) {
@@ -9,6 +8,21 @@ export default function HeroSection({ guestName }) {
 
   return (
     <section id="hero" className="hero-section">
+      <img
+        src={brand.lilyTl}
+        alt=""
+        className="hero-lily hero-lily--tl"
+        aria-hidden="true"
+        decoding="async"
+      />
+      <img
+        src={brand.lilyBr}
+        alt=""
+        className="hero-lily hero-lily--br"
+        aria-hidden="true"
+        decoding="async"
+      />
+
       <div className="container hero-layout">
         {guestName && (
           <p className="hero-guest-pill">
@@ -22,9 +36,14 @@ export default function HeroSection({ guestName }) {
         <RoyalJharokhaHeroSvg />
 
         <div className="hero-monogram-line">
-          <InfinityEmblemSvg size={82} />
+          <img
+            src={brand.logo}
+            alt="AM Official Monogram"
+            className="hero-am-logo"
+            decoding="async"
+          />
           <span className="hero-chapter-badge">
-            {t(couple.chapterTitle)} · {couple.monogram} {couple.infinitySymbol}
+            {t(couple.chapterTitle)} · {couple.hashtag}
           </span>
         </div>
 

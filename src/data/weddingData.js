@@ -1,7 +1,12 @@
 /* =====================================================================
-   Mansi & Aditya ("The AM Chapter" · M × A · #iAMinlove)
+   Mansi & Aditya ("The AM Chapter" · AM · #iAMinLove)
    Single source of truth for all bilingual invitation content.
    ===================================================================== */
+
+import amLogo from "../assets/brand/am_logo.png";
+import amCrestWreath from "../assets/brand/am_crest_wreath.png";
+import lilyCornerTl from "../assets/brand/lily_corner_tl.png";
+import lilyCornerBr from "../assets/brand/lily_corner_br.png";
 
 import ghibli01Ganesh from "../assets/art/ghibli_01_ganesh_pujan.jpg";
 import ghibli02Engagement from "../assets/art/ghibli_02_engagement.jpg";
@@ -51,11 +56,22 @@ export const photos = {
   gatefoldCouple: gatefoldCoupleImg,
 };
 
+export const brand = {
+  logo: amLogo,
+  crestWreath: amCrestWreath,
+  lilyTl: lilyCornerTl,
+  lilyBr: lilyCornerBr,
+};
+
 export const couple = {
   chapterTitle: { en: "The AM Chapter", hi: "द AM चैप्टर" },
   monogram: "M × A",
   infinitySymbol: "♾️",
-  hashtag: "#iAMinlove",
+  hashtag: "#iAMinLove",
+  hostSignature: {
+    en: "Rathi Family, Pipariya",
+    hi: "राठी परिवार, पिपरिया",
+  },
   bioLineOne: {
     en: "The beginning of always ♾️",
     hi: "हमेशा की शुरुआत ♾️",
@@ -264,14 +280,14 @@ export const storyChapters = [
     },
     reelBadge: {
       tag: { en: "4 & 5 DEC 2026 · PIPARIYA", hi: "4 व 5 दिसम्बर 2026 · पिपरिया" },
-      quote: { en: "Aashirwad Garden, Bankhedi Road · #iAMinlove ♾️", hi: "आशीर्वाद गार्डन, बनखेड़ी रोड · #iAMinlove ♾️" },
+      quote: { en: "Aashirwad Garden, Bankhedi Road · #iAMinLove ♾️", hi: "आशीर्वाद गार्डन, बनखेड़ी रोड · #iAMinLove ♾️" },
     },
   },
 ];
 
 export const loveSyncDialData = {
   eyebrow: { en: "M × A Destiny & Guna Meter", hi: "M × A गुण एवं प्रेम मिलान" },
-  heading: { en: "The #iAMinlove Cosmic Wheel", hi: "#iAMinlove कुंडली एवं प्रेम चक्र" },
+  heading: { en: "The #iAMinLove Cosmic Wheel", hi: "#iAMinLove कुंडली एवं प्रेम चक्र" },
   lede: {
     en: "Twelve auspicious houses, the final countdown to forever, and one eternal verdict. Spin the dual rings to test Mansi & Aditya's cosmic sync!",
     hi: "बारह शुभ भाव, शुभ विवाह की उलटी गिनती और एक अटूट फ़ैसला। पहिया घुमाकर देखें मानसी और आदित्य के कितने गुण मिले!",
@@ -287,8 +303,8 @@ export const loveSyncDialData = {
     { en: "Locking 36/36 Gunas & Infinity Always ♾️!", hi: "पूरे 36/36 गुण और अनंत प्यार पक्का ♾️!" },
   ],
   perfectTag: {
-    en: "36 / 36 Gunas & Infinity Matched · #iAMinlove Certified!",
-    hi: "पूरे 36 / 36 गुण मिले · #iAMinlove की परफ़ेक्ट जोड़ी!",
+    en: "36 / 36 Gunas & Infinity Matched · #iAMinLove Certified!",
+    hi: "पूरे 36 / 36 गुण मिले · #iAMinLove की परफ़ेक्ट जोड़ी!",
   },
   breakdown: [
     { label: { en: "Love & Travel Reels Sync", hi: "प्यार और ट्रैवल रील्स का मेल" }, score: "9 / 9" },
@@ -673,7 +689,7 @@ export const blessingKeepsakes = [
     yPos: "20%",
     title: { en: "The AM Chapter Forever", hi: "एक प्रेम। एक जीवन। एक कहानी।" },
     subtitle: { en: "Tap Diya to release lantern ✨", hi: "आकाश दीप प्रज्वलित करें ✨" },
-    sender: { en: "36 / 36 · #iAMinlove", hi: "36 / 36 · #iAMinlove" },
+    sender: { en: "36 / 36 · #iAMinLove", hi: "36 / 36 · #iAMinLove" },
     wish: {
       en: "36/36 Gunas & an infinity of peaceful mornings together — one love, one life, one story forever.",
       hi: "पूरे 36/36 गुण और अनंत शांति भरी सुबहों का साथ — एक प्रेम, एक जीवन, एक कहानी हमेशा के लिए।",
@@ -742,7 +758,7 @@ export const labels = {
   venueEyebrow: { en: "Wedding Destination · Pipariya", hi: "शुभ विवाह स्थल · पिपरिया" },
   venueHeading: { en: "Aashirwad Garden, Pipariya", hi: "“आशीर्वाद गार्डन”, पिपरिया" },
   openMaps: { en: "Open in Google Maps", hi: "गूगल मैप्स में देखें" },
-  blessingsEyebrow: { en: "Aashirwad Akash Deep · #iAMinlove", hi: "आशीर्वाद आकाश दीप · #iAMinlove" },
+  blessingsEyebrow: { en: "Aashirwad Akash Deep · #iAMinLove", hi: "आशीर्वाद आकाश दीप · #iAMinLove" },
   blessingsHeading: { en: "Release a Sky Lantern for Mansi & Aditya", hi: "मानसी और आदित्य के नाम आकाश दीप उड़ाएँ" },
   blessingsLede: {
     en: "Tap a royal brass diya below or write your own blessing to release a glowing sky lantern into the starlit Pipariya courtyard sky.",
@@ -784,8 +800,8 @@ export const labels = {
   copiedLinkBtn: { en: "Link Copied ✔", hi: "लिंक कॉपी ✔" },
   shareInviteBtn: { en: "Share Invite", hi: "शेयर करें" },
   madeWith: {
-    en: "One love. One life. One story. · #iAMinlove",
-    hi: "एक प्रेम। एक जीवन। एक कहानी। · #iAMinlove",
+    en: "One love. One life. One story. · #iAMinLove",
+    hi: "एक प्रेम। एक जीवन। एक कहानी। · #iAMinLove",
   },
   lightboxClose: { en: "Close photo viewer", hi: "चित्र बंद करें" },
   lightboxPrev: { en: "Previous photo", hi: "पिछला चित्र" },

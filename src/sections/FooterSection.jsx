@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "../context/LanguageContext";
-import { couple, labels } from "../data/weddingData";
+import { brand, couple, labels } from "../data/weddingData";
 import { buildPersonalizedUrl } from "../lib/guest";
 import { copyTextToClipboard } from "../lib/clipboard";
 import InstagramIcon from "../components/InstagramIcon";
@@ -75,17 +75,15 @@ export default function FooterSection() {
           )}
         </div>
 
-        <p
-          style={{
-            margin: 0,
-            fontFamily: "var(--font-display)",
-            fontSize: "2rem",
-            fontWeight: 600,
-            color: "var(--accent-gold)",
-          }}
-        >
-          {couple.monogram} {couple.infinitySymbol}
-        </p>
+        <div className="footer-crest-wrap">
+          <img
+            src={brand.crestWreath}
+            alt="AM Official Wedding Crest"
+            className="footer-crest-img"
+            decoding="async"
+          />
+          <p className="footer-host-sig">{t(couple.hostSignature)}</p>
+        </div>
 
         <div className="footer-handles">
           <a

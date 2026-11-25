@@ -63,7 +63,7 @@ function burstLanternSpark(el) {
     startVelocity: 34,
     origin,
     shapes,
-    colors: ["#E4BD70", "#FFF3C4", "#C8DEC2", "#E06E5A"],
+    colors: ["#E6B45A", "#FFF3C4", "#DF6C98", "#9DB76B"],
     disableForReducedMotion: true,
   });
 }
@@ -75,9 +75,9 @@ function SkyLanternSvg({ tone = "gold", size = 56 }) {
 
   const tones = {
     gold: { top: "#F6D587", mid: "#E4A847", edge: "#9D681B" },
-    pistachio: { top: "#DDF0D6", mid: "#8BB17E", edge: "#4A7243" },
+    pistachio: { top: "#DDF0D6", mid: "#9DB76B", edge: "#4A6128" },
     sindoor: { top: "#F8B299", mid: "#D95F43", edge: "#8E291D" },
-    emerald: { top: "#DCECE0", mid: "#E4BD70", edge: "#2D5B41" },
+    emerald: { top: "#F9D0DF", mid: "#DF6C98", edge: "#7E1F3F" },
   };
   const palette = tones[tone] || tones.gold;
 
@@ -264,8 +264,8 @@ export default function BlessingsSection() {
   const whatsappBlessingUrl = latestCustom
     ? `https://wa.me/${couple.whatsappNumber}?text=${encodeURIComponent(
         lang === "hi"
-          ? `शुभाशीष 🏮 ${latestCustom.labelText} की ओर से मानसी एवं आदित्य को शुभकामना: "${latestCustom.subText}" (#iAMinlove)`
-          : `Blessing Sky Lantern 🏮 from ${latestCustom.labelText} for Mansi & Aditya: "${latestCustom.subText}" (#iAMinlove)`
+          ? `शुभाशीष 🏮 ${latestCustom.labelText} की ओर से मानसी एवं आदित्य को शुभकामना: "${latestCustom.subText}" (#iAMinLove)`
+          : `Blessing Sky Lantern 🏮 from ${latestCustom.labelText} for Mansi & Aditya: "${latestCustom.subText}" (#iAMinLove)`
       )}`
     : null;
 
@@ -297,7 +297,7 @@ export default function BlessingsSection() {
                   strokeDasharray="6 6"
                 />
                 <circle cx="74" cy="36" r="14" fill="#FFF3C8" fillOpacity="0.88" />
-                <circle cx="80" cy="32" r="12" fill="#0F2117" />
+                <circle cx="80" cy="32" r="12" fill="#160A0E" />
               </svg>
 
               {SKY_STARS.map((star) => (

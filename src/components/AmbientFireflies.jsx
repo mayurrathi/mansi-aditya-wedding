@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
-const COLORS = ["#E4BD70", "#C8DEC2", "#8BB17E", "#A63A2E", "#FFF6D6"];
+const COLORS = ["#E6B45A", "#DF6C98", "#9DB76B", "#6E1A24", "#FDF6EC"];
 const PETAL_PALETTE = [
-  { fill: "#E4BD70", stroke: "#B68B3C" }, // Marigold Gold
-  { fill: "#C8DEC2", stroke: "#8BB17E" }, // Pistachio Silk
-  { fill: "#D96B52", stroke: "#A63A2E" }, // Sindoor Rose
-  { fill: "#F3D99B", stroke: "#C99E48" }, // Kundan Cream
+  { fill: "#DF6C98", stroke: "#B54A76" }, // Pink Stargazer Lily
+  { fill: "#E6B45A", stroke: "#B87924" }, // Burnished Honey Gold
+  { fill: "#9DB76B", stroke: "#7C944F" }, // Olive Sage Leaf
+  { fill: "#FBEBD8", stroke: "#D99A38" }, // Peach Ivory Silk
 ];
 
 const FLOATING_3D_LANTERNS = [
@@ -266,7 +266,7 @@ export default function AmbientFireflies({ active = true }) {
               "--scale": item.scale,
             }}
             onClick={handlePopLantern}
-            title="Tap lantern for #iAMinlove sparkle"
+            title="Tap lantern for #iAMinLove sparkle"
           >
             <BrassLantern3DSvg />
           </button>
@@ -275,7 +275,7 @@ export default function AmbientFireflies({ active = true }) {
 
       {bursts.map((f) => (
         <div key={f.id} className="lantern-firework" style={{ left: f.x, top: f.y }}>
-          <span className="lantern-firework__tag">♾️ #iAMinlove</span>
+          <span className="lantern-firework__tag">♾️ #iAMinLove</span>
           {f.particles.map((p, i) => (
             <span
               key={i}

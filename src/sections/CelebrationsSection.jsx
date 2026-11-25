@@ -23,7 +23,7 @@ export default function CelebrationsSection({ onOpenEventLightbox }) {
       title: `${ev.title.en} · Mansi & Aditya Wedding`,
       startUtc: ev.calStart,
       endUtc: ev.calEnd,
-      description: `${ev.note.en} #iAMinlove`,
+      description: `${ev.note.en} #iAMinLove`,
       filename: `Mansi-Aditya-${ev.id}.ics`,
     });
   };

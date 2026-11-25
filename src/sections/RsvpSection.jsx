@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "../context/LanguageContext";
-import { couple, labels } from "../data/weddingData";
+import { brand, couple, labels } from "../data/weddingData";
 import { copyTextToClipboard } from "../lib/clipboard";
 import RevealOnScroll from "../components/RevealOnScroll";
 
@@ -21,9 +21,9 @@ export default function RsvpSection({ initialGuest = "" }) {
     const noteLine = note.trim() ? `\nNote / Song: ${note.trim()}` : "";
 
     if (lang === "hi") {
-      return `नमस्ते! ${cleanName} की ओर से मानसी एवं आदित्य के शुभ विवाह (#iAMinlove · 4 व 5 दिसम्बर 2026, आशीर्वाद गार्डन, पिपरिया) में ${guests} अतिथियों की उपस्थिति पक्की है।\nकार्यक्रम: ${dayText}${noteLine}`;
+      return `नमस्ते! ${cleanName} की ओर से मानसी एवं आदित्य के शुभ विवाह (#iAMinLove · 4 व 5 दिसम्बर 2026, आशीर्वाद गार्डन, पिपरिया) में ${guests} अतिथियों की उपस्थिति पक्की है।\nकार्यक्रम: ${dayText}${noteLine}`;
     }
-    return `Warm regards! ${cleanName} (${guests} ${guests === 1 ? "guest" : "guests"}) is delighted to attend Mansi & Aditya's wedding (#iAMinlove · 4 & 5 Dec 2026 at Aashirwad Garden, Pipariya).\nAttending: ${dayText}${noteLine}`;
+    return `Warm regards! ${cleanName} (${guests} ${guests === 1 ? "guest" : "guests"}) is delighted to attend Mansi & Aditya's wedding (#iAMinLove · 4 & 5 Dec 2026 at Aashirwad Garden, Pipariya).\nAttending: ${dayText}${noteLine}`;
   };
 
   const whatsappUrl = `https://wa.me/${couple.whatsappNumber}?text=${encodeURIComponent(
@@ -43,6 +43,8 @@ export default function RsvpSection({ initialGuest = "" }) {
       <div className="container">
         <RevealOnScroll>
           <div className="rsvp-card">
+            <img src={brand.lilyTl} alt="" className="rsvp-lily rsvp-lily--tl" aria-hidden="true" decoding="async" />
+            <img src={brand.lilyBr} alt="" className="rsvp-lily rsvp-lily--br" aria-hidden="true" decoding="async" />
             <div className="section-header" style={{ marginBottom: "1.75rem" }}>
               <p className="eyebrow-tag">{t(labels.rsvpEyebrow)}</p>
               <h2 className="section-title">{t(labels.rsvpHeading)}</h2>

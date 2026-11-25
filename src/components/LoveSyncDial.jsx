@@ -6,12 +6,12 @@ import { loveSyncDialData } from "../data/weddingData";
 import RevealOnScroll from "./RevealOnScroll";
 
 const HOUSE_COLORS = [
-  "#E4BD70",
-  "#A63A2E",
-  "#8BB17E",
-  "#C8DEC2",
-  "#D97F54",
-  "#E4BD70",
+  "#E6B45A",
+  "#DF6C98",
+  "#9DB76B",
+  "#F7EBDC",
+  "#B87924",
+  "#E6B45A",
 ];
 
 const HOUSE_GLYPHS = ["♾️", "🎬", "🏎️", "🎳", "🌿", "🪔", "🎶", "💍", "⛰️", "🌸", "✨", "❤️"];
@@ -104,7 +104,7 @@ export default function LoveSyncDial() {
         setScore(36);
         setMatched(true);
         setSpinning(false);
-        const palette = ["#E4BD70", "#C8DEC2", "#8BB17E", "#A63A2E", "#F5F8F3"];
+        const palette = ["#E6B45A", "#DF6C98", "#9DB76B", "#6E1A24", "#FDF6EC"];
         confetti({
           particleCount: 46,
           angle: 65,
@@ -146,15 +146,15 @@ export default function LoveSyncDial() {
             aria-label={t(loveSyncDialData.spinBtn)}
           >
             <svg viewBox="0 0 340 340" className="kundli-svg" role="img" aria-label={t(loveSyncDialData.heading)}>
-              <circle cx="170" cy="170" r="158" fill="none" stroke="#8BB17E" strokeWidth="1.6" strokeDasharray="3 7" />
+              <circle cx="170" cy="170" r="158" fill="none" stroke="#DF6C98" strokeWidth="1.6" strokeDasharray="3 7" />
 
               {/* Top Fixed Golden Pointer */}
-              <polygon points="170,22 162,4 178,4" fill="#E4BD70" stroke="#13261C" strokeWidth="1.5" />
+              <polygon points="170,22 162,4 178,4" fill="#E6B45A" stroke="#2A1217" strokeWidth="1.5" />
 
-              {/* Outer Spinning 12-House M x A Ring */}
+              {/* Outer Spinning 12-House AM Ring */}
               <g ref={outerWheelRef}>
-                <circle cx="170" cy="170" r="144" fill="#13261C" stroke="#E4BD70" strokeWidth="2.4" />
-                <circle cx="170" cy="170" r="102" fill="#1B3527" stroke="#8BB17E" strokeWidth="1.5" />
+                <circle cx="170" cy="170" r="144" fill="#2A1217" stroke="#E6B45A" strokeWidth="2.4" />
+                <circle cx="170" cy="170" r="102" fill="#3D1A21" stroke="#DF6C98" strokeWidth="1.5" />
                 {Array.from({ length: 12 }).map((_, i) => {
                   const angle = (i * 30 * Math.PI) / 180;
                   const midAngle = ((i * 30 + 15) * Math.PI) / 180;
@@ -167,13 +167,13 @@ export default function LoveSyncDial() {
                   const color = HOUSE_COLORS[i % HOUSE_COLORS.length];
                   return (
                     <g key={i}>
-                      <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#F2F6EF" strokeOpacity="0.35" strokeWidth="1.2" />
+                      <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#FDF6EC" strokeOpacity="0.35" strokeWidth="1.2" />
                       <circle cx={gx} cy={gy} r="13" fill={color} fillOpacity="0.22" stroke={color} strokeWidth="1.4" />
                       <text
                         x={gx}
                         y={gy + 4}
                         textAnchor="middle"
-                        fill="#F2F6EF"
+                        fill="#FDF6EC"
                         fontSize="12"
                         fontWeight="700"
                       >
@@ -196,21 +196,21 @@ export default function LoveSyncDial() {
                   const py = 170 + Math.sin(angle + Math.PI / 8) * 84;
                   return (
                     <g key={i}>
-                      <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#E4BD70" strokeOpacity="0.55" strokeWidth="1.2" strokeDasharray="2 3" />
-                      <circle cx={px} cy={py} r="4.5" fill={i % 2 === 0 ? "#E4BD70" : "#8BB17E"} />
+                      <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#E6B45A" strokeOpacity="0.55" strokeWidth="1.2" strokeDasharray="2 3" />
+                      <circle cx={px} cy={py} r="4.5" fill={i % 2 === 0 ? "#E6B45A" : "#9DB76B"} />
                     </g>
                   );
                 })}
               </g>
 
               {/* Center Score Hub */}
-              <circle cx="170" cy="170" r="64" fill="#0B1510" stroke="#8BB17E" strokeWidth="1.6" />
+              <circle cx="170" cy="170" r="64" fill="#1A0B0E" stroke="#DF6C98" strokeWidth="1.6" />
               <circle
                 cx="170"
                 cy="170"
                 r="56"
                 fill="none"
-                stroke="#E4BD70"
+                stroke="#E6B45A"
                 strokeWidth="4"
                 strokeLinecap="round"
                 strokeDasharray={HUB_CIRCUMFERENCE}

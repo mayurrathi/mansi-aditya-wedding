@@ -19,15 +19,45 @@
   scroll-margin-top: 76px;
   padding-top: clamp(5.75rem, 10vw, 7.25rem);
   padding-bottom: clamp(3rem, 6vw, 4.5rem);
+  overflow: hidden;
   background:
-    radial-gradient(circle at 18% 18%, var(--accent-pistachio-soft) 0%, transparent 50%),
+    radial-gradient(circle at 18% 18%, var(--accent-rose-soft) 0%, transparent 50%),
     radial-gradient(circle at 82% 24%, var(--accent-gold-soft) 0%, transparent 48%),
     var(--bg-page);
   display: flex;
   align-items: center;
 }
 
+.hero-lily {
+  position: absolute;
+  width: clamp(130px, 20vw, 240px);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.72;
+  z-index: 1;
+}
+
+.hero-lily--tl {
+  top: clamp(3.6rem, 6vw, 4.4rem);
+  left: -8px;
+}
+
+.hero-lily--br {
+  bottom: -6px;
+  right: -8px;
+}
+
+@media (max-width: 768px) {
+  .hero-lily {
+    width: clamp(86px, 24vw, 130px);
+    opacity: 0.34;
+  }
+}
+
 .hero-layout {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -66,8 +96,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
-  margin-top: -0.35rem;
+  gap: 0.32rem;
+  margin-top: -0.2rem;
+}
+
+.hero-am-logo {
+  height: 46px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(184, 121, 36, 0.2));
+}
+
+.app.theme-pm .hero-am-logo {
+  filter: brightness(1.38) saturate(1.12);
 }
 
 .hero-chapter-badge {
@@ -149,7 +191,7 @@
   font-weight: 700;
   text-decoration: none;
   box-shadow:
-    0 6px 16px rgba(19, 38, 28, 0.08),
+    0 6px 16px rgba(59, 25, 20, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.35);
   transition:
     transform 200ms var(--ease-editorial),
@@ -160,17 +202,17 @@
 .ig-pill-badge:hover {
   transform: translateY(-2px) scale(1.02);
   border-color: var(--accent-primary);
-  box-shadow: 0 10px 24px rgba(166, 58, 46, 0.16);
+  box-shadow: 0 10px 24px rgba(110, 26, 36, 0.16);
 }
 
 .ig-pill-badge--featured {
-  background: linear-gradient(135deg, #13261c, #1f3c2d);
-  border-color: #e4bd70;
-  color: #f2f6ef;
+  background: linear-gradient(135deg, #5e151e, #7e1f2c);
+  border-color: #e6b45a;
+  color: #fff8ef;
 }
 
 .ig-pill-badge--featured .ig-svg-icon {
-  color: #e4bd70;
+  color: #e6b45a;
 }
 
 .combined-ig-banner {
@@ -254,8 +296,8 @@
   overflow: hidden;
   margin-bottom: 0.55rem;
   box-shadow:
-    0 0 0 6px var(--accent-pistachio-soft),
-    0 14px 30px rgba(19, 38, 28, 0.14);
+    0 0 0 6px var(--accent-rose-soft),
+    0 14px 30px rgba(59, 25, 20, 0.14);
   transition: transform 220ms var(--ease-editorial);
 }
 
@@ -374,7 +416,7 @@
   border: 1.5px solid var(--border-gold);
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: #13261c;
+  background: #2a1217;
   aspect-ratio: 4 / 3;
   cursor: pointer;
 }
@@ -394,9 +436,9 @@
   position: absolute;
   bottom: 8px;
   right: 8px;
-  background: rgba(19, 38, 28, 0.86);
-  border: 1px solid rgba(228, 189, 112, 0.65);
-  color: #f2f6ef;
+  background: rgba(42, 18, 23, 0.88);
+  border: 1px solid rgba(230, 180, 90, 0.65);
+  color: #fdf6ec;
   font-size: 0.7rem;
   font-weight: 700;
   padding: 0.2rem 0.55rem;
@@ -445,15 +487,15 @@
 .taped-photo-btn {
   position: relative;
   margin-top: 0.35rem;
-  background: #faf7ef;
-  color: #13261c;
-  border: 1px solid #d5c7b0;
+  background: #fbf0e1;
+  color: #3b1914;
+  border: 1px solid #d5c0ab;
   border-radius: 8px;
   padding: 0.45rem 0.45rem 0.55rem;
   transform: rotate(var(--tilt, -2deg));
   text-align: center;
   cursor: pointer;
-  box-shadow: 0 10px 22px rgba(19, 38, 28, 0.14);
+  box-shadow: 0 10px 22px rgba(59, 25, 20, 0.14);
   transition: transform 220ms var(--ease-editorial);
 }
 
@@ -468,7 +510,7 @@
   transform: translateX(-50%);
   width: 52px;
   height: 14px;
-  background: rgba(228, 189, 112, 0.85);
+  background: rgba(230, 180, 90, 0.85);
   border-radius: 2px;
 }
 
@@ -485,7 +527,7 @@
   display: block;
   font-size: 0.74rem;
   font-weight: 700;
-  color: #13261c;
+  color: #3b1914;
 }
 
 .story-controls {
@@ -555,8 +597,8 @@
     scroll-snap-align: none;
     border-top: 2.5px solid var(--accent-gold);
     box-shadow:
-      0 -10px 24px rgba(19, 38, 28, 0.1),
-      0 20px 44px rgba(19, 38, 28, 0.18);
+      0 -10px 24px rgba(59, 25, 20, 0.1),
+      0 20px 44px rgba(59, 25, 20, 0.16);
   }
 
   .story-art-btn {
@@ -637,7 +679,7 @@
 
 .day-filter__btn.is-active {
   background-color: var(--accent-primary);
-  color: #ffffff;
+  color: var(--ink-on-accent);
 }
 
 .day-group + .day-group {
@@ -654,9 +696,9 @@
   display: inline-block;
   padding: 0.55rem 1.65rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #13261c, #1e3b2b);
-  border: 1.5px solid #e4bd70;
-  color: #e4bd70;
+  background: linear-gradient(135deg, #5e151e, #7e1f2c);
+  border: 1.5px solid #e6b45a;
+  color: #fdf6ec;
   font-family: var(--font-display);
   font-size: clamp(1.25rem, 2.5vw, 1.55rem);
   font-weight: 600;
@@ -701,14 +743,14 @@
 }
 
 .event-card.accent-sindoor {
-  border-color: rgba(166, 58, 46, 0.55);
+  border-color: rgba(223, 108, 152, 0.55);
 }
 
 .event-card__media {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
-  background-color: #13261c;
+  background-color: #2a1217;
   overflow: hidden;
 }
 
@@ -735,9 +777,9 @@
   position: absolute;
   top: 10px;
   left: 10px;
-  background: rgba(19, 38, 28, 0.88);
-  border: 1px solid rgba(228, 189, 112, 0.72);
-  color: #f2f6ef;
+  background: rgba(42, 18, 23, 0.88);
+  border: 1px solid rgba(230, 180, 90, 0.72);
+  color: #fdf6ec;
   font-size: 0.75rem;
   font-weight: 700;
   padding: 0.28rem 0.75rem;
@@ -752,9 +794,9 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(19, 38, 28, 0.82);
-  border: 1px solid rgba(228, 189, 112, 0.65);
-  color: #e4bd70;
+  background: rgba(42, 18, 23, 0.84);
+  border: 1px solid rgba(230, 180, 90, 0.65);
+  color: #e6b45a;
   display: grid;
   place-items: center;
   font-size: 0.85rem;
@@ -854,19 +896,19 @@
 .countdown-box {
   padding: clamp(2rem, 5vw, 3.5rem);
   border-radius: var(--radius-lg);
-  background: linear-gradient(150deg, #13261c 0%, #1d382a 100%);
-  color: #f2f6ef;
+  background: linear-gradient(150deg, #2a1217 0%, #461b23 100%);
+  color: #fdf6ec;
   text-align: center;
-  border: 2px solid rgba(228, 189, 112, 0.55);
+  border: 2px solid rgba(230, 180, 90, 0.58);
   box-shadow: var(--shadow-elevated);
 }
 
 .countdown-box .section-title {
-  color: #f2f6ef;
+  color: #fdf6ec;
 }
 
 .countdown-box .section-lede {
-  color: #c8dec2;
+  color: #f0d7dc;
 }
 
 .dot-ring-countdown {
@@ -909,13 +951,13 @@
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   line-height: 1;
-  color: #e4bd70;
+  color: #e6b45a;
 }
 
 .countdown-unit__label {
   font-size: 0.84rem;
   font-weight: 600;
-  color: #d6e4d2;
+  color: #f0d7dc;
 }
 
 .countdown-actions {
@@ -1197,11 +1239,11 @@
   min-height: 330px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 2px solid rgba(228, 189, 112, 0.6);
+  border: 2px solid rgba(230, 180, 90, 0.6);
   background:
-    radial-gradient(circle at 22% 20%, rgba(228, 189, 112, 0.16), transparent 46%),
-    radial-gradient(circle at 78% 28%, rgba(139, 177, 126, 0.14), transparent 52%),
-    linear-gradient(180deg, #0b1812 0%, #12271d 60%, #173124 100%);
+    radial-gradient(circle at 22% 20%, rgba(230, 180, 90, 0.16), transparent 46%),
+    radial-gradient(circle at 78% 28%, rgba(223, 108, 152, 0.16), transparent 52%),
+    linear-gradient(180deg, #160a0e 0%, #2a1217 60%, #3a1720 100%);
   box-shadow: var(--shadow-elevated);
   padding: 1.15rem;
 }
@@ -1242,16 +1284,16 @@
   gap: 0.45rem;
   padding: 0.42rem 1rem;
   border-radius: 999px;
-  background: rgba(11, 21, 16, 0.8);
-  border: 1px solid rgba(228, 189, 112, 0.58);
-  color: #f2f6ef;
+  background: rgba(24, 11, 14, 0.82);
+  border: 1px solid rgba(230, 180, 90, 0.58);
+  color: #fdf6ec;
   font-size: 0.84rem;
   font-weight: 600;
   backdrop-filter: blur(6px);
 }
 
 .sky-counter-pill strong {
-  color: #e4bd70;
+  color: #e6b45a;
 }
 
 .sky-lanterns-canvas {
@@ -1308,9 +1350,9 @@
   max-width: clamp(104px, 24vw, 152px);
   padding: 0.25rem 0.62rem;
   border-radius: 12px;
-  background: rgba(11, 21, 16, 0.86);
-  border: 1px solid rgba(228, 189, 112, 0.5);
-  color: #f2f6ef;
+  background: rgba(24, 11, 14, 0.86);
+  border: 1px solid rgba(230, 180, 90, 0.52);
+  color: #fdf6ec;
   font-size: 0.72rem;
   line-height: 1.25;
   text-align: center;
@@ -1319,13 +1361,13 @@
 }
 
 .sky-lantern-node.is-selected .sky-lantern-tag {
-  border-color: #e4bd70;
-  background: rgba(19, 38, 28, 0.96);
+  border-color: #e6b45a;
+  background: rgba(42, 18, 23, 0.96);
   transform: scale(1.04);
 }
 
 .sky-lantern-tag strong {
-  color: #e4bd70;
+  color: #e6b45a;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1333,7 +1375,7 @@
 }
 
 .sky-lantern-tag small {
-  color: #d6e4d2;
+  color: #f0d7dc;
   font-size: 0.66rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1580,6 +1622,8 @@
 
 /* ---------- 9 · RSVP & FOOTER SECTION ---------- */
 .rsvp-card {
+  position: relative;
+  overflow: hidden;
   max-width: 740px;
   margin-inline: auto;
   padding: clamp(1.75rem, 4.5vw, 3rem);
@@ -1587,6 +1631,25 @@
   background-color: var(--bg-card);
   border: 2px solid var(--border-gold);
   box-shadow: var(--shadow-elevated);
+}
+
+.rsvp-lily {
+  position: absolute;
+  width: clamp(92px, 16vw, 140px);
+  height: auto;
+  opacity: 0.24;
+  pointer-events: none;
+  user-select: none;
+}
+
+.rsvp-lily--tl {
+  top: 0;
+  left: 0;
+}
+
+.rsvp-lily--br {
+  bottom: 0;
+  right: 0;
 }
 
 .rsvp-form {
@@ -1708,6 +1771,33 @@
   color: var(--accent-primary);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+.footer-crest-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.35rem;
+}
+
+.footer-crest-img {
+  width: clamp(120px, 24vw, 152px);
+  height: auto;
+  display: block;
+}
+
+.app.theme-pm .footer-crest-img {
+  filter: brightness(1.25) saturate(1.1);
+}
+
+.footer-host-sig {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--accent-primary);
 }
 
 .footer-handles {

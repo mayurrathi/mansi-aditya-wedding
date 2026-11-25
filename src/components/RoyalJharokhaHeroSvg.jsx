@@ -39,9 +39,9 @@ export default function RoyalJharokhaHeroSvg() {
       >
         <defs>
           <radialGradient id="pistachioHalo" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#E4BD70" stopOpacity="0.24" />
-            <stop offset="65%" stopColor="#8BB17E" stopOpacity="0.12" />
-            <stop offset="100%" stopColor="#13261C" stopOpacity="0" />
+            <stop offset="0%" stopColor="#E6B45A" stopOpacity="0.28" />
+            <stop offset="65%" stopColor="#DF6C98" stopOpacity="0.14" />
+            <stop offset="100%" stopColor="#3B1914" stopOpacity="0" />
           </radialGradient>
         </defs>
 
@@ -53,8 +53,8 @@ export default function RoyalJharokhaHeroSvg() {
           cy="210"
           r="166"
           fill="none"
-          stroke="#B68B3C"
-          strokeOpacity="0.55"
+          stroke="#B87924"
+          strokeOpacity="0.58"
           strokeWidth="1.4"
           strokeDasharray="4 8"
         />
@@ -64,20 +64,20 @@ export default function RoyalJharokhaHeroSvg() {
           className="jharokha-draw-path"
           d="M84 378 L84 185 Q84 115 156 92 Q220 48 300 20 Q380 48 444 92 Q516 115 516 185 L516 378"
           fill="none"
-          stroke="#B68B3C"
+          stroke="#B87924"
           strokeWidth="2.2"
           strokeLinecap="round"
         />
 
         {/* Hanging Brass Lanterns on Left & Right Columns (well outside the medallion) */}
         <g className="lantern-sway-left">
-          <line x1="126" y1="112" x2="126" y2="174" stroke="#B68B3C" strokeWidth="1.5" />
-          <polygon points="116,174 136,174 141,192 126,208 111,192" fill="#E4BD70" fillOpacity="0.88" stroke="#B68B3C" strokeWidth="1.3" />
+          <line x1="126" y1="112" x2="126" y2="174" stroke="#B87924" strokeWidth="1.5" />
+          <polygon points="116,174 136,174 141,192 126,208 111,192" fill="#E6B45A" fillOpacity="0.88" stroke="#B87924" strokeWidth="1.3" />
           <circle cx="126" cy="188" r="4.5" fill="#FFF6D6" />
         </g>
         <g className="lantern-sway-right">
-          <line x1="474" y1="112" x2="474" y2="174" stroke="#B68B3C" strokeWidth="1.5" />
-          <polygon points="464,174 484,174 489,192 474,208 459,192" fill="#E4BD70" fillOpacity="0.88" stroke="#B68B3C" strokeWidth="1.3" />
+          <line x1="474" y1="112" x2="474" y2="174" stroke="#B87924" strokeWidth="1.5" />
+          <polygon points="464,174 484,174 489,192 474,208 459,192" fill="#E6B45A" fillOpacity="0.88" stroke="#B87924" strokeWidth="1.3" />
           <circle cx="474" cy="188" r="4.5" fill="#FFF6D6" />
         </g>
       </svg>

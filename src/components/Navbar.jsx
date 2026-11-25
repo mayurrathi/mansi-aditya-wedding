@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "../context/LanguageContext";
-import { couple, labels } from "../data/weddingData";
+import { brand, labels } from "../data/weddingData";
 
 function SunIcon({ size = 15 }) {
   return (
@@ -96,8 +96,13 @@ export default function Navbar({ theme, onToggleTheme, playing, onToggleMusic })
 
       <header className={`site-nav ${scrolled ? "is-scrolled" : ""} ${drawerOpen ? "is-drawer-open" : ""}`}>
         <div className="container site-nav__inner">
-          <a href="#hero" className="site-nav__brand" onClick={() => setDrawerOpen(false)}>
-            <span>{couple.monogram}</span>
+          <a
+            href="#hero"
+            className="site-nav__brand"
+            onClick={() => setDrawerOpen(false)}
+            aria-label="AM — The AM Chapter Home"
+          >
+            <img src={brand.logo} alt="AM — The AM Chapter" className="site-nav__logo" />
           </a>
 
           <nav className="site-nav__links" aria-label="Invitation sections">

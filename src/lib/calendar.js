@@ -20,7 +20,7 @@ export function buildEventCalendarUrl(ev) {
   return buildGoogleCalendarUrl({
     title: `${ev.title.en} · Mansi & Aditya Wedding`,
     dates: `${ev.calStart}/${ev.calEnd}`,
-    details: `${ev.note.en} #iAMinlove`,
+    details: `${ev.note.en} #iAMinLove`,
   });
 }
 
@@ -28,7 +28,7 @@ export const fullWeddingCalendarUrl = buildGoogleCalendarUrl({
   title: "Mansi & Aditya's Wedding · The AM Chapter",
   dates: "20261204T010000Z/20261205T150000Z",
   details:
-    "Join us for the wedding celebrations of Mansi Rathi & Aditya Jain at Aashirwad Garden, Bankhedi Road, Pipariya. #iAMinlove",
+    "Join us for the wedding celebrations of Mansi Rathi & Aditya Jain at Aashirwad Garden, Bankhedi Road, Pipariya. #iAMinLove",
 });
 
 function escapeIcsText(str) {
@@ -77,11 +77,11 @@ export function downloadEventIcs({
 export function downloadFullWeddingIcs() {
   downloadEventIcs({
     uid: "mansi-aditya-theamchapter-2026@invite",
-    title: "Mansi & Aditya's Wedding Celebrations (#iAMinlove)",
+    title: "Mansi & Aditya's Wedding Celebrations (#iAMinLove)",
     startUtc: "20261204T010000Z",
     endUtc: "20261205T150000Z",
     description:
-      "Two days of wedding celebrations for Mansi Rathi & Aditya Jain at Aashirwad Garden, Bankhedi Road, Pipariya. #iAMinlove",
+      "Two days of wedding celebrations for Mansi Rathi & Aditya Jain at Aashirwad Garden, Bankhedi Road, Pipariya. #iAMinLove",
     filename: "Mansi-Aditya-Wedding.ics",
   });
 }

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import confetti from "canvas-confetti";
 import { LanguageProvider, useTranslation } from "./context/LanguageContext";
-import { lookbookGallery, photos, scheduleDays, storyChapters } from "./data/weddingData";
+import { brand, lookbookGallery, photos, scheduleDays, storyChapters } from "./data/weddingData";
 import { getGuestNameFromUrl } from "./lib/guest";
 
 import ChapterOpening from "./components/ChapterOpening";
@@ -29,7 +29,7 @@ function firePistachioConfetti() {
     particleCount: 72,
     spread: 85,
     origin: { y: 0.55 },
-    colors: ["#C8DEC2", "#8BB17E", "#E4BD70", "#A63A2E"],
+    colors: ["#DF6C98", "#E6B45A", "#7C944F", "#6E1A24", "#FDF6EC"],
   });
 }
 
@@ -49,8 +49,12 @@ function WeddingInvitationApp() {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
 
-    // Preload and pre-decode all Hero, Family, Story & Celebration images while on Envelope page
+    // Preload and pre-decode all Brand, Hero, Family, Story & Celebration images while on Envelope page
     const priorityUrls = [
+      brand.logo,
+      brand.crestWreath,
+      brand.lilyTl,
+      brand.lilyBr,
       photos.gatefoldCouple,
       photos.soloMansi,
       photos.soloAditya,

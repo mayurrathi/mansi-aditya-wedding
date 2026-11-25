@@ -71,7 +71,7 @@ export default function CountdownSection() {
                             cy="56"
                             r="52"
                             fill="none"
-                            stroke="rgba(200, 222, 194, 0.25)"
+                            stroke="rgba(240, 178, 198, 0.28)"
                             strokeWidth="1.4"
                             strokeDasharray="2 6"
                           />
@@ -79,8 +79,8 @@ export default function CountdownSection() {
                             cx="56"
                             cy="56"
                             r={r}
-                            fill="rgba(11, 21, 16, 0.55)"
-                            stroke="rgba(228, 189, 112, 0.2)"
+                            fill="rgba(24, 11, 14, 0.55)"
+                            stroke="rgba(230, 180, 90, 0.22)"
                             strokeWidth="4"
                           />
                           <circle
@@ -88,7 +88,7 @@ export default function CountdownSection() {
                             cy="56"
                             r={r}
                             fill="none"
-                            stroke="#E4BD70"
+                            stroke="#E6B45A"
                             strokeWidth="4"
                             strokeLinecap="round"
                             strokeDasharray={circ}

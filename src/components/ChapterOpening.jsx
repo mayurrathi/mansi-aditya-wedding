@@ -1,6 +1,6 @@
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "../context/LanguageContext";
-import { chapterOpening, couple, labels } from "../data/weddingData";
+import { brand, chapterOpening, couple, labels } from "../data/weddingData";
 import InstagramIcon from "./InstagramIcon";
 
 const OPEN_MS = 820;
@@ -28,88 +28,6 @@ function GateMoonIcon({ size = 13 }) {
         strokeWidth="2"
         strokeLinejoin="round"
       />
-    </svg>
-  );
-}
-
-function ModernEditorialStampSvg() {
-  const uid = useId().replace(/:/g, "");
-  const ringId = `editorialRing-${uid}`;
-
-  return (
-    <svg viewBox="0 0 200 200" className="editorial-stamp-svg" aria-hidden="true">
-      <defs>
-        <path
-          id={ringId}
-          d="M 100,100 m -74,0 a 74,74 0 1,1 148,0 a 74,74 0 1,1 -148,0"
-        />
-      </defs>
-
-      {/* Slow-orbiting modern editorial date & chapter typography ring */}
-      <g className="editorial-stamp-orbit">
-        <circle
-          cx="100"
-          cy="100"
-          r="91"
-          fill="none"
-          stroke="rgba(166, 58, 46, 0.22)"
-          strokeWidth="1"
-        />
-        <text
-          fill="#6d5c50"
-          fontSize="9.6"
-          fontWeight="600"
-          letterSpacing="3.4"
-          fontFamily="Plus Jakarta Sans, system-ui, sans-serif"
-        >
-          <textPath href={`#${ringId}`} startOffset="0%">
-            THE AM CHAPTER • 04 &amp; 05 DEC 2026 • PIPARIYA •
-          </textPath>
-        </text>
-      </g>
-
-      {/* Frosted porcelain inner medallion */}
-      <circle
-        cx="100"
-        cy="100"
-        r="56"
-        fill="rgba(255, 253, 249, 0.96)"
-        stroke="rgba(28, 43, 34, 0.14)"
-        strokeWidth="1.2"
-      />
-      <circle
-        cx="100"
-        cy="100"
-        r="50"
-        fill="none"
-        stroke="rgba(166, 58, 46, 0.22)"
-        strokeWidth="0.9"
-        strokeDasharray="2 4"
-      />
-
-      {/* Minimal editorial M & A serif crest */}
-      <text
-        x="100"
-        y="107"
-        textAnchor="middle"
-        fill="#1c2b22"
-        fontFamily="Cormorant Garamond, Georgia, serif"
-        fontSize="30"
-        fontWeight="600"
-        letterSpacing="2"
-      >
-        M <tspan fill="#a63a2e" fontStyle="italic" fontSize="24">×</tspan> A
-      </text>
-
-      {/* Ultra-minimal botanical leaf flourish below monogram */}
-      <path
-        d="M84 123 Q100 116 116 123"
-        fill="none"
-        stroke="#8bb17e"
-        strokeWidth="1.3"
-        strokeLinecap="round"
-      />
-      <circle cx="100" cy="120" r="2" fill="#a63a2e" />
     </svg>
   );
 }
@@ -155,7 +73,7 @@ export default function ChapterOpening({
       aria-modal="true"
       aria-label={t(couple.chapterTitle)}
     >
-      {/* Ambient soft modern botanical mesh aura */}
+      {/* Ambient warm peach-lily & honey-gold aura */}
       <div className="gate-ambient-orb gate-ambient-orb--left" aria-hidden="true" />
       <div className="gate-ambient-orb gate-ambient-orb--right" aria-hidden="true" />
 
@@ -202,13 +120,25 @@ export default function ChapterOpening({
         </div>
       )}
 
-      {/* Modern Editorial Stationery Cover Card */}
+      {/* Official Physical-Card-Synced Stationery Cover */}
       <div
         className={`gate-stage ${isOpening ? "is-opening" : ""}`}
         onClick={handleTrigger}
       >
         <div className="gate-doors" aria-hidden="true">
-          <div className="editorial-arch-frame" />
+          <div className="editorial-card-frame" />
+          <img
+            src={brand.lilyTl}
+            alt=""
+            className="gate-lily gate-lily--tl"
+            decoding="async"
+          />
+          <img
+            src={brand.lilyBr}
+            alt=""
+            className="gate-lily gate-lily--br"
+            decoding="async"
+          />
         </div>
 
         <div className="gate-front-content">
@@ -221,19 +151,9 @@ export default function ChapterOpening({
             </div>
           )}
 
-          <p className="gate-kicker">
-            {t(couple.chapterTitle)} · {couple.hashtag}
-          </p>
-
-          <h1 className="gate-couple-title">
-            {t(couple.bride.first)} <span>&amp;</span> {t(couple.groom.first)}
-          </h1>
-
-          <p className="gate-quote">“{t(chapterOpening.quote)}”</p>
-
           <button
             type="button"
-            className="gate-editorial-stamp-btn"
+            className="gate-crest-btn"
             onClick={(e) => {
               e.stopPropagation();
               handleTrigger();
@@ -241,8 +161,20 @@ export default function ChapterOpening({
             aria-label={t(chapterOpening.openBtn)}
           >
             <span className="seal-unseal-burst" aria-hidden="true" />
-            <ModernEditorialStampSvg />
+            <img
+              src={brand.crestWreath}
+              alt="AM Official Wedding Crest"
+              className="gate-crest-img"
+              decoding="async"
+            />
           </button>
+
+          <h1 className="gate-couple-title">
+            {t(couple.bride.first)} <span>&amp;</span> {t(couple.groom.first)}
+          </h1>
+
+          <p className="gate-hashtag">{couple.hashtag}</p>
+          <p className="gate-quote">“{t(chapterOpening.quote)}”</p>
 
           <button
             type="button"
@@ -257,6 +189,7 @@ export default function ChapterOpening({
           </button>
 
           <div className="gate-bottom-meta">
+            <p className="gate-host-family">{t(couple.hostSignature)}</p>
             <p className="gate-date-venue">{t(labels.datesLocationLine)}</p>
             <a
               href={couple.combinedInstagram}
