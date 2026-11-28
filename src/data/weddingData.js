@@ -531,75 +531,6 @@ export const scheduleDays = [
   },
 ];
 
-export const curatedGallery = [
-  {
-    id: "am-portrait",
-    src: gatefoldCoupleImg,
-    tilt: "-1.8deg",
-    focalPos: "50% 24%",
-    badge: { en: "The AM Chapter", hi: "द AM चैप्टर" },
-    caption: {
-      en: "Mansi & Aditya · #iAMinLove",
-      hi: "मानसी एवं आदित्य · #iAMinLove",
-    },
-  },
-  {
-    id: "curated-arch",
-    src: story01ArchImg,
-    tilt: "1.9deg",
-    focalPos: "65% 42%",
-    badge: { en: "Chapter 01", hi: "अध्याय 01" },
-    caption: {
-      en: "Framed under the warm arch",
-      hi: "सुनहरे मेहराब के तले साथ",
-    },
-  },
-  {
-    id: "curated-stairs",
-    src: story02StairsImg,
-    tilt: "-2.1deg",
-    focalPos: "53% 52%",
-    badge: { en: "Chapter 02", hi: "अध्याय 02" },
-    caption: {
-      en: "Barefoot laughs & sweet \"I do\"",
-      hi: "खिलखिलाती हँसी और प्यारी हाँ",
-    },
-  },
-  {
-    id: "curated-lakeside",
-    src: story03LakesideImg,
-    tilt: "1.6deg",
-    focalPos: "48% 50%",
-    badge: { en: "Chapter 03", hi: "अध्याय 03" },
-    caption: {
-      en: "Quiet moments, counting down",
-      hi: "सुकून के पल और उलटी गिनती",
-    },
-  },
-  {
-    id: "curated-binauli",
-    src: story04BinauliImg,
-    tilt: "-1.6deg",
-    focalPos: "48% 20%",
-    badge: { en: "Chapter 04", hi: "अध्याय 04" },
-    caption: {
-      en: "Real #TheVeryFirstBinauli blessings",
-      hi: "पहली बिनौली के स्नेह और आशीर्वाद",
-    },
-  },
-  {
-    id: "curated-walk",
-    src: story05WalkImg,
-    tilt: "2.0deg",
-    focalPos: "52% 55%",
-    badge: { en: "Chapter 05", hi: "अध्याय 05" },
-    caption: {
-      en: "Walking hand-in-hand into always",
-      hi: "हाथ थामे हमेशा की ओर",
-    },
-  },
-];
-
 export const venue = {
   name: { en: "Aashirwad Garden", hi: "“आशीर्वाद गार्डन”" },
   address: {
@@ -781,18 +712,6 @@ export const labels = {
   liveSangeet: { en: "Sangeet Night begins this evening! 🎶", hi: "संगीत संध्या आज शाम सज रही है! 🎶" },
   liveWeddingDay: { en: "Baraat, Varmala & Wedding Pheras are live today! 🔥", hi: "आज शाही बारात, वरमाला एवं शुभ विवाह का पावन दिन है! 🔥" },
   liveDone: { en: "Thank you for blessing Mansi & Aditya! 🙏", hi: "मानसी एवं आदित्य को आशीर्वाद देने के लिए हृदय से धन्यवाद! 🙏" },
-  galleryEyebrow: { en: "Polaroid Memory Wall", hi: "यादों का पोलरॉइड झरोखा" },
-  galleryHeading: { en: "Frames from The AM Chapter", hi: "द AM चैप्टर की झलकियाँ" },
-  galleryLede: {
-    en: "Tap any Polaroid to open our full-screen album of curated moments, or switch to the live Instagram feed.",
-    hi: "पूरा एल्बम देखने के लिए किसी भी पोलरॉइड पर टैप करें या लाइव इंस्टाग्राम फ़ीड देखें।",
-  },
-  galleryTabHighlights: { en: "Curated Highlights", hi: "चुनिंदा झलकियाँ" },
-  galleryTabInstagram: { en: "Live Instagram Feed", hi: "लाइव इंस्टाग्राम फ़ीड" },
-  galleryHighlightsSub: {
-    en: "Tap any Polaroid for full-screen swipeable view",
-    hi: "बड़ा देखने व स्वाइप करने के लिए किसी भी चित्र पर टैप करें",
-  },
   galleryInstagramHint: {
     en: "Some mobile browsers restrict embedded Instagram previews — tap Follow @_theamchapter above to open directly.",
     hi: "यदि आपके ब्राउज़र में इंस्टाग्राम फ़ीड न खुले, तो ऊपर @_theamchapter पर टैप करके सीधे खोलें।",

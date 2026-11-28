@@ -1,6 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LanguageProvider, useTranslation } from "./context/LanguageContext";
-import { brand, curatedGallery, photos, scheduleDays, storyChapters } from "./data/weddingData";
+import { brand, photos, scheduleDays, storyChapters } from "./data/weddingData";
 import { getGuestNameFromUrl } from "./lib/guest";
 
 import ChapterOpening from "./components/ChapterOpening";
@@ -175,10 +175,6 @@ function WeddingInvitationApp() {
 
   const albums = useMemo(
     () => ({
-      gallery: curatedGallery.map((item) => ({
-        src: item.src,
-        caption: t(item.caption),
-      })),
       events: scheduleDays.flatMap((day) =>
         day.events.map((ev) => ({
           src: ev.image,
@@ -282,11 +278,7 @@ function WeddingInvitationApp() {
               }
             />
             <CountdownSection />
-            <GallerySection
-              onOpenGalleryLightbox={(index) =>
-                setPreviewState({ album: "gallery", index })
-              }
-            />
+            <GallerySection />
             <VenueSection />
             <BlessingsSection />
             <RsvpSection initialGuest={guestName} />
