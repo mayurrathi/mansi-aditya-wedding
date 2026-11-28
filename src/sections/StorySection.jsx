@@ -93,6 +93,11 @@ export default function StorySection({ onPreview }) {
                   <img
                     src={ch.tapedPhoto.src}
                     alt={t(ch.tapedPhoto.caption)}
+                    style={
+                      ch.tapedPhoto.focalPos
+                        ? { objectPosition: ch.tapedPhoto.focalPos }
+                        : undefined
+                    }
                     loading="eager"
                     decoding="async"
                   />

@@ -31,6 +31,11 @@ import igHaldiYellow from "../assets/photos/ig_haldi_yellow.webp";
 import soloMansiImg from "../assets/photos/solo_mansi.jpg";
 import soloAdityaImg from "../assets/photos/solo_aditya.jpg";
 import gatefoldCoupleImg from "../assets/photos/gatefold_couple.jpg";
+import story01ArchImg from "../assets/photos/story_01_arch.jpg";
+import story02StairsImg from "../assets/photos/story_02_stairs.jpg";
+import story03LakesideImg from "../assets/photos/story_03_lakeside.jpg";
+import story04BinauliImg from "../assets/photos/story_04_binauli.jpg";
+import story05WalkImg from "../assets/photos/story_05_walk.jpg";
 
 export const art = {
   ganeshPujan: ghibli01Ganesh,
@@ -58,6 +63,11 @@ export const photos = {
   soloMansi: soloMansiImg,
   soloAditya: soloAdityaImg,
   gatefoldCouple: gatefoldCoupleImg,
+  story01Arch: story01ArchImg,
+  story02Stairs: story02StairsImg,
+  story03Lakeside: story03LakesideImg,
+  story04Binauli: story04BinauliImg,
+  story05Walk: story05WalkImg,
 };
 
 export const brand = {
@@ -198,9 +208,10 @@ export const storyChapters = [
     },
     art: ghibliCourtyardArchCouple,
     tapedPhoto: {
-      src: igHaldiYellow,
-      caption: { en: "@_theamchapter emblem portrait", hi: "@_theamchapter की पहली झलक" },
+      src: story01ArchImg,
+      caption: { en: "Framed under the warm arch", hi: "सुनहरे मेहराब के तले साथ" },
       tilt: "-2.5deg",
+      focalPos: "65% 42%",
     },
     reelBadge: {
       tag: { en: "M × A · THE BEGINNING", hi: "M × A · शुभ आरंभ" },
@@ -218,9 +229,10 @@ export const storyChapters = [
     },
     art: ghibliStory02PuneProposal,
     tapedPhoto: {
-      src: igTerracottaArch,
-      caption: { en: "Under the golden arch · I Do", hi: "सुनहरे मेहराब के तले · हमारी हाँ" },
+      src: story02StairsImg,
+      caption: { en: "Barefoot laughs & sweet \"I do\"", hi: "खिलखिलाती हँसी और प्यारी हाँ" },
       tilt: "2.4deg",
+      focalPos: "53% 52%",
     },
     reelBadge: {
       tag: { en: "VIRAL REEL CAPTION 🎥", hi: "इंस्टाग्राम रील 🎥" },
@@ -238,9 +250,10 @@ export const storyChapters = [
     },
     art: ghibliLanternCouple,
     tapedPhoto: {
-      src: igGardenBirthday,
-      caption: { en: "Counting down to our forever", hi: "हमेशा के सफ़र की उलटी गिनती" },
+      src: story03LakesideImg,
+      caption: { en: "Quiet moments, counting down", hi: "सुकून के पल और उलटी गिनती" },
       tilt: "-2.2deg",
+      focalPos: "48% 50%",
     },
     reelBadge: {
       tag: { en: "BIRTHDAY & COUNTDOWN ♥️", hi: "जन्मदिन एवं उलटी गिनती ♥️" },
@@ -258,9 +271,10 @@ export const storyChapters = [
     },
     art: ghibliBinauliBride,
     tapedPhoto: {
-      src: igPistachioLanterns,
-      caption: { en: "Pistachio couture & warm lanterns", hi: "पिस्ताई छटा और सुनहरे लालटेन" },
+      src: story04BinauliImg,
+      caption: { en: "Real #TheVeryFirstBinauli blessings", hi: "पहली बिनौली के स्नेह और आशीर्वाद" },
       tilt: "2.8deg",
+      focalPos: "48% 20%",
     },
     reelBadge: {
       tag: { en: "#TheVeryFirstBinauli ✨", hi: "#TheVeryFirstBinauli ✨" },
@@ -278,9 +292,10 @@ export const storyChapters = [
     },
     art: ghibliStory05Forever,
     tapedPhoto: {
-      src: gatefoldCoupleImg,
-      caption: { en: "Mansi & Aditya · Forever begins", hi: "मानसी और आदित्य · हमेशा का साथ" },
+      src: story05WalkImg,
+      caption: { en: "Walking hand-in-hand into always", hi: "हाथ थामे हमेशा की ओर" },
       tilt: "-2.0deg",
+      focalPos: "52% 55%",
     },
     reelBadge: {
       tag: { en: "4 & 5 DEC 2026 · PIPARIYA", hi: "4 व 5 दिसम्बर 2026 · पिपरिया" },
