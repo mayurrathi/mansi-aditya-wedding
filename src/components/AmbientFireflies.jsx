@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 
 const COLORS = ["#E6B45A", "#DF6C98", "#9DB76B", "#6E1A24", "#FDF6EC"];
 const PETAL_PALETTE = [
-  { fill: "#DF6C98", stroke: "#B54A76" }, // Pink Stargazer Lily
-  { fill: "#E6B45A", stroke: "#B87924" }, // Burnished Honey Gold
-  { fill: "#9DB76B", stroke: "#7C944F" }, // Olive Sage Leaf
-  { fill: "#FBEBD8", stroke: "#D99A38" }, // Peach Ivory Silk
+  { fill: "#DF6C98" }, // Pink Stargazer Lily
+  { fill: "#E6B45A" }, // Burnished Honey Gold
+  { fill: "#9DB76B" }, // Olive Sage Leaf
+  { fill: "#FBEBD8" }, // Peach Ivory Silk
 ];
 
 const FLOATING_3D_LANTERNS = [
@@ -40,22 +40,9 @@ function BrassLantern3DSvg() {
 
 export default function AmbientFireflies({ active = true }) {
   const canvasRef = useRef(null);
-  const bgRef = useRef(null);
   const [bursts, setBursts] = useState([]);
 
-  /* Parallax 3D depth response on window scroll */
-  useEffect(() => {
-    if (!active) return undefined;
-    const onScroll = () => {
-      if (!bgRef.current) return;
-      bgRef.current.style.setProperty("--scroll-y", `${window.scrollY}px`);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [active]);
-
-  /* 3D Tumbling Petals + Depth-Sorted Golden Fireflies Canvas */
+  /* Throttled ~30fps Tumbling Petals + Golden Fireflies Canvas */
   useEffect(() => {
     if (!active) return undefined;
     const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
@@ -67,20 +54,22 @@ export default function AmbientFireflies({ active = true }) {
     if (!ctx) return undefined;
 
     let rafId = 0;
+    let lastFrame = 0;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
     const pointer = { x: width * 0.5, y: height * 0.35, active: false };
-    const seedCount = width < 640 ? 18 : 30;
-    const petalCount = width < 640 ? 10 : 18;
+    const isMobile = width < 640;
+    const seedCount = isMobile ? 8 : 14;
+    const petalCount = isMobile ? 5 : 9;
 
     const seeds = Array.from({ length: seedCount }).map((_, i) => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      z: 0.4 + Math.random() * 1.2, // 3D depth plane
-      vx: (Math.random() - 0.5) * 0.34,
-      vy: (Math.random() - 0.5) * 0.28 - 0.08,
-      r: 1.5 + Math.random() * 2.4,
+      z: 0.5 + Math.random() * 1.0,
+      vx: (Math.random() - 0.5) * 0.48,
+      vy: (Math.random() - 0.5) * 0.38 - 0.12,
+      r: 1.6 + Math.random() * 2.2,
       phase: Math.random() * Math.PI * 2,
       color: COLORS[i % COLORS.length],
     }));
@@ -90,18 +79,17 @@ export default function AmbientFireflies({ active = true }) {
       return {
         x: Math.random() * width,
         y: Math.random() * height,
-        z: 0.55 + Math.random() * 0.9,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: 0.32 + Math.random() * 0.45,
-        size: 7 + Math.random() * 6,
+        z: 0.6 + Math.random() * 0.8,
+        vx: (Math.random() - 0.5) * 0.55,
+        vy: 0.45 + Math.random() * 0.6,
+        size: 7 + Math.random() * 5,
         pitch: Math.random() * Math.PI * 2,
         roll: Math.random() * Math.PI * 2,
         yaw: Math.random() * Math.PI * 2,
-        vPitch: 0.012 + Math.random() * 0.018,
-        vRoll: 0.01 + Math.random() * 0.015,
-        vYaw: (Math.random() - 0.5) * 0.014,
+        vPitch: 0.02 + Math.random() * 0.024,
+        vRoll: 0.018 + Math.random() * 0.02,
+        vYaw: (Math.random() - 0.5) * 0.02,
         fill: shade.fill,
-        stroke: shade.stroke,
       };
     });
 
@@ -109,31 +97,37 @@ export default function AmbientFireflies({ active = true }) {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
     };
+
     const onMove = (e) => {
-      const pt = e.touches?.[0] || e;
-      if (!pt) return;
-      pointer.x = pt.clientX;
-      pointer.y = pt.clientY;
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
       pointer.active = true;
     };
 
-    window.addEventListener("resize", onResize);
-    window.addEventListener("mousemove", onMove, { passive: true });
-    window.addEventListener("touchmove", onMove, { passive: true });
-
     const tick = (now) => {
+      if (document.hidden) {
+        rafId = 0;
+        return;
+      }
+
+      if (now - lastFrame < 32) {
+        rafId = window.requestAnimationFrame(tick);
+        return;
+      }
+      lastFrame = now;
+
       ctx.clearRect(0, 0, width, height);
 
-      // 1. Draw glowing 3D depth-scaled fireflies
+      // 1. Draw glowing golden fireflies
       for (let i = 0; i < seeds.length; i += 1) {
         const s = seeds[i];
         if (pointer.active) {
           const dx = pointer.x - s.x;
           const dy = pointer.y - s.y;
           const dist = Math.hypot(dx, dy);
-          if (dist > 18 && dist < 240) {
-            s.vx += (dx / dist) * 0.008 * s.z;
-            s.vy += (dy / dist) * 0.008 * s.z;
+          if (dist > 18 && dist < 220) {
+            s.vx += (dx / dist) * 0.01 * s.z;
+            s.vy += (dy / dist) * 0.01 * s.z;
           }
         }
         s.vx *= 0.99;
@@ -146,7 +140,8 @@ export default function AmbientFireflies({ active = true }) {
         if (s.y < -10) s.y = height + 10;
         if (s.y > height + 10) s.y = -10;
 
-        const alpha = (0.24 + 0.48 * (0.5 + 0.5 * Math.sin(now * 0.002 + s.phase))) * Math.min(1, s.z);
+        const alpha =
+          (0.24 + 0.46 * (0.5 + 0.5 * Math.sin(now * 0.002 + s.phase))) * Math.min(1, s.z);
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r * s.z, 0, Math.PI * 2);
         ctx.fillStyle = s.color;
@@ -154,24 +149,15 @@ export default function AmbientFireflies({ active = true }) {
         ctx.fill();
       }
 
-      // 2. Draw 3D tumbling marigold & pistachio silk petals
+      // 2. Draw soft silk & marigold petals (fill-only for crisp fast rendering)
       for (let i = 0; i < petals.length; i += 1) {
         const p = petals[i];
         p.pitch += p.vPitch;
         p.roll += p.vRoll;
         p.yaw += p.vYaw;
 
-        p.x += (p.vx + Math.sin(now * 0.001 + i) * 0.25) * p.z;
+        p.x += (p.vx + Math.sin(now * 0.001 + i) * 0.32) * p.z;
         p.y += p.vy * p.z;
-
-        if (pointer.active) {
-          const dx = p.x - pointer.x;
-          const dy = p.y - pointer.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist > 10 && dist < 130) {
-            p.x += (dx / dist) * 0.7;
-          }
-        }
 
         if (p.y > height + 20) {
           p.y = -20;
@@ -180,14 +166,14 @@ export default function AmbientFireflies({ active = true }) {
         if (p.x < -20) p.x = width + 20;
         if (p.x > width + 20) p.x = -20;
 
-        const scaleX = Math.max(0.22, Math.abs(Math.cos(p.pitch))) * p.z;
-        const scaleY = Math.max(0.28, Math.abs(Math.sin(p.roll))) * p.z;
+        const scaleX = Math.max(0.24, Math.abs(Math.cos(p.pitch))) * p.z;
+        const scaleY = Math.max(0.3, Math.abs(Math.sin(p.roll))) * p.z;
 
         ctx.save();
         ctx.translate(p.x, p.y);
         ctx.rotate(p.yaw);
         ctx.scale(scaleX, scaleY);
-        ctx.globalAlpha = 0.52;
+        ctx.globalAlpha = 0.5;
 
         ctx.beginPath();
         ctx.moveTo(0, -p.size);
@@ -195,9 +181,6 @@ export default function AmbientFireflies({ active = true }) {
         ctx.bezierCurveTo(-p.size * 0.75, p.size * 0.7, -p.size * 0.85, -p.size * 0.5, 0, -p.size);
         ctx.fillStyle = p.fill;
         ctx.fill();
-        ctx.lineWidth = 0.8;
-        ctx.strokeStyle = p.stroke;
-        ctx.stroke();
         ctx.restore();
       }
 
@@ -205,12 +188,31 @@ export default function AmbientFireflies({ active = true }) {
       rafId = window.requestAnimationFrame(tick);
     };
 
-    rafId = window.requestAnimationFrame(tick);
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        if (rafId) {
+          window.cancelAnimationFrame(rafId);
+          rafId = 0;
+        }
+      } else if (!rafId) {
+        lastFrame = 0;
+        rafId = window.requestAnimationFrame(tick);
+      }
+    };
+
+    window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("mousemove", onMove, { passive: true });
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    if (!document.hidden) {
+      rafId = window.requestAnimationFrame(tick);
+    }
+
     return () => {
-      window.cancelAnimationFrame(rafId);
+      if (rafId) window.cancelAnimationFrame(rafId);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("touchmove", onMove);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, [active]);
 
@@ -219,9 +221,9 @@ export default function AmbientFireflies({ active = true }) {
     const x = rect.left + rect.width / 2;
     const y = rect.top + rect.height / 2;
     const id = Date.now() + Math.random();
-    const particles = Array.from({ length: 14 }, (_, i) => {
-      const a = (Math.PI * 2 * i) / 14;
-      const dist = 36 + (i % 3) * 18;
+    const particles = Array.from({ length: 12 }, (_, i) => {
+      const a = (Math.PI * 2 * i) / 12;
+      const dist = 36 + (i % 3) * 16;
       return {
         dx: Math.cos(a) * dist,
         dy: Math.sin(a) * dist,
@@ -238,8 +240,8 @@ export default function AmbientFireflies({ active = true }) {
 
   return (
     <>
-      {/* 3D Architectural & Mandala Parallax Background Layer */}
-      <div ref={bgRef} className="bg-3d-stage" aria-hidden="true">
+      {/* Static Lightweight Architectural & Mandala Background Stage */}
+      <div className="bg-3d-stage" aria-hidden="true">
         <div className="bg-3d-mandala bg-3d-mandala--top-left" />
         <div className="bg-3d-mandala bg-3d-mandala--mid-right" />
         <div className="bg-3d-mandala bg-3d-mandala--bottom-left" />
@@ -247,10 +249,10 @@ export default function AmbientFireflies({ active = true }) {
         <div className="bg-3d-arch-halo bg-3d-arch-halo--right" />
       </div>
 
-      {/* 3D Tumbling Petals & Fireflies Canvas */}
+      {/* ~30fps Tumbling Petals & Fireflies Canvas */}
       <canvas ref={canvasRef} className="seed-fireflies" aria-hidden="true" />
 
-      {/* 3D Floating Brass Kandil Lanterns */}
+      {/* Floating Brass Kandil Lanterns */}
       <div className="floating-lanterns-layer" aria-hidden="true">
         {FLOATING_3D_LANTERNS.map((item) => (
           <button

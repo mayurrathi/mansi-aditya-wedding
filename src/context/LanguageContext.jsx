@@ -36,6 +36,14 @@ export function LanguageProvider({ children }) {
 
   useEffect(() => {
     document.documentElement.lang = lang;
+    if (lang === "hi" && typeof document !== "undefined" && !document.getElementById("am-hindi-fonts")) {
+      const link = document.createElement("link");
+      link.id = "am-hindi-fonts";
+      link.rel = "stylesheet";
+      link.href =
+        "https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Serif+Devanagari:wght@600;700&display=swap";
+      document.head.appendChild(link);
+    }
   }, [lang]);
 
   const setLang = useCallback((next) => {

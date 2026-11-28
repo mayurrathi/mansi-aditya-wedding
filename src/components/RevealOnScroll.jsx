@@ -2,48 +2,39 @@ import { useEffect, useRef, useState } from "react";
 
 export default function RevealOnScroll({ children, className = "" }) {
   const ref = useRef(null);
-  const [state, setState] = useState("visible");
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === "undefined" || typeof IntersectionObserver === "undefined") {
+      return true;
+    }
+    return window.matchMedia?.("(prefers-reduced-motion: reduce)").matches || false;
+  });
 
   useEffect(() => {
+    if (visible) return undefined;
     const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") {
-      return undefined;
-    }
-
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.96) {
-      return undefined;
-    }
-
-    let active = true;
-    const raf = window.requestAnimationFrame(() => {
-      if (active) setState("pending");
-    });
+    if (!el || typeof IntersectionObserver === "undefined") return undefined;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setState("visible");
+        for (let i = 0; i < entries.length; i += 1) {
+          if (entries[i].isIntersecting) {
+            setVisible(true);
             observer.disconnect();
+            break;
           }
-        });
+        }
       },
-      { threshold: 0.08 }
+      { threshold: 0.01, rootMargin: "140px 0px" }
     );
 
     observer.observe(el);
-    return () => {
-      active = false;
-      window.cancelAnimationFrame(raf);
-      observer.disconnect();
-    };
-  }, []);
+    return () => observer.disconnect();
+  }, [visible]);
 
   return (
     <div
       ref={ref}
-      className={`reveal ${state === "visible" ? "is-visible" : "is-pending"} ${className}`.trim()}
+      className={`reveal ${visible ? "is-visible" : "is-pending"} ${className}`.trim()}
     >
       {children}
     </div>

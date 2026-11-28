@@ -50,46 +50,74 @@ export default function Navbar({ theme, onToggleTheme, playing, onToggleMusic })
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeId, setActiveId] = useState("hero");
   const progressRef = useRef(null);
+  const maxScrollRef = useRef(1);
 
   useEffect(() => {
     const sections = labels.navSections
       .map((s) => document.getElementById(s.id))
       .filter(Boolean);
 
-    const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 48);
+    const measureMaxScroll = () => {
+      maxScrollRef.current = Math.max(
+        1,
+        document.documentElement.scrollHeight - window.innerHeight
+      );
+    };
 
-      const docEl = document.documentElement;
-      const maxScroll = Math.max(1, docEl.scrollHeight - window.innerHeight);
+    let rafId = 0;
+    const updateOnFrame = () => {
+      rafId = 0;
+      const y = window.scrollY;
+      const maxScroll = maxScrollRef.current;
+      const nextScrolled = y > 48;
+      setScrolled((prev) => (prev === nextScrolled ? prev : nextScrolled));
+
       const ratio = Math.min(1, Math.max(0, y / maxScroll));
       if (progressRef.current) {
         progressRef.current.style.transform = `scaleX(${ratio})`;
       }
 
-      if (window.innerHeight + y >= docEl.scrollHeight - 60) {
-        setActiveId("rsvp");
+      if (y >= maxScroll - 60) {
+        setActiveId((prev) => (prev === "rsvp" ? prev : "rsvp"));
       } else if (y < 140) {
-        setActiveId("hero");
+        setActiveId((prev) => (prev === "hero" ? prev : "hero"));
       }
     };
 
-    onScroll();
+    const onScroll = () => {
+      if (!rafId) {
+        rafId = window.requestAnimationFrame(updateOnFrame);
+      }
+    };
+
+    const onResize = () => {
+      measureMaxScroll();
+      onScroll();
+    };
+
+    measureMaxScroll();
+    updateOnFrame();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
+
+    let resizeObserver;
+    if (typeof ResizeObserver !== "undefined" && document.body) {
+      resizeObserver = new ResizeObserver(measureMaxScroll);
+      resizeObserver.observe(document.body);
+    }
 
     let observer;
     if (sections.length && typeof IntersectionObserver !== "undefined") {
       observer = new IntersectionObserver(
         (entries) => {
-          const docEl = document.documentElement;
-          if (window.innerHeight + window.scrollY >= docEl.scrollHeight - 60) {
-            setActiveId("rsvp");
+          if (window.scrollY >= maxScrollRef.current - 60) {
+            setActiveId((prev) => (prev === "rsvp" ? prev : "rsvp"));
             return;
           }
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              setActiveId(entry.target.id);
+              const id = entry.target.id;
+              setActiveId((prev) => (prev === id ? prev : id));
             }
           });
         },
@@ -99,8 +127,10 @@ export default function Navbar({ theme, onToggleTheme, playing, onToggleMusic })
     }
 
     return () => {
+      if (rafId) window.cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
+      resizeObserver?.disconnect();
       observer?.disconnect();
     };
   }, []);

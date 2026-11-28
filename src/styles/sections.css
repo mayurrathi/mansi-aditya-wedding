@@ -771,14 +771,13 @@
   position: absolute;
   top: 10px;
   left: 10px;
-  background: rgba(42, 18, 23, 0.88);
+  background: rgba(42, 18, 23, 0.92);
   border: 1px solid rgba(230, 180, 90, 0.72);
   color: #fdf6ec;
   font-size: 0.75rem;
   font-weight: 700;
   padding: 0.28rem 0.75rem;
   border-radius: 999px;
-  backdrop-filter: blur(6px);
 }
 
 .event-zoom-hint {
@@ -1306,12 +1305,11 @@
   gap: 0.45rem;
   padding: 0.42rem 1rem;
   border-radius: 999px;
-  background: rgba(24, 11, 14, 0.82);
+  background: rgba(24, 11, 14, 0.9);
   border: 1px solid rgba(230, 180, 90, 0.58);
   color: #fdf6ec;
   font-size: 0.84rem;
   font-weight: 600;
-  backdrop-filter: blur(6px);
 }
 
 .sky-counter-pill strong {
@@ -1336,9 +1334,11 @@
   align-items: center;
   gap: 0.25rem;
   z-index: 3;
-  animation:
-    lanternAscend 480ms var(--ease-editorial) both,
-    lanternDrift 4.4s ease-in-out var(--drift-delay, 0s) infinite alternate;
+  animation: lanternAscend 480ms var(--ease-editorial) both;
+}
+
+.sky-lantern-node .sky-lantern-svg {
+  animation: lanternDrift 4.4s ease-in-out var(--drift-delay, 0s) infinite alternate;
 }
 
 .sky-lantern-node.is-selected {
@@ -1348,20 +1348,20 @@
 @keyframes lanternAscend {
   from {
     opacity: 0;
-    transform: translate(-50%, 42px) scale(0.82);
+    transform: translate3d(-50%, 42px, 0) scale(0.82);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, 0) scale(1);
+    transform: translate3d(-50%, 0, 0) scale(1);
   }
 }
 
 @keyframes lanternDrift {
   0% {
-    margin-top: 0px;
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    margin-top: -12px;
+    transform: translate3d(0, -10px, 0);
   }
 }
 
@@ -1935,4 +1935,15 @@
   align-items: center;
   gap: 0.75rem;
   margin: 1.25rem 0 1.65rem;
+}
+
+/* Defer layout/paint work on heavy off-screen sections until scrolled near */
+#celebrations,
+#gallery,
+#venue,
+#blessings,
+#rsvp,
+.site-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 760px;
 }

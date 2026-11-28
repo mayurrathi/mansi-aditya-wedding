@@ -1,38 +1,63 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "../context/LanguageContext";
 import { labels } from "../data/weddingData";
 
 export default function VineNav() {
   const { t } = useTranslation();
   const [activeId, setActiveId] = useState("hero");
+  const maxScrollRef = useRef(1);
 
   useEffect(() => {
     const sections = labels.navSections
       .map((s) => document.getElementById(s.id))
       .filter(Boolean);
 
-    const onScroll = () => {
-      const docEl = document.documentElement;
-      if (window.innerHeight + window.scrollY >= docEl.scrollHeight - 60) {
-        setActiveId("rsvp");
-      } else if (window.scrollY < 140) {
-        setActiveId("hero");
+    const measureMaxScroll = () => {
+      maxScrollRef.current = Math.max(
+        1,
+        document.documentElement.scrollHeight - window.innerHeight
+      );
+    };
+
+    let rafId = 0;
+    const updateOnFrame = () => {
+      rafId = 0;
+      const y = window.scrollY;
+      if (y >= maxScrollRef.current - 60) {
+        setActiveId((prev) => (prev === "rsvp" ? prev : "rsvp"));
+      } else if (y < 140) {
+        setActiveId((prev) => (prev === "hero" ? prev : "hero"));
       }
     };
 
+    const onScroll = () => {
+      if (!rafId) {
+        rafId = window.requestAnimationFrame(updateOnFrame);
+      }
+    };
+
+    measureMaxScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", measureMaxScroll, { passive: true });
+
+    let resizeObserver;
+    if (typeof ResizeObserver !== "undefined" && document.body) {
+      resizeObserver = new ResizeObserver(measureMaxScroll);
+      resizeObserver.observe(document.body);
+    }
+
     let observer;
     if (sections.length && typeof IntersectionObserver !== "undefined") {
       observer = new IntersectionObserver(
         (entries) => {
-          const docEl = document.documentElement;
-          if (window.innerHeight + window.scrollY >= docEl.scrollHeight - 60) {
-            setActiveId("rsvp");
+          if (window.scrollY >= maxScrollRef.current - 60) {
+            setActiveId((prev) => (prev === "rsvp" ? prev : "rsvp"));
             return;
           }
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              setActiveId(entry.target.id);
+              const id = entry.target.id;
+              setActiveId((prev) => (prev === id ? prev : id));
             }
           });
         },
@@ -42,7 +67,10 @@ export default function VineNav() {
     }
 
     return () => {
+      if (rafId) window.cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", measureMaxScroll);
+      resizeObserver?.disconnect();
       observer?.disconnect();
     };
   }, []);

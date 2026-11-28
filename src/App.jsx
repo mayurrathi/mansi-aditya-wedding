@@ -1,49 +1,52 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import confetti from "canvas-confetti";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LanguageProvider, useTranslation } from "./context/LanguageContext";
 import { brand, curatedGallery, photos, scheduleDays, storyChapters } from "./data/weddingData";
 import { getGuestNameFromUrl } from "./lib/guest";
 
 import ChapterOpening from "./components/ChapterOpening";
 import Navbar from "./components/Navbar";
-import VineNav from "./components/VineNav";
-import AmbientFireflies from "./components/AmbientFireflies";
-import LoveSyncDial from "./components/LoveSyncDial";
 import Lightbox from "./components/Lightbox";
-
 import HeroSection from "./sections/HeroSection";
-import FamiliesSection from "./sections/FamiliesSection";
-import StorySection from "./sections/StorySection";
-import CelebrationsSection from "./sections/CelebrationsSection";
-import CountdownSection from "./sections/CountdownSection";
-import GallerySection from "./sections/GallerySection";
-import VenueSection from "./sections/VenueSection";
-import BlessingsSection from "./sections/BlessingsSection";
-import RsvpSection from "./sections/RsvpSection";
-import FooterSection from "./sections/FooterSection";
 
 import weddingMusic from "./assets/audio/wedding_theme.mp3";
 
-function firePistachioConfetti() {
-  confetti({
-    particleCount: 72,
-    spread: 85,
-    origin: { y: 0.55 },
-    colors: ["#DF6C98", "#E6B45A", "#7C944F", "#6E1A24", "#FDF6EC"],
-  });
-}
+const AmbientFireflies = lazy(() => import("./components/AmbientFireflies"));
+const VineNav = lazy(() => import("./components/VineNav"));
+const LoveSyncDial = lazy(() => import("./components/LoveSyncDial"));
+const FamiliesSection = lazy(() => import("./sections/FamiliesSection"));
+const StorySection = lazy(() => import("./sections/StorySection"));
+const CelebrationsSection = lazy(() => import("./sections/CelebrationsSection"));
+const CountdownSection = lazy(() => import("./sections/CountdownSection"));
+const GallerySection = lazy(() => import("./sections/GallerySection"));
+const VenueSection = lazy(() => import("./sections/VenueSection"));
+const BlessingsSection = lazy(() => import("./sections/BlessingsSection"));
+const RsvpSection = lazy(() => import("./sections/RsvpSection"));
+const FooterSection = lazy(() => import("./sections/FooterSection"));
 
 const THEME_STORAGE_KEY = "am-chapter-theme";
 
-function preloadImageUrls(urls, prioritizeFirst = 0) {
+function preloadCoverImages(urls) {
   const uniqueUrls = [...new Set(urls.filter(Boolean))];
   uniqueUrls.forEach((url, index) => {
     const img = new Image();
-    if (index < prioritizeFirst) img.fetchPriority = "high";
+    if (index < 2) img.fetchPriority = "high";
     img.decoding = "async";
     img.src = url;
-    img.decode?.().catch(() => {});
   });
+}
+
+function firePistachioConfetti() {
+  import("canvas-confetti")
+    .then(({ default: confetti }) => {
+      confetti({
+        particleCount: 48,
+        spread: 80,
+        origin: { y: 0.55 },
+        colors: ["#DF6C98", "#E6B45A", "#7C944F", "#6E1A24", "#FDF6EC"],
+        disableForReducedMotion: true,
+      });
+    })
+    .catch(() => {});
 }
 
 function WeddingInvitationApp() {
@@ -72,31 +75,33 @@ function WeddingInvitationApp() {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
 
-    // Stage 1: preload only Cover & Hero visuals immediately
-    preloadImageUrls([brand.logo, brand.lilyTl, brand.lilyBr, photos.gatefoldCouple], 3);
-  }, []);
+    // Preload only lightweight Cover + Hero images immediately
+    preloadCoverImages([brand.logo, brand.lilyTl, brand.lilyBr, photos.gatefoldCouple]);
 
-  useEffect(() => {
-    if (!isRevealed) return undefined;
-
-    // Stage 2: defer Family, Story & Celebration images once the user opens the invitation
-    const deferredUrls = [
-      photos.soloMansi,
-      photos.soloAditya,
-      ...storyChapters.flatMap((ch) => [ch.art, ch.tapedPhoto?.src]),
-      ...scheduleDays.flatMap((d) => d.events.map((ev) => ev.image)),
-    ];
+    // Gently warm up lazy section JS chunks once idle on the Cover
+    const warmChunks = () => {
+      void import("./components/LoveSyncDial");
+      void import("./sections/FamiliesSection");
+      void import("./sections/StorySection");
+      void import("./sections/CelebrationsSection");
+      void import("./sections/CountdownSection");
+      void import("./sections/GallerySection");
+      void import("./sections/VenueSection");
+      void import("./sections/BlessingsSection");
+      void import("./sections/RsvpSection");
+      void import("./sections/FooterSection");
+      void import("./components/VineNav");
+      void import("./components/AmbientFireflies");
+    };
 
     if (typeof window !== "undefined" && typeof window.requestIdleCallback === "function") {
-      const idleId = window.requestIdleCallback(() => preloadImageUrls(deferredUrls), {
-        timeout: 1200,
-      });
+      const idleId = window.requestIdleCallback(warmChunks, { timeout: 1600 });
       return () => window.cancelIdleCallback(idleId);
     }
 
-    const timerId = window.setTimeout(() => preloadImageUrls(deferredUrls), 150);
+    const timerId = window.setTimeout(warmChunks, 800);
     return () => window.clearTimeout(timerId);
-  }, [isRevealed]);
+  }, []);
 
   useEffect(() => {
     document.body.classList.toggle("locked", !isUnlocked);
@@ -225,7 +230,7 @@ function WeddingInvitationApp() {
 
   return (
     <div className={`app lang-${lang} theme-${theme}`}>
-      <audio ref={audioRef} src={weddingMusic} preload="metadata" loop />
+      <audio ref={audioRef} src={weddingMusic} preload="none" loop />
 
       <ChapterOpening
         stage={stage}
@@ -236,10 +241,17 @@ function WeddingInvitationApp() {
         onSkip={handleSkipOpening}
       />
 
-      {stage !== "closed" && (
-        <>
+      {isUnlocked && (
+        <Suspense fallback={null}>
           <AmbientFireflies active={isUnlocked} />
-          <VineNav />
+        </Suspense>
+      )}
+
+      {isRevealed && (
+        <>
+          <Suspense fallback={null}>
+            <VineNav />
+          </Suspense>
           <Navbar
             theme={theme}
             onToggleTheme={() => setTheme((prev) => (prev === "am" ? "pm" : "am"))}
@@ -258,26 +270,35 @@ function WeddingInvitationApp() {
 
       <main className={`scroll-canvas ${isRevealed ? "is-revealed" : ""}`}>
         <HeroSection guestName={guestName} unlocked={isRevealed} />
-        <LoveSyncDial />
-        <FamiliesSection />
-        <StorySection onPreview={setPreviewState} />
-        <CelebrationsSection
-          onOpenEventLightbox={(index) =>
-            setPreviewState({ album: "events", index })
-          }
-        />
-        <CountdownSection />
-        <GallerySection
-          onOpenGalleryLightbox={(index) =>
-            setPreviewState({ album: "gallery", index })
-          }
-        />
-        <VenueSection />
-        <BlessingsSection />
-        <RsvpSection initialGuest={guestName} />
+
+        {isRevealed && (
+          <Suspense fallback={null}>
+            <LoveSyncDial />
+            <FamiliesSection />
+            <StorySection onPreview={setPreviewState} />
+            <CelebrationsSection
+              onOpenEventLightbox={(index) =>
+                setPreviewState({ album: "events", index })
+              }
+            />
+            <CountdownSection />
+            <GallerySection
+              onOpenGalleryLightbox={(index) =>
+                setPreviewState({ album: "gallery", index })
+              }
+            />
+            <VenueSection />
+            <BlessingsSection />
+            <RsvpSection initialGuest={guestName} />
+          </Suspense>
+        )}
       </main>
 
-      <FooterSection />
+      {isRevealed && (
+        <Suspense fallback={null}>
+          <FooterSection />
+        </Suspense>
+      )}
     </div>
   );
 }

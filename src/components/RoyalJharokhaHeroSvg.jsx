@@ -1,49 +1,12 @@
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
 import { photos } from "../data/weddingData";
 
 export default function RoyalJharokhaHeroSvg({ unlocked = false }) {
-  const svgRef = useRef(null);
-
-  useEffect(() => {
-    const svg = svgRef.current;
-    if (!svg) return undefined;
-    const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    const paths = svg.querySelectorAll(".jharokha-draw-path");
-
-    const ctx = gsap.context(() => {
-      paths.forEach((p) => {
-        const len = p.getTotalLength?.() || 680;
-        if (reduced) {
-          gsap.set(p, { strokeDasharray: "none", strokeDashoffset: 0 });
-          return;
-        }
-        if (!unlocked) {
-          gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
-        } else {
-          gsap.fromTo(
-            p,
-            { strokeDasharray: len, strokeDashoffset: len },
-            {
-              strokeDashoffset: 0,
-              duration: 1.55,
-              ease: "power2.out",
-              delay: 0.25,
-            }
-          );
-        }
-      });
-    }, svgRef);
-    return () => ctx.revert();
-  }, [unlocked]);
-
   return (
     <div className="jharokha-hero-stage">
       <div className="amber-cones" aria-hidden="true" />
 
       <svg
-        ref={svgRef}
-        className="jharokha-svg-frame"
+        className={`jharokha-svg-frame ${unlocked ? "is-unlocked" : ""}`}
         viewBox="0 0 600 420"
         aria-hidden="true"
       >
@@ -72,6 +35,7 @@ export default function RoyalJharokhaHeroSvg({ unlocked = false }) {
         {/* Outer Royal Jharokha Archway cleanly framing around the medallion */}
         <path
           className="jharokha-draw-path"
+          pathLength="100"
           d="M84 378 L84 185 Q84 115 156 92 Q220 48 300 20 Q380 48 444 92 Q516 115 516 185 L516 378"
           fill="none"
           stroke="#B87924"
