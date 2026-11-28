@@ -31,7 +31,7 @@ export default function FamiliesSection() {
                     src={side.avatar}
                     alt={t(side.full)}
                     className="nest-avatar"
-                    loading="eager"
+                    loading="lazy"
                     decoding="async"
                   />
                 </a>

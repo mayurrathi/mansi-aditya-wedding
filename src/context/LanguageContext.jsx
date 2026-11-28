@@ -17,6 +17,12 @@ export function LanguageProvider({ children }) {
   const [lang, setLangState] = useState(() => {
     if (typeof window !== "undefined") {
       try {
+        const urlLang = new URLSearchParams(window.location.search).get("lang");
+        if (urlLang === "hi" || urlLang === "en") return urlLang;
+      } catch {
+        // Ignore query parsing errors
+      }
+      try {
         const saved = window.localStorage.getItem(STORAGE_KEY);
         if (saved === "en" || saved === "hi") return saved;
       } catch {

@@ -1,10 +1,28 @@
+import { useState } from "react";
 import { useTranslation } from "../context/LanguageContext";
-import { labels, venue } from "../data/weddingData";
+import { couple, labels, venue } from "../data/weddingData";
+import { copyTextToClipboard } from "../lib/clipboard";
 import RouteMapSvg from "../components/RouteMapSvg";
 import RevealOnScroll from "../components/RevealOnScroll";
 
 export default function VenueSection() {
-  const { t } = useTranslation();
+  const { lang, t } = useTranslation();
+  const [addressCopied, setAddressCopied] = useState(false);
+
+  const handleCopyAddress = async () => {
+    const text = `${t(venue.name)}, ${t(venue.address)}`;
+    const ok = await copyTextToClipboard(text);
+    if (ok) {
+      setAddressCopied(true);
+      window.setTimeout(() => setAddressCopied(false), 2400);
+    }
+  };
+
+  const hostWhatsappUrl = `https://wa.me/${couple.whatsappNumber}?text=${encodeURIComponent(
+    lang === "hi"
+      ? "नमस्ते! मानसी एवं आदित्य के विवाह (आशीर्वाद गार्डन, पिपरिया) में पहुँचने व ठहरने से संबंधित जानकारी के लिए संपर्क कर रहे हैं।"
+      : "Warm regards! Reaching out regarding arrival & directions for Mansi & Aditya's wedding at Aashirwad Garden, Pipariya."
+  )}`;
 
   return (
     <section id="venue" className="section">
@@ -21,7 +39,7 @@ export default function VenueSection() {
           <RevealOnScroll>
             <div className="venue-details">
               <RouteMapSvg />
-              <div>
+              <div className="venue-action-row">
                 <a
                   href={venue.mapLink}
                   target="_blank"
@@ -29,6 +47,29 @@ export default function VenueSection() {
                   className="btn-primary"
                 >
                   {t(labels.openMaps)}
+                </a>
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  onClick={handleCopyAddress}
+                >
+                  {addressCopied ? t(labels.addressCopiedBtn) : `📋 ${t(labels.copyAddressBtn)}`}
+                </button>
+              </div>
+              <div className="venue-host-row">
+                <a
+                  href={`tel:+${couple.whatsappNumber}`}
+                  className="chip-action"
+                >
+                  📞 {t(labels.callHostBtn)} ({couple.whatsappDisplay})
+                </a>
+                <a
+                  href={hostWhatsappUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="chip-action chip-accent"
+                >
+                  💬 {t(labels.whatsappHostBtn)}
                 </a>
               </div>
             </div>

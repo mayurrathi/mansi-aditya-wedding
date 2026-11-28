@@ -12,12 +12,22 @@ export default function RsvpSection({ initialGuest = "" }) {
   const [note, setNote] = useState("");
   const [copied, setCopied] = useState(false);
 
+  const isUnable = dayChoice === "unable";
   const selectedDayObj =
     labels.rsvpDayOptions.find((d) => d.id === dayChoice) || labels.rsvpDayOptions[0];
 
   const buildMessage = () => {
     const cleanName = name.trim() || (lang === "hi" ? "शुभचिंतक परिवार" : "Dear Family");
     const dayText = t(selectedDayObj.label);
+
+    if (isUnable) {
+      const blessLine = note.trim() ? `\nBlessings: ${note.trim()}` : "";
+      if (lang === "hi") {
+        return `नमस्ते! ${cleanName} की ओर से मानसी एवं आदित्य के शुभ विवाह (#iAMinLove · 4 व 5 दिसम्बर 2026) के लिए हार्दिक शुभाशीष! हम व्यक्तिगत रूप से उपस्थित नहीं हो पाएंगे, पर हमारा स्नेह और आशीर्वाद सदा साथ है।${blessLine}`;
+      }
+      return `Warm regards! ${cleanName} won't be able to attend Mansi & Aditya's wedding (#iAMinLove · 4 & 5 Dec 2026) in person, but we are sending all our love & blessings to both families!${blessLine}`;
+    }
+
     const noteLine = note.trim() ? `\nNote / Song: ${note.trim()}` : "";
 
     if (lang === "hi") {
@@ -26,12 +36,13 @@ export default function RsvpSection({ initialGuest = "" }) {
     return `Warm regards! ${cleanName} (${guests} ${guests === 1 ? "guest" : "guests"}) is delighted to attend Mansi & Aditya's wedding (#iAMinLove · 4 & 5 Dec 2026 at Aashirwad Garden, Pipariya).\nAttending: ${dayText}${noteLine}`;
   };
 
+  const formattedMessage = buildMessage();
   const whatsappUrl = `https://wa.me/${couple.whatsappNumber}?text=${encodeURIComponent(
-    buildMessage()
+    formattedMessage
   )}`;
 
   const handleCopy = async () => {
-    const ok = await copyTextToClipboard(buildMessage());
+    const ok = await copyTextToClipboard(formattedMessage);
     if (ok) {
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2400);
@@ -71,29 +82,6 @@ export default function RsvpSection({ initialGuest = "" }) {
               </div>
 
               <div className="rsvp-field">
-                <label>{t(labels.rsvpGuestsLabel)}</label>
-                <div className="rsvp-stepper">
-                  <button
-                    type="button"
-                    onClick={() => setGuests((g) => Math.max(1, g - 1))}
-                    aria-label="Decrease guests"
-                  >
-                    −
-                  </button>
-                  <span className="tabular-nums" style={{ minWidth: "2ch", textAlign: "center", fontWeight: 700 }}>
-                    {guests}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setGuests((g) => Math.min(12, g + 1))}
-                    aria-label="Increase guests"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-
-              <div className="rsvp-field">
                 <label>{t(labels.rsvpDaysLabel)}</label>
                 <div className="rsvp-day-radios" role="radiogroup" aria-label={t(labels.rsvpDaysLabel)}>
                   {labels.rsvpDayOptions.map((opt) => (
@@ -114,6 +102,33 @@ export default function RsvpSection({ initialGuest = "" }) {
                 </div>
               </div>
 
+              {isUnable ? (
+                <p className="rsvp-unable-hint">{t(labels.rsvpUnableHint)}</p>
+              ) : (
+                <div className="rsvp-field">
+                  <label>{t(labels.rsvpGuestsLabel)}</label>
+                  <div className="rsvp-stepper">
+                    <button
+                      type="button"
+                      onClick={() => setGuests((g) => Math.max(1, g - 1))}
+                      aria-label="Decrease guests"
+                    >
+                      −
+                    </button>
+                    <span className="tabular-nums" style={{ minWidth: "2ch", textAlign: "center", fontWeight: 700 }}>
+                      {guests}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setGuests((g) => Math.min(12, g + 1))}
+                      aria-label="Increase guests"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              )}
+
               <div className="rsvp-field">
                 <label htmlFor="rsvp-note">{t(labels.rsvpNoteLabel)}</label>
                 <textarea
@@ -124,6 +139,11 @@ export default function RsvpSection({ initialGuest = "" }) {
                   onChange={(e) => setNote(e.target.value)}
                   placeholder={t(labels.rsvpNotePlaceholder)}
                 />
+              </div>
+
+              <div className="rsvp-msg-preview" aria-live="polite">
+                <span className="rsvp-msg-preview__label">{t(labels.rsvpPreviewLabel)}</span>
+                <p className="rsvp-msg-preview__body">{formattedMessage}</p>
               </div>
 
               <div className="rsvp-actions">

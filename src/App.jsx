@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import confetti from "canvas-confetti";
 import { LanguageProvider, useTranslation } from "./context/LanguageContext";
-import { brand, lookbookGallery, photos, scheduleDays, storyChapters } from "./data/weddingData";
+import { brand, curatedGallery, photos, scheduleDays, storyChapters } from "./data/weddingData";
 import { getGuestNameFromUrl } from "./lib/guest";
 
 import ChapterOpening from "./components/ChapterOpening";
@@ -33,10 +33,33 @@ function firePistachioConfetti() {
   });
 }
 
+const THEME_STORAGE_KEY = "am-chapter-theme";
+
+function preloadImageUrls(urls, prioritizeFirst = 0) {
+  const uniqueUrls = [...new Set(urls.filter(Boolean))];
+  uniqueUrls.forEach((url, index) => {
+    const img = new Image();
+    if (index < prioritizeFirst) img.fetchPriority = "high";
+    img.decoding = "async";
+    img.src = url;
+    img.decode?.().catch(() => {});
+  });
+}
+
 function WeddingInvitationApp() {
   const { lang, t } = useTranslation();
   const [stage, setStage] = useState("closed");
-  const [theme, setTheme] = useState("am");
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = window.localStorage.getItem(THEME_STORAGE_KEY);
+        if (saved === "am" || saved === "pm") return saved;
+      } catch {
+        // Ignore storage errors
+      }
+    }
+    return "am";
+  });
   const [playing, setPlaying] = useState(false);
   const [previewState, setPreviewState] = useState(null);
   const audioRef = useRef(null);
@@ -49,28 +72,31 @@ function WeddingInvitationApp() {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
 
-    // Preload and pre-decode all Brand, Hero, Family, Story & Celebration images while on Envelope page
-    const priorityUrls = [
-      brand.logo,
-      brand.crestWreath,
-      brand.lilyTl,
-      brand.lilyBr,
-      photos.gatefoldCouple,
+    // Stage 1: preload only Cover & Hero visuals immediately
+    preloadImageUrls([brand.logo, brand.lilyTl, brand.lilyBr, photos.gatefoldCouple], 3);
+  }, []);
+
+  useEffect(() => {
+    if (!isRevealed) return undefined;
+
+    // Stage 2: defer Family, Story & Celebration images once the user opens the invitation
+    const deferredUrls = [
       photos.soloMansi,
       photos.soloAditya,
       ...storyChapters.flatMap((ch) => [ch.art, ch.tapedPhoto?.src]),
       ...scheduleDays.flatMap((d) => d.events.map((ev) => ev.image)),
-    ].filter(Boolean);
+    ];
 
-    const uniqueUrls = [...new Set(priorityUrls)];
-    uniqueUrls.forEach((url, index) => {
-      const img = new Image();
-      if (index < 3) img.fetchPriority = "high";
-      img.decoding = "async";
-      img.src = url;
-      img.decode?.().catch(() => {});
-    });
-  }, []);
+    if (typeof window !== "undefined" && typeof window.requestIdleCallback === "function") {
+      const idleId = window.requestIdleCallback(() => preloadImageUrls(deferredUrls), {
+        timeout: 1200,
+      });
+      return () => window.cancelIdleCallback(idleId);
+    }
+
+    const timerId = window.setTimeout(() => preloadImageUrls(deferredUrls), 150);
+    return () => window.clearTimeout(timerId);
+  }, [isRevealed]);
 
   useEffect(() => {
     document.body.classList.toggle("locked", !isUnlocked);
@@ -83,6 +109,11 @@ function WeddingInvitationApp() {
     const metaTheme = document.querySelector('meta[name="theme-color"]');
     if (metaTheme) {
       metaTheme.setAttribute("content", isPm ? "#180d10" : "#fdf6ec");
+    }
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+      // Ignore storage errors
     }
     return () => document.body.classList.remove("theme-pm-body");
   }, [theme]);
@@ -100,17 +131,12 @@ function WeddingInvitationApp() {
     const onVisibility = () => {
       if (document.hidden || document.visibilityState === "hidden") stopPlayback();
     };
-    const onWindowBlur = () => {
-      if (document.activeElement?.tagName === "IFRAME") return;
-      stopPlayback();
-    };
 
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
     document.addEventListener("visibilitychange", onVisibility);
     window.addEventListener("pagehide", stopPlayback);
     window.addEventListener("beforeunload", stopPlayback);
-    window.addEventListener("blur", onWindowBlur);
 
     return () => {
       audio.removeEventListener("play", onPlay);
@@ -118,7 +144,6 @@ function WeddingInvitationApp() {
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("pagehide", stopPlayback);
       window.removeEventListener("beforeunload", stopPlayback);
-      window.removeEventListener("blur", onWindowBlur);
     };
   }, []);
 
@@ -145,7 +170,7 @@ function WeddingInvitationApp() {
 
   const albums = useMemo(
     () => ({
-      gallery: lookbookGallery.map((item) => ({
+      gallery: curatedGallery.map((item) => ({
         src: item.src,
         caption: t(item.caption),
       })),
@@ -159,6 +184,12 @@ function WeddingInvitationApp() {
         src: ch.art,
         caption: `${t(ch.chapter)} · ${t(ch.title)}`,
       })),
+      storyPhotos: storyChapters
+        .filter((ch) => ch.tapedPhoto)
+        .map((ch) => ({
+          src: ch.tapedPhoto.src,
+          caption: `${t(ch.chapter)} · ${t(ch.tapedPhoto.caption)}`,
+        })),
     }),
     [t]
   );
@@ -236,7 +267,11 @@ function WeddingInvitationApp() {
           }
         />
         <CountdownSection />
-        <GallerySection />
+        <GallerySection
+          onOpenGalleryLightbox={(index) =>
+            setPreviewState({ album: "gallery", index })
+          }
+        />
         <VenueSection />
         <BlessingsSection />
         <RsvpSection initialGuest={guestName} />

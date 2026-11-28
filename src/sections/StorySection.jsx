@@ -61,7 +61,7 @@ export default function StorySection({ onPreview }) {
                 onClick={() => onPreview?.({ album: "story", index: idx })}
                 aria-label={t(ch.title)}
               >
-                <img src={ch.art} alt={t(ch.title)} loading="eager" decoding="async" />
+                <img src={ch.art} alt={t(ch.title)} loading="lazy" decoding="async" />
                 <span className="story-zoom-pill">
                   {t({ en: "🎨 Ghibli Scene · 🔍", hi: "🎨 झलक देखें · 🔍" })}
                 </span>
@@ -83,10 +83,7 @@ export default function StorySection({ onPreview }) {
                   className="taped-photo-btn"
                   style={{ "--tilt": ch.tapedPhoto.tilt }}
                   onClick={() =>
-                    onPreview?.({
-                      src: ch.tapedPhoto.src,
-                      caption: t(ch.tapedPhoto.caption),
-                    })
+                    onPreview?.({ album: "storyPhotos", index: idx })
                   }
                 >
                   <span className="washi-tape" aria-hidden="true" />
@@ -98,7 +95,7 @@ export default function StorySection({ onPreview }) {
                         ? { objectPosition: ch.tapedPhoto.focalPos }
                         : undefined
                     }
-                    loading="eager"
+                    loading="lazy"
                     decoding="async"
                   />
                   <span className="taped-photo-caption">📸 {t(ch.tapedPhoto.caption)}</span>

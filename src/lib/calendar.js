@@ -1,3 +1,5 @@
+import { scheduleDays } from "../data/weddingData";
+
 const VENUE_CAL_LOCATION =
   "Aashirwad Garden, Bankhedi Road, Near Petrol Pump, Pipariya, Narmadapuram, Madhya Pradesh 461775";
 
@@ -39,19 +41,15 @@ function escapeIcsText(str) {
     .replace(/\n/g, "\\n");
 }
 
-export function downloadEventIcs({
+function buildVEventLines({
   uid,
   title,
   startUtc,
   endUtc,
   description,
   location = VENUE_CAL_LOCATION,
-  filename = "Mansi-Aditya-Wedding.ics",
 }) {
-  const ics = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//The AM Chapter//Mansi and Aditya Wedding//EN",
+  return [
     "BEGIN:VEVENT",
     `UID:${uid}`,
     "DTSTAMP:20261121T000000Z",
@@ -60,10 +58,17 @@ export function downloadEventIcs({
     `SUMMARY:${escapeIcsText(title)}`,
     `LOCATION:${escapeIcsText(location)}`,
     `DESCRIPTION:${escapeIcsText(description)}`,
+    "BEGIN:VALARM",
+    "TRIGGER:-PT30M",
+    "ACTION:DISPLAY",
+    `DESCRIPTION:${escapeIcsText(`${title} begins in 30 minutes`)}`,
+    "END:VALARM",
     "END:VEVENT",
-    "END:VCALENDAR",
-  ].join("\r\n");
+  ];
+}
 
+function triggerIcsDownload(lines, filename) {
+  const ics = lines.join("\r\n");
   const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
   const a = document.createElement("a");
   a.href = url;
@@ -74,14 +79,49 @@ export function downloadEventIcs({
   setTimeout(() => URL.revokeObjectURL(url), 2000);
 }
 
+export function downloadEventIcs({
+  uid,
+  title,
+  startUtc,
+  endUtc,
+  description,
+  location = VENUE_CAL_LOCATION,
+  filename = "Mansi-Aditya-Wedding.ics",
+}) {
+  triggerIcsDownload(
+    [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//The AM Chapter//Mansi and Aditya Wedding//EN",
+      ...buildVEventLines({ uid, title, startUtc, endUtc, description, location }),
+      "END:VCALENDAR",
+    ],
+    filename
+  );
+}
+
 export function downloadFullWeddingIcs() {
-  downloadEventIcs({
-    uid: "mansi-aditya-theamchapter-2026@invite",
-    title: "Mansi & Aditya's Wedding Celebrations (#iAMinLove)",
-    startUtc: "20261204T010000Z",
-    endUtc: "20261205T150000Z",
-    description:
-      "Two days of wedding celebrations for Mansi Rathi & Aditya Jain at Aashirwad Garden, Bankhedi Road, Pipariya. #iAMinLove",
-    filename: "Mansi-Aditya-Wedding.ics",
-  });
+  const allEvents = scheduleDays.flatMap((day) => day.events);
+  const eventLines = allEvents.flatMap((ev) =>
+    buildVEventLines({
+      uid: `am-chapter-${ev.id}-2026@invite`,
+      title: `${ev.title.en} · Mansi & Aditya Wedding`,
+      startUtc: ev.calStart,
+      endUtc: ev.calEnd,
+      description: `${ev.note.en}${ev.dressCode ? ` (${ev.dressCode.en})` : ""} #iAMinLove`,
+      location: VENUE_CAL_LOCATION,
+    })
+  );
+
+  triggerIcsDownload(
+    [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//The AM Chapter//Mansi and Aditya Wedding//EN",
+      "X-WR-CALNAME:Mansi & Aditya Wedding (4 & 5 Dec 2026)",
+      ...eventLines,
+      "END:VCALENDAR",
+    ],
+    "Mansi-Aditya-All-9-Events.ics"
+  );
 }

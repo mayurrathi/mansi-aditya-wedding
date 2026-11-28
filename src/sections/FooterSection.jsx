@@ -1,17 +1,23 @@
 import { useState } from "react";
 import { useTranslation } from "../context/LanguageContext";
 import { couple, labels } from "../data/weddingData";
-import { buildPersonalizedUrl } from "../lib/guest";
+import { buildPersonalizedUrl, buildPersonalizedWhatsappUrl } from "../lib/guest";
 import { copyTextToClipboard } from "../lib/clipboard";
 import AmFoilLogo from "../components/AmFoilLogo";
 import InstagramIcon from "../components/InstagramIcon";
 
 export default function FooterSection() {
-  const { t } = useTranslation();
+  const { lang, t } = useTranslation();
   const [guestInput, setGuestInput] = useState("");
+  const [inviteLang, setInviteLang] = useState(() => lang);
   const [copied, setCopied] = useState(false);
 
-  const personalizedLink = buildPersonalizedUrl(guestInput);
+  const personalizedLink = buildPersonalizedUrl(guestInput, inviteLang);
+  const whatsappInviteUrl = buildPersonalizedWhatsappUrl({
+    guestName: guestInput,
+    inviteLang,
+    url: personalizedLink,
+  });
 
   const handleCopy = async () => {
     const ok = await copyTextToClipboard(personalizedLink);
@@ -51,6 +57,27 @@ export default function FooterSection() {
           >
             {t(labels.personalizeTitle)}
           </h2>
+
+          <div className="personalize-lang-row">
+            <span className="personalize-lang-label">{t(labels.personalizeLangLabel)}</span>
+            <div className="personalize-lang-pills" role="group" aria-label={t(labels.personalizeLangLabel)}>
+              <button
+                type="button"
+                className={`personalize-lang-chip ${inviteLang === "en" ? "is-active" : ""}`}
+                onClick={() => setInviteLang("en")}
+              >
+                English
+              </button>
+              <button
+                type="button"
+                className={`personalize-lang-chip ${inviteLang === "hi" ? "is-active" : ""}`}
+                onClick={() => setInviteLang("hi")}
+              >
+                हिन्दी
+              </button>
+            </div>
+          </div>
+
           <div className="personalize-box__row">
             <input
               type="text"
@@ -60,14 +87,22 @@ export default function FooterSection() {
               placeholder={t(labels.personalizePh)}
               aria-label={t(labels.personalizeTitle)}
             />
+            <a
+              href={whatsappInviteUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-primary btn-compact"
+            >
+              💬 {t(labels.personalizeWhatsappBtn)}
+            </a>
             <button type="button" className="btn-secondary btn-compact" onClick={handleCopy}>
               {copied ? t(labels.copiedLinkBtn) : t(labels.copyLinkBtn)}
             </button>
-            <button type="button" className="btn-primary btn-compact" onClick={handleShare}>
+            <button type="button" className="btn-secondary btn-compact" onClick={handleShare}>
               {t(labels.shareInviteBtn)}
             </button>
           </div>
-          {guestInput.trim() && (
+          {(guestInput.trim() || inviteLang === "hi") && (
             <p className="personalize-box__preview">
               <a href={personalizedLink} target="_blank" rel="noreferrer">
                 {personalizedLink}

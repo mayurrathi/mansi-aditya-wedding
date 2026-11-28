@@ -48,7 +48,7 @@ export default function CountdownSection() {
     <section id="countdown" className="section">
       <div className="container">
         <RevealOnScroll>
-          <div className="countdown-box" aria-live="polite">
+          <div className="countdown-box">
             <p className="eyebrow-tag" style={{ color: "#e4bd70" }}>
               {t(labels.countdownEyebrow)}
             </p>
@@ -109,6 +109,7 @@ export default function CountdownSection() {
               </div>
             ) : (
               <p
+                aria-live="polite"
                 style={{
                   margin: "2rem auto",
                   fontFamily: "var(--font-display)",

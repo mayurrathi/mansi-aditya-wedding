@@ -992,20 +992,32 @@
   color: var(--ink-muted);
 }
 
+.gallery-tab-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
 .polaroid-rail {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.4rem;
 }
 
+.polaroid-rail--curated {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 @media (max-width: 960px) {
-  .polaroid-rail {
+  .polaroid-rail,
+  .polaroid-rail--curated {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 520px) {
-  .polaroid-rail {
+  .polaroid-rail,
+  .polaroid-rail--curated {
     grid-template-columns: 1fr;
   }
 }
@@ -1163,6 +1175,14 @@
   }
 }
 
+.ig-embed-fallback-note {
+  margin: 0.9rem auto 0;
+  max-width: 58ch;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+}
+
 /* ---------- 7 · VENUE & ROUTE SECTION ---------- */
 .venue-grid {
   display: grid;
@@ -1182,12 +1202,20 @@
 .venue-details {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
+}
+
+.venue-action-row,
+.venue-host-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: center;
 }
 
 .travel-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
   margin-top: 2.5rem;
 }
@@ -1609,6 +1637,13 @@
   }
 }
 
+.custom-lantern-saved-note {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+}
+
 .custom-lantern-wa-row {
   display: flex;
   justify-content: flex-start;
@@ -1714,6 +1749,42 @@
   accent-color: var(--accent-primary);
 }
 
+.rsvp-unable-hint {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--accent-rose-soft);
+  border: 1px dashed var(--border-gold);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+
+.rsvp-msg-preview {
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface);
+  border: 1px dashed var(--border-gold);
+}
+
+.rsvp-msg-preview__label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  margin-bottom: 0.35rem;
+}
+
+.rsvp-msg-preview__body {
+  margin: 0;
+  white-space: pre-line;
+  font-size: 0.86rem;
+  line-height: 1.48;
+  color: var(--ink-muted);
+}
+
 .rsvp-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1731,13 +1802,54 @@
 }
 
 .personalize-box {
-  max-width: 640px;
+  max-width: 680px;
   margin: 0 auto 2.5rem;
   padding: 1.5rem;
   border-radius: var(--radius-md);
   background-color: var(--bg-card);
   border: 1.5px solid var(--border-gold);
   box-shadow: var(--shadow-card);
+}
+
+.personalize-lang-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-top: 0.75rem;
+}
+
+.personalize-lang-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+.personalize-lang-pills {
+  display: inline-flex;
+  gap: 0.35rem;
+  padding: 0.2rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-gold);
+}
+
+.personalize-lang-chip {
+  padding: 0.28rem 0.78rem;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 180ms var(--ease-editorial), color 180ms var(--ease-editorial);
+}
+
+.personalize-lang-chip.is-active {
+  background-color: var(--accent-primary);
+  color: var(--ink-on-accent);
 }
 
 .personalize-box__row {

@@ -1,8 +1,43 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import confetti from "canvas-confetti";
 import { useTranslation } from "../context/LanguageContext";
 import { blessingKeepsakes, couple, labels } from "../data/weddingData";
 import RevealOnScroll from "../components/RevealOnScroll";
+
+const BLESSINGS_STORAGE_KEY = "am-chapter-blessings-v1";
+const VALID_KEEPSAKE_IDS = new Set(blessingKeepsakes.map((item) => item.id));
+
+function loadStoredBlessings() {
+  const defaults = { litIds: ["elders"], customLanterns: [], totalReleased: 108 };
+  if (typeof window === "undefined") return defaults;
+  try {
+    const raw = window.localStorage.getItem(BLESSINGS_STORAGE_KEY);
+    if (!raw) return defaults;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return defaults;
+
+    const litIds = Array.isArray(parsed.litIds)
+      ? parsed.litIds.filter((id) => VALID_KEEPSAKE_IDS.has(id))
+      : ["elders"];
+    const customLanterns = Array.isArray(parsed.customLanterns)
+      ? parsed.customLanterns.filter(
+          (item) => item && typeof item.id === "string" && typeof item.labelText === "string"
+        )
+      : [];
+    const totalReleased =
+      typeof parsed.totalReleased === "number" && parsed.totalReleased >= 108
+        ? parsed.totalReleased
+        : 108 + Math.max(0, litIds.length - 1) + customLanterns.length;
+
+    return {
+      litIds: litIds.length ? litIds : ["elders"],
+      customLanterns,
+      totalReleased,
+    };
+  } catch {
+    return defaults;
+  }
+}
 
 const SKY_STARS = [
   { id: 0, left: "8%", top: "18%", size: 2.5, delay: "0s" },
@@ -181,12 +216,29 @@ function BrassDiyaSvg({ lit }) {
 
 export default function BlessingsSection() {
   const { lang, t } = useTranslation();
-  const [litIds, setLitIds] = useState(["elders"]);
-  const [customLanterns, setCustomLanterns] = useState([]);
-  const [selectedId, setSelectedId] = useState("elders");
-  const [totalReleased, setTotalReleased] = useState(108);
+  const [storedInitial] = useState(() => loadStoredBlessings());
+  const [litIds, setLitIds] = useState(storedInitial.litIds);
+  const [customLanterns, setCustomLanterns] = useState(storedInitial.customLanterns);
+  const [selectedId, setSelectedId] = useState(
+    () =>
+      storedInitial.customLanterns[storedInitial.customLanterns.length - 1]?.id ||
+      storedInitial.litIds[0] ||
+      "elders"
+  );
+  const [totalReleased, setTotalReleased] = useState(storedInitial.totalReleased);
   const [senderInput, setSenderInput] = useState("");
   const [wishInput, setWishInput] = useState("");
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(
+        BLESSINGS_STORAGE_KEY,
+        JSON.stringify({ litIds, customLanterns, totalReleased })
+      );
+    } catch {
+      // Ignore storage quota / privacy mode errors
+    }
+  }, [litIds, customLanterns, totalReleased]);
 
   const activeCeremonial = blessingKeepsakes.filter((item) => litIds.includes(item.id));
   const skyLanterns = [
@@ -443,6 +495,10 @@ export default function BlessingsSection() {
                   {t(labels.customLanternSubmit)}
                 </button>
               </div>
+
+              {customLanterns.length > 0 && (
+                <p className="custom-lantern-saved-note">{t(labels.customLanternSavedHint)}</p>
+              )}
 
               {whatsappBlessingUrl && (
                 <div className="custom-lantern-wa-row">

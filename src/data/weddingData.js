@@ -4,30 +4,24 @@
    ===================================================================== */
 
 import amLogo from "../assets/brand/am_logo.png";
-import amCrestWreath from "../assets/brand/am_crest_wreath.png";
-import lilyCornerTl from "../assets/brand/lily_corner_tl.png";
-import lilyCornerBr from "../assets/brand/lily_corner_br.png";
+import lilyCornerTl from "../assets/brand/lily_corner_tl.webp";
+import lilyCornerBr from "../assets/brand/lily_corner_br.webp";
 
-import ghibli01Ganesh from "../assets/art/ghibli_01_ganesh_pujan.jpg";
-import ghibli02Engagement from "../assets/art/ghibli_02_engagement.jpg";
-import ghibli03Haldi from "../assets/art/ghibli_03_haldi.jpg";
-import ghibli04Mayra from "../assets/art/ghibli_04_mayra.jpg";
-import ghibli05Sangeet from "../assets/art/ghibli_05_sangeet.jpg";
-import ghibli06Baraat from "../assets/art/ghibli_06_baraat.jpg";
-import ghibli07Varmala from "../assets/art/ghibli_07_varmala.jpg";
-import ghibli08Pheras from "../assets/art/ghibli_08_pheras.jpg";
-import ghibli09Vidai from "../assets/art/ghibli_09_vidai.jpg";
-import ghibliBinauliBride from "../assets/art/ghibli_binauli_bride.jpg";
-import ghibliLanternCouple from "../assets/art/ghibli_lantern_couple.jpg";
-import ghibliMarigoldArchCouple from "../assets/art/ghibli_marigold_arch_couple.jpg";
-import ghibliCourtyardArchCouple from "../assets/art/ghibli_courtyard_arch_couple.jpg";
+import ghibli01Ganesh from "../assets/art/ghibli_01_ganesh_pujan.webp";
+import ghibli02Engagement from "../assets/art/ghibli_02_engagement.webp";
+import ghibli03Haldi from "../assets/art/ghibli_03_haldi.webp";
+import ghibli04Mayra from "../assets/art/ghibli_04_mayra.webp";
+import ghibli05Sangeet from "../assets/art/ghibli_05_sangeet.webp";
+import ghibli06Baraat from "../assets/art/ghibli_06_baraat.webp";
+import ghibli07Varmala from "../assets/art/ghibli_07_varmala.webp";
+import ghibli08Pheras from "../assets/art/ghibli_08_pheras.webp";
+import ghibli09Vidai from "../assets/art/ghibli_09_vidai.webp";
+import ghibliBinauliBride from "../assets/art/ghibli_binauli_bride.webp";
+import ghibliLanternCouple from "../assets/art/ghibli_lantern_couple.webp";
+import ghibliCourtyardArchCouple from "../assets/art/ghibli_courtyard_arch_couple.webp";
 import ghibliStory02PuneProposal from "../assets/art/ghibli_story_02_pune_proposal.jpg";
 import ghibliStory05Forever from "../assets/art/ghibli_story_05_forever.jpg";
 
-import igPistachioLanterns from "../assets/photos/ig_pistachio_lanterns.webp";
-import igTerracottaArch from "../assets/photos/ig_terracotta_arch.webp";
-import igGardenBirthday from "../assets/photos/ig_garden_birthday.webp";
-import igHaldiYellow from "../assets/photos/ig_haldi_yellow.webp";
 import soloMansiImg from "../assets/photos/solo_mansi.jpg";
 import soloAdityaImg from "../assets/photos/solo_aditya.jpg";
 import gatefoldCoupleImg from "../assets/photos/gatefold_couple.jpg";
@@ -49,17 +43,12 @@ export const art = {
   vidai: ghibli09Vidai,
   binauliBride: ghibliBinauliBride,
   lanternCouple: ghibliLanternCouple,
-  marigoldArchCouple: ghibliMarigoldArchCouple,
   courtyardArchCouple: ghibliCourtyardArchCouple,
   story02Proposal: ghibliStory02PuneProposal,
   story05Forever: ghibliStory05Forever,
 };
 
 export const photos = {
-  pistachioLanterns: igPistachioLanterns,
-  terracottaArch: igTerracottaArch,
-  gardenBirthday: igGardenBirthday,
-  haldiYellow: igHaldiYellow,
   soloMansi: soloMansiImg,
   soloAditya: soloAdityaImg,
   gatefoldCouple: gatefoldCoupleImg,
@@ -72,7 +61,6 @@ export const photos = {
 
 export const brand = {
   logo: amLogo,
-  crestWreath: amCrestWreath,
   lilyTl: lilyCornerTl,
   lilyBr: lilyCornerBr,
 };
@@ -543,58 +531,74 @@ export const scheduleDays = [
   },
 ];
 
-export const polaroidBranches = [
+export const curatedGallery = [
   {
-    id: "instaFrames",
-    title: { en: "Moments from @_theamchapter", hi: "@_theamchapter के अनमोल पल" },
-    subtitle: { en: "Real Instagram Memories · Tap any Polaroid to enlarge", hi: "इंस्टाग्राम की यादें · बड़ा देखने के लिए किसी भी पोलरॉइड पर टैप करें" },
-    items: [
-      {
-        id: "pistachio-lanterns",
-        src: igPistachioLanterns,
-        tilt: "-2.8deg",
-        badge: { en: "@_theamchapter", hi: "@_theamchapter" },
-        caption: {
-          en: "Pistachio lehenga & floral kurta under warm lanterns",
-          hi: "पिस्ताई परिधान और सुनहरी लालटेन की रोशनी",
-        },
-      },
-      {
-        id: "terracotta-arch",
-        src: igTerracottaArch,
-        tilt: "2.4deg",
-        badge: { en: "Reel Cover", hi: "रील कवर" },
-        caption: {
-          en: "Under the golden arch · Finally said \"I do\"",
-          hi: "सुनहरे मेहराब के नीचे · हमेशा का वादा",
-        },
-      },
-      {
-        id: "garden-birthday",
-        src: igGardenBirthday,
-        tilt: "-2.2deg",
-        badge: { en: "Final Countdown", hi: "शुभ उलटी गिनती" },
-        caption: {
-          en: "HER day was special, OUR day will be magical ♥️",
-          hi: "जन्मदिन की प्यारी सैर और शादी की उलटी गिनती ♥️",
-        },
-      },
-      {
-        id: "haldi-yellow",
-        src: igHaldiYellow,
-        tilt: "3.1deg",
-        isCircular: true,
-        badge: { en: "M × A Crest", hi: "M × A प्रतीक" },
-        caption: {
-          en: "Sunlit yellow beginnings · The AM Chapter",
-          hi: "सुनहरे पीले रंग में द AM चैप्टर की पहचान",
-        },
-      },
-    ],
+    id: "am-portrait",
+    src: gatefoldCoupleImg,
+    tilt: "-1.8deg",
+    focalPos: "50% 24%",
+    badge: { en: "The AM Chapter", hi: "द AM चैप्टर" },
+    caption: {
+      en: "Mansi & Aditya · #iAMinLove",
+      hi: "मानसी एवं आदित्य · #iAMinLove",
+    },
+  },
+  {
+    id: "curated-arch",
+    src: story01ArchImg,
+    tilt: "1.9deg",
+    focalPos: "65% 42%",
+    badge: { en: "Chapter 01", hi: "अध्याय 01" },
+    caption: {
+      en: "Framed under the warm arch",
+      hi: "सुनहरे मेहराब के तले साथ",
+    },
+  },
+  {
+    id: "curated-stairs",
+    src: story02StairsImg,
+    tilt: "-2.1deg",
+    focalPos: "53% 52%",
+    badge: { en: "Chapter 02", hi: "अध्याय 02" },
+    caption: {
+      en: "Barefoot laughs & sweet \"I do\"",
+      hi: "खिलखिलाती हँसी और प्यारी हाँ",
+    },
+  },
+  {
+    id: "curated-lakeside",
+    src: story03LakesideImg,
+    tilt: "1.6deg",
+    focalPos: "48% 50%",
+    badge: { en: "Chapter 03", hi: "अध्याय 03" },
+    caption: {
+      en: "Quiet moments, counting down",
+      hi: "सुकून के पल और उलटी गिनती",
+    },
+  },
+  {
+    id: "curated-binauli",
+    src: story04BinauliImg,
+    tilt: "-1.6deg",
+    focalPos: "48% 20%",
+    badge: { en: "Chapter 04", hi: "अध्याय 04" },
+    caption: {
+      en: "Real #TheVeryFirstBinauli blessings",
+      hi: "पहली बिनौली के स्नेह और आशीर्वाद",
+    },
+  },
+  {
+    id: "curated-walk",
+    src: story05WalkImg,
+    tilt: "2.0deg",
+    focalPos: "52% 55%",
+    badge: { en: "Chapter 05", hi: "अध्याय 05" },
+    caption: {
+      en: "Walking hand-in-hand into always",
+      hi: "हाथ थामे हमेशा की ओर",
+    },
   },
 ];
-
-export const lookbookGallery = polaroidBranches.flatMap((b) => b.items);
 
 export const venue = {
   name: { en: "Aashirwad Garden", hi: "“आशीर्वाद गार्डन”" },
@@ -636,6 +640,15 @@ export const venue = {
       text: {
         en: "Pipariya is the gateway to Pachmarhi, Queen of Satpura. December misty mornings, Bee Falls, and Dhoopgarh sunsets await just an hour uphill!",
         hi: "पिपरिया 'सतपुड़ा की रानी' पचमढ़ी का प्रवेश द्वार है। दिसंबर की सुनहरी धूप और धूपगढ़ के नज़ारे बस एक घंटे की दूरी पर हैं।",
+      },
+    },
+    {
+      id: "weather",
+      icon: "🧣",
+      title: { en: "December Weather & Attire", hi: "दिसम्बर का मौसम एवं परिधान" },
+      text: {
+        en: "Pipariya in early December is pleasantly crisp (11°C–24°C). Carry a light shawl or jacket for the open-air Sangeet Night & evening Vidai.",
+        hi: "दिसम्बर की शुरुआत में पिपरिया का मौसम सुहावना और हल्का ठंडा (11°C–24°C) रहता है। संगीत संध्या और शाम की विदाई के लिए हल्का शॉल या जैकेट साथ रखें।",
       },
     },
   ],
@@ -771,12 +784,26 @@ export const labels = {
   galleryEyebrow: { en: "Polaroid Memory Wall", hi: "यादों का पोलरॉइड झरोखा" },
   galleryHeading: { en: "Frames from The AM Chapter", hi: "द AM चैप्टर की झलकियाँ" },
   galleryLede: {
-    en: "Tap any hanging polaroid to open our full-screen album of @_theamchapter moments.",
-    hi: "पूरा एल्बम देखने के लिए किसी भी लटकते पोलरॉइड पर टैप करें।",
+    en: "Tap any Polaroid to open our full-screen album of curated moments, or switch to the live Instagram feed.",
+    hi: "पूरा एल्बम देखने के लिए किसी भी पोलरॉइड पर टैप करें या लाइव इंस्टाग्राम फ़ीड देखें।",
+  },
+  galleryTabHighlights: { en: "Curated Highlights", hi: "चुनिंदा झलकियाँ" },
+  galleryTabInstagram: { en: "Live Instagram Feed", hi: "लाइव इंस्टाग्राम फ़ीड" },
+  galleryHighlightsSub: {
+    en: "Tap any Polaroid for full-screen swipeable view",
+    hi: "बड़ा देखने व स्वाइप करने के लिए किसी भी चित्र पर टैप करें",
+  },
+  galleryInstagramHint: {
+    en: "Some mobile browsers restrict embedded Instagram previews — tap Follow @_theamchapter above to open directly.",
+    hi: "यदि आपके ब्राउज़र में इंस्टाग्राम फ़ीड न खुले, तो ऊपर @_theamchapter पर टैप करके सीधे खोलें।",
   },
   venueEyebrow: { en: "Wedding Destination · Pipariya", hi: "शुभ विवाह स्थल · पिपरिया" },
   venueHeading: { en: "Aashirwad Garden, Pipariya", hi: "“आशीर्वाद गार्डन”, पिपरिया" },
   openMaps: { en: "Open in Google Maps", hi: "गूगल मैप्स में देखें" },
+  copyAddressBtn: { en: "Copy Address", hi: "पता कॉपी करें" },
+  addressCopiedBtn: { en: "Address Copied ✔", hi: "पता कॉपी हो गया ✔" },
+  callHostBtn: { en: "Call Family Host", hi: "परिवार से कॉल करें" },
+  whatsappHostBtn: { en: "WhatsApp Host", hi: "व्हाट्सएप सहायता" },
   blessingsEyebrow: { en: "Aashirwad Akash Deep · #iAMinLove", hi: "आशीर्वाद आकाश दीप · #iAMinLove" },
   blessingsHeading: { en: "Release a Sky Lantern for Mansi & Aditya", hi: "मानसी और आदित्य के नाम आकाश दीप उड़ाएँ" },
   blessingsLede: {
@@ -793,6 +820,10 @@ export const labels = {
   customLanternWishPh: { en: "One-line blessing for Mansi & Aditya...", hi: "मानसी और आदित्य के लिए शुभकामना संदेश..." },
   customLanternSubmit: { en: "Release Your Sky Lantern 🏮", hi: "अपना आकाश दीप उड़ाएँ 🏮" },
   customLanternWhatsapp: { en: "Send This Blessing on WhatsApp", hi: "यह शुभकामना व्हाट्सएप पर भेजें" },
+  customLanternSavedHint: {
+    en: "Your sky lanterns are saved on this device ✨",
+    hi: "आपके आकाश दीप इस डिवाइस पर सहेजे गए हैं ✨",
+  },
   rsvpEyebrow: { en: "Family Concierge", hi: "उपस्थिति पुष्टि (RSVP)" },
   rsvpHeading: { en: "Confirm Your Presence", hi: "अपनी उपस्थिति दर्ज कराएँ" },
   rsvpLede: {
@@ -807,14 +838,22 @@ export const labels = {
     { id: "both", label: { en: "Both Days (4 & 5 Dec)", hi: "दोनों दिन (4 व 5 दिसम्बर)" } },
     { id: "day1", label: { en: "Day 1 only (4 Dec)", hi: "केवल पहला दिन (4 दिसम्बर)" } },
     { id: "day2", label: { en: "Day 2 only (5 Dec)", hi: "केवल दूसरा दिन (5 दिसम्बर)" } },
+    { id: "unable", label: { en: "Unable to Attend (Sending Blessings)", hi: "उपस्थित नहीं हो पाएंगे (शुभाशीष भेजें)" } },
   ],
   rsvpNoteLabel: { en: "Blessing Note or Sangeet Song Request", hi: "शुभकामना संदेश या संगीत गीत की फरमाइश" },
   rsvpNotePlaceholder: { en: "Write a wish or pick a song for Sangeet Night...", hi: "शुभकामना या संगीत संध्या के लिए कोई गाना लिखें..." },
+  rsvpPreviewLabel: { en: "Message Preview", hi: "व्हाट्सएप संदेश झलक" },
+  rsvpUnableHint: {
+    en: "We will miss you at Aashirwad Garden — thank you for sending your warm blessings from afar!",
+    hi: "हम आपको आशीर्वाद गार्डन में बहुत याद करेंगे — आपके स्नेह और शुभाशीष के लिए हृदय से आभार!",
+  },
   rsvpWhatsappBtn: { en: "Confirm on WhatsApp (+91 89895 70813)", hi: "व्हाट्सएप पर भेजें (+91 89895 70813)" },
   rsvpCopyBtn: { en: "Copy Message", hi: "संदेश कॉपी करें" },
   rsvpCopied: { en: "Copied ✔", hi: "कॉपी हो गया ✔" },
   personalizeTitle: { en: "Create a Personalised Guest Invite Link", hi: "अतिथि के नाम से विशेष आमंत्रण लिंक बनाएँ" },
   personalizePh: { en: "Enter guest or family name...", hi: "अतिथि या परिवार का नाम लिखें..." },
+  personalizeLangLabel: { en: "Invite opens in:", hi: "निमंत्रण की भाषा :" },
+  personalizeWhatsappBtn: { en: "Send on WhatsApp", hi: "व्हाट्सएप पर भेजें" },
   copyLinkBtn: { en: "Copy Link", hi: "लिंक कॉपी करें" },
   copiedLinkBtn: { en: "Link Copied ✔", hi: "लिंक कॉपी ✔" },
   shareInviteBtn: { en: "Share Invite", hi: "शेयर करें" },
