@@ -21,6 +21,8 @@ import ghibliBinauliBride from "../assets/art/ghibli_binauli_bride.jpg";
 import ghibliLanternCouple from "../assets/art/ghibli_lantern_couple.jpg";
 import ghibliMarigoldArchCouple from "../assets/art/ghibli_marigold_arch_couple.jpg";
 import ghibliCourtyardArchCouple from "../assets/art/ghibli_courtyard_arch_couple.jpg";
+import ghibliStory02PuneProposal from "../assets/art/ghibli_story_02_pune_proposal.jpg";
+import ghibliStory05Forever from "../assets/art/ghibli_story_05_forever.jpg";
 
 import igPistachioLanterns from "../assets/photos/ig_pistachio_lanterns.webp";
 import igTerracottaArch from "../assets/photos/ig_terracotta_arch.webp";
@@ -44,6 +46,8 @@ export const art = {
   lanternCouple: ghibliLanternCouple,
   marigoldArchCouple: ghibliMarigoldArchCouple,
   courtyardArchCouple: ghibliCourtyardArchCouple,
+  story02Proposal: ghibliStory02PuneProposal,
+  story05Forever: ghibliStory05Forever,
 };
 
 export const photos = {
@@ -212,7 +216,7 @@ export const storyChapters = [
       en: "From Go-Karting & bowling showdowns in Pune (@themillspune) to Aditya's travel reels and endless teasing, the playful question finally met the sweetest \"I do\".",
       hi: "पुणे की गो-कार्ट रेस और बॉलिंग की मस्ती से लेकर ट्रैवल रील्स और अनगिनत बातों के बीच वो प्यारा सवाल आखिरकार हमेशा की \"हाँ\" में बदल गया।",
     },
-    art: ghibli05Sangeet,
+    art: ghibliStory02PuneProposal,
     tapedPhoto: {
       src: igTerracottaArch,
       caption: { en: "Under the golden arch · I Do", hi: "सुनहरे मेहराब के तले · हमारी हाँ" },
@@ -272,7 +276,7 @@ export const storyChapters = [
       en: "Now, as the royal Baraat travels from Sagar to Pipariya, we invite you to bless our new chapter on 4 & 5 December 2026.",
       hi: "और अब, जब सागर से पिपरिया शाही बारात पधार रही है, हम आपको 4 व 5 दिसम्बर 2026 को इस नए अध्याय को आशीर्वाद देने के लिए आमंत्रित करते हैं।",
     },
-    art: ghibli02Engagement,
+    art: ghibliStory05Forever,
     tapedPhoto: {
       src: gatefoldCoupleImg,
       caption: { en: "Mansi & Aditya · Forever begins", hi: "मानसी और आदित्य · हमेशा का साथ" },
