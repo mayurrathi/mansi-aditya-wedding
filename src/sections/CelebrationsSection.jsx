@@ -86,7 +86,7 @@ export default function CelebrationsSection({ onOpenEventLightbox }) {
                       onClick={() => onOpenEventLightbox?.(eventIdx)}
                       aria-label={`${t(ev.title)} Ghibli illustration preview`}
                     >
-                      <img src={ev.image} alt={t(ev.title)} loading="lazy" decoding="async" />
+                      <img src={ev.image} alt={t(ev.title)} loading="eager" decoding="async" />
                       <span className="event-day-badge">
                         {ev.emoji} {t(ev.dateShort)}
                       </span>

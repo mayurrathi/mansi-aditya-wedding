@@ -510,7 +510,9 @@
 
 .taped-photo-btn img {
   width: 100%;
+  height: 165px;
   max-height: 165px;
+  background: #efe0ce;
   object-fit: cover;
   object-position: center top;
   border-radius: 4px;
@@ -1792,7 +1794,6 @@
 }
 
 /* Defer layout/paint work on heavy off-screen sections until scrolled near */
-#celebrations,
 #gallery,
 #venue,
 #blessings,

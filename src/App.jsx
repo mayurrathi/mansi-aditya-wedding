@@ -25,14 +25,33 @@ const FooterSection = lazy(() => import("./sections/FooterSection"));
 
 const THEME_STORAGE_KEY = "am-chapter-theme";
 
+// Keep references to in-flight preloads so they are never garbage-collected mid-download
+const preloadCache = new Map();
+
+function preloadImage(url, highPriority = false) {
+  if (!url || preloadCache.has(url)) return;
+  const img = new Image();
+  if (highPriority) img.fetchPriority = "high";
+  img.decoding = "async";
+  img.src = url;
+  preloadCache.set(url, img);
+}
+
 function preloadCoverImages(urls) {
-  const uniqueUrls = [...new Set(urls.filter(Boolean))];
-  uniqueUrls.forEach((url, index) => {
-    const img = new Image();
-    if (index < 2) img.fetchPriority = "high";
-    img.decoding = "async";
-    img.src = url;
-  });
+  [...new Set(urls.filter(Boolean))].forEach((url, index) => preloadImage(url, index < 2));
+}
+
+// Gently fetch remaining invitation images in small batches while the guest reads the Cover
+function preloadInBatches(urls, batchSize = 4, gapMs = 120) {
+  const queue = [...new Set(urls.filter(Boolean))].filter((url) => !preloadCache.has(url));
+  const timers = [];
+  for (let i = 0; i < queue.length; i += batchSize) {
+    const batch = queue.slice(i, i + batchSize);
+    timers.push(
+      window.setTimeout(() => batch.forEach((url) => preloadImage(url)), (i / batchSize) * gapMs)
+    );
+  }
+  return () => timers.forEach((id) => window.clearTimeout(id));
 }
 
 function firePistachioConfetti() {
@@ -75,8 +94,19 @@ function WeddingInvitationApp() {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
 
-    // Preload only lightweight Cover + Hero images immediately
+    // Preload Cover + Hero images immediately
     preloadCoverImages([brand.logo, brand.lilyTl, brand.lilyBr, photos.gatefoldCouple]);
+
+    // Then preload every remaining invitation image while the guest is on the Cover
+    let cancelBatches = () => {};
+    const batchStartId = window.setTimeout(() => {
+      cancelBatches = preloadInBatches([
+        photos.soloMansi,
+        photos.soloAditya,
+        ...storyChapters.flatMap((ch) => [ch.tapedPhoto?.src, ch.art]),
+        ...scheduleDays.flatMap((d) => d.events.map((ev) => ev.image)),
+      ]);
+    }, 250);
 
     // Gently warm up lazy section JS chunks once idle on the Cover
     const warmChunks = () => {
@@ -94,13 +124,20 @@ function WeddingInvitationApp() {
       void import("./components/AmbientFireflies");
     };
 
-    if (typeof window !== "undefined" && typeof window.requestIdleCallback === "function") {
+    let cancelWarm;
+    if (typeof window.requestIdleCallback === "function") {
       const idleId = window.requestIdleCallback(warmChunks, { timeout: 1600 });
-      return () => window.cancelIdleCallback(idleId);
+      cancelWarm = () => window.cancelIdleCallback(idleId);
+    } else {
+      const timerId = window.setTimeout(warmChunks, 800);
+      cancelWarm = () => window.clearTimeout(timerId);
     }
 
-    const timerId = window.setTimeout(warmChunks, 800);
-    return () => window.clearTimeout(timerId);
+    return () => {
+      window.clearTimeout(batchStartId);
+      cancelBatches();
+      cancelWarm();
+    };
   }, []);
 
   useEffect(() => {
